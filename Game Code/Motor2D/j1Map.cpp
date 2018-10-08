@@ -32,16 +32,25 @@ void j1Map::Draw()
 		return;
 
 	// TODO 5(old): Prepare the loop to draw all tilesets + Blit
-	MapLayer* layer = data.layers.start->data; // for now we just use the first layer and tileset
-	TileSet* tileset = data.tilesets.start->data;
-
-	for (uint x = 0; x < data.width; x++)
+	p2List_item<MapLayer*>* layer = data.layers.start; // for now we just use the first layer and tileset
+	p2List_item<TileSet*>* tileset = data.tilesets.start;
+		
+	for (tileset; tileset != nullptr; tileset = tileset->next)
 	{
-		for (uint y = 0; y < data.height; y++)
-		{
-			iPoint coordenates = MapToWorld(x, y);
-			SDL_Rect rect = tileset->GetTileRect(layer->Get(x, y));
-			App->render->Blit(tileset->texture, coordenates.x, coordenates.y, &rect);
+		for(layer; layer!=nullptr; layer=layer->next)
+		{		
+			for (uint row1 = 0; row1 < data.width; row1++)
+			{
+				for (uint row = 0; row < data.height; row++)
+				{
+					iPoint coordenates = MapToWorld(row1, row);
+					if(layer->data->Get(row1, row)!=0) 
+					{
+						SDL_Rect rect = tileset->data->GetTileRect(layer->data->Get(row1, row));
+						App->render->Blit(tileset->data->texture, coordenates.x, coordenates.y, &rect);
+					}
+				}
+			}
 		}
 	}
 
