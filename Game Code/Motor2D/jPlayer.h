@@ -27,7 +27,10 @@ public:
 private: 
 	iPoint position;
 	Animation* current_animation; 
-
+	Animation* run_forward; 
+	Animation* run_backward; 
+	Animation* jump; 
+	Animation* fall; 
 };
 
 #endif
