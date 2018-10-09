@@ -23,14 +23,14 @@ public:
 	// Called before all Updates
 	bool PreUpdate();
 
-	bool Update();
+	bool Update(float dt);
 
 	// Called before quitting
 	bool CleanUp();
 
 
 private: 
-	iPoint position;
+	fPoint position;
 	Animation* current_animation; 
 	Animation idle; 
 	Animation run_forward; 

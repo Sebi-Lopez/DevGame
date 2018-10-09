@@ -47,7 +47,7 @@ void j1Map::Draw()
 					if(layer->data->Get(row1, row)!=0) 
 					{
 						SDL_Rect rect = tileset->data->GetTileRect(layer->data->Get(row1, row));
-						App->render->Blit(tileset->data->texture, coordenates.x, coordenates.y, &rect);
+						//App->render->Blit(tileset->data->texture, coordenates.x, coordenates.y, &rect);
 					}
 				}
 			}
