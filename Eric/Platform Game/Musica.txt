@@ -1,0 +1,3 @@
+salt: https://www.youtube.com/watch?v=054mtN1uN8Y
+ataque: https://www.youtube.com/watch?v=RG8GgFtPf28
+musica: https://patrickdearteaga.com/es/musica-arcade/
