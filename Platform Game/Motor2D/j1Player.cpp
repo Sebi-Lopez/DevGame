@@ -8,6 +8,7 @@
 #include "j1App.h"
 #include "p2Log.h"
 
+#define PLAYER_SPEED 1.f
 
 j1Player::j1Player()
 {
@@ -17,17 +18,23 @@ j1Player::j1Player()
 	idle.PushBack({ 66,6,17,30 });
 	idle.PushBack({ 115,6,19,30 });
 	idle.PushBack({ 163,7,20,29 });
-	idle.speed = 0.01f;
+	idle.speed = 0.15f;
 	idle.loop = true;
 
 	run_forward.PushBack({ 67,45,20,28 });
 	run_forward.PushBack({ 116,46,20,27 });
 	run_forward.PushBack({ 166,48,20,25 });
-	run_forward.PushBack({ 127,45,23,28 });
+	run_forward.PushBack({ 217,45,23,28 });
 	run_forward.PushBack({ 266,46,20,27 });
 	run_forward.PushBack({ 316,48,20,25 });
-	run_forward.speed = 0.01f;
+	run_forward.speed = 0.15f;
 	run_forward.loop = true;
+
+	jump.PushBack({ 317, 340, 23, 29 });
+	jump.PushBack({ 18, 377, 22, 29 });
+	jump.PushBack({ 68, 377, 22, 29 });
+	jump.speed = 0.15f;
+	jump.loop = false;
 
 }
 
@@ -73,17 +80,17 @@ bool j1Player::Update(float dt)
 
 
 	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
-		position.x += 0.2f;
+		position.x += PLAYER_SPEED;
 		current_animation = &run_forward;
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
-		position.x -= 0.2f;
+		position.x -= PLAYER_SPEED;
 		current_animation = &run_backward;
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT) {
-		position.x += 0.2f;
+		position.y -= PLAYER_SPEED;
 		current_animation = &jump;
 	}
 	App->render->Blit(player_texture, position.x, position.y, &(current_animation->GetCurrentFrame()));
@@ -96,14 +103,14 @@ bool j1Player::CleanUp()
 	App->tex->UnLoad(player_texture);
 	return true;
 }
-//
-//bool j1Player::BlitImage() {
-//
-//	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
-//		App->render->Blit(player_texture, position.x, position.y, &(current_animation->GetCurrentFrame()), SDL_FLIP_HORIZONTAL);
-//	}
-//	else {
-//		App->render->Blit(player_texture, position.x, position.y, &(current_animation->GetCurrentFrame()));
-//	}
-//	return true;
-//}
+
+bool j1Player::BlitImage() {
+
+	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
+		App->render->Blit(player_texture, position.x, position.y, &(current_animation->GetCurrentFrame()), SDL_FLIP_HORIZONTAL);
+	}
+	else {
+		App->render->Blit(player_texture, position.x, position.y, &(current_animation->GetCurrentFrame()));
+	}
+	return true;
+}

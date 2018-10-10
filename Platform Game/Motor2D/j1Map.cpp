@@ -68,6 +68,7 @@ TileSet* j1Map::GetTilesetFromTileId(int id) const
 		if (tile_item->next == nullptr || tile_item->next->data->firstgid > id)
 			return tile_item->data;
 	}
+
 }
 
 iPoint j1Map::MapToWorld(int x, int y) const

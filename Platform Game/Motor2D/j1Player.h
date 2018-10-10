@@ -28,7 +28,7 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
-	//bool BlitImage();
+	bool BlitImage();
 
 private:
 	fPoint position;
@@ -38,9 +38,10 @@ private:
 	Animation run_backward;
 	Animation jump;
 	Animation fall;
-	
-	
+
+
 	SDL_Texture* player_texture = nullptr;
 };
 
 #endif
+
