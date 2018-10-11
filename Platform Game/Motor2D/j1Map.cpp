@@ -4,6 +4,7 @@
 #include "j1Render.h"
 #include "j1Textures.h"
 #include "j1Map.h"
+#include "j1Collision.h"
 #include <math.h>
 
 j1Map::j1Map() : j1Module(), map_loaded(false)
@@ -47,6 +48,7 @@ void j1Map::Draw()
 					{
 						SDL_Rect r = tileset->GetTileRect(tile_id);
 						iPoint pos = MapToWorld(x, y);
+						
 
 						App->render->Blit(tileset->texture, pos.x, pos.y, &r);
 					}
@@ -131,6 +133,30 @@ SDL_Rect TileSet::GetTileRect(int id) const
 	return rect;
 }
 
+void j1Map::LoadCollisions(pugi::xml_node& cnode) 
+{
+	for (pugi::xml_node collisionode = cnode.child("object"); collisionode; collisionode = collisionode.next_sibling("object")) {
+		SDL_Rect collisionrect;
+		p2SString name;
+		name = collisionode.attribute("name").as_string();
+		collisionrect.x = collisionode.attribute("x").as_uint();
+		collisionrect.y = collisionode.attribute("y").as_uint();
+		collisionrect.w = collisionode.attribute("width").as_uint();
+		collisionrect.h = collisionode.attribute("height").as_uint();
+		if (name == "floor") {
+			App->collision->AddCollider(collisionrect, COLLIDER_FLOOR);
+		}
+		if (name == "dead") {
+			App->collision->AddCollider(collisionrect, COLLIDER_DEAD);
+		}
+		if (name == "end") {
+			App->collision->AddCollider(collisionrect, COLLIDER_END);
+		}
+	}
+}
+		
+
+
 // Called before quitting
 bool j1Map::CleanUp()
 {
@@ -207,13 +233,19 @@ bool j1Map::Load(const char* file_name)
 	pugi::xml_node layer;
 	for(layer = map_file.child("map").child("layer"); layer && ret; layer = layer.next_sibling("layer"))
 	{
+
 		MapLayer* lay = new MapLayer();
 
 		ret = LoadLayer(layer, lay);
 
 		if(ret == true)
 			data.layers.add(lay);
+		
 	}
+	
+	pugi::xml_node cnode = map_file.child("map").child("objectgroup");
+
+	LoadCollisions(cnode);
 
 	if(ret == true)
 	{
@@ -242,9 +274,9 @@ bool j1Map::Load(const char* file_name)
 			item_layer = item_layer->next;
 		}
 	}
-
+	
 	map_loaded = ret;
-
+	
 	return ret;
 }
 

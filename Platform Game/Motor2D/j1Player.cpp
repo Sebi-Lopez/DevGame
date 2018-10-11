@@ -8,7 +8,7 @@
 #include "j1App.h"
 #include "p2Log.h"
 
-#define PLAYER_SPEED 1.f
+#define PLAYER_SPEED 1.5f
 
 j1Player::j1Player()
 {
@@ -64,6 +64,41 @@ j1Player::j1Player()
 	jump.PushBack({ 68, 377, 22, 29 });
 	jump.speed = 0.15f;
 	jump.loop = false;
+
+	grab.PushBack({});
+	grab.PushBack({});
+	grab.PushBack({});
+	grab.PushBack({});
+
+	climb.PushBack({});
+	climb.PushBack({});
+	climb.PushBack({});
+	climb.PushBack({});
+	climb.PushBack({});
+
+	idlesword.PushBack({});
+	idlesword.PushBack({});
+	idlesword.PushBack({});
+	idlesword.PushBack({});
+
+
+	hurt.PushBack({});
+	hurt.PushBack({});
+	hurt.PushBack({});
+
+	die.PushBack({});
+	die.PushBack({});
+	die.PushBack({});
+	die.PushBack({});
+	die.PushBack({});
+	die.PushBack({});
+	die.PushBack({});
+
+	slide.PushBack({});
+	slide.PushBack({});
+	slide.PushBack({});
+	slide.PushBack({});
+	slide.PushBack({});
 
 }
 

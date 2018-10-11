@@ -33,7 +33,7 @@ public:
 	void OnCollision(Collider* c1, Collider* c2);
 
 private:
-	fPoint position;
+	
 	Animation* current_animation;
 	Animation idle;
 	Animation run_forward;
@@ -41,9 +41,17 @@ private:
 	Animation jump;
 	Animation fall;
 	Animation attack;
+	Animation climb;
+	Animation grab;
+	Animation idlesword;
+	Animation hurt;
+	Animation die;
+	Animation slide;
 
 
 	SDL_Texture* player_texture = nullptr;
+public:
+	fPoint position;
 };
 
 #endif
