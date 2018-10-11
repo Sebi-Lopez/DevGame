@@ -6,7 +6,8 @@
 #include "Animation.h"
 
 
-class SDL_Texture;
+struct SDL_Texture;
+struct Collider; 
 
 class j1Player : public j1Module
 {
@@ -28,6 +29,8 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
+	// Collision Callback
+	void OnCollision(Collider* c1, Collider* c2);
 
 private:
 	fPoint position;

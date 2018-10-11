@@ -137,4 +137,9 @@ bool j1Player::CleanUp()
 	return true;
 }
 
+void j1Player::OnCollision(Collider * c1, Collider * c2)
+{
+
+}
+
 

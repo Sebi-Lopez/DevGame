@@ -8,6 +8,7 @@
 #include "j1Window.h"
 #include "j1Map.h"
 #include "j1Scene.h"
+#include "j1Collision.h"
 
 j1Scene::j1Scene() : j1Module()
 {
@@ -31,7 +32,7 @@ bool j1Scene::Awake()
 bool j1Scene::Start()
 {
 	App->map->Load("FirstMap.tmx");
-	
+	App->collision->AddCollider({ 5, 330, 80, 80 }, COLLIDER_WALL, nullptr);
 	return true;
 }
 

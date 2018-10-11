@@ -7,7 +7,7 @@
   </terraintypes>
  </tileset>
  <tileset firstgid="1161" name="Background" tilewidth="16" tileheight="16" tilecount="15625" columns="125">
-  <image source="../../../Game/Game/maps/Background.png" width="2000" height="2000"/>
+  <image source="Background.png" width="2000" height="2000"/>
  </tileset>
  <layer name="cielo" width="200" height="30">
   <properties>
