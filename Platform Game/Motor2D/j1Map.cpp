@@ -50,8 +50,7 @@ void j1Map::Draw()
 						iPoint pos = MapToWorld(x, y);
 						
 						
-							App->render->Blit(tileset->texture, pos.x, pos.y, &r);
-						
+						App->render->Blit(tileset->texture, pos.x, pos.y, &r, layer->data->parallax);
 						
 					}
 				}
@@ -418,8 +417,9 @@ bool j1Map::LoadLayer(pugi::xml_node& node, MapLayer* layer)
 	layer->name = node.attribute("name").as_string();
 	layer->width = node.attribute("width").as_int();
 	layer->height = node.attribute("height").as_int();
-	
+	layer->parallax = node.child("properties").child("property").attribute("value").as_float();
 	pugi::xml_node layer_data = node.child("data");
+	
 
 	if(layer_data == NULL)
 	{
@@ -443,11 +443,3 @@ bool j1Map::LoadLayer(pugi::xml_node& node, MapLayer* layer)
 }
 
 // Load a group of properties from a node and fill a list with it
-float j1Map::LoadParallax(pugi::xml_node& node)
-{
-	for (pugi::xml_node propnode = node.child("properties").child("property"); propnode; propnode = node.next_sibling("properties").child("property")) {
-		float parallax;
-		parallax = propnode.attribute("value").as_float();
-		return parallax;
-	}
-}

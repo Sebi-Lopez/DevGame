@@ -241,4 +241,8 @@ void j1Player::OnCollision(Collider * c1, Collider * c2)
 
 }
 
+bool j1Player::SetAnimation(pugi::xml_node& node, Animation& anim) {
+
+}
+
 

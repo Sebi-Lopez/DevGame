@@ -22,7 +22,7 @@ struct MapLayer
 	int			height;
 	uint*		data;
 	Properties	properties;
-
+	float		parallax;
 	MapLayer() : data(NULL)
 	{}
 
@@ -109,7 +109,7 @@ private:
 	bool LoadTilesetDetails(pugi::xml_node& tileset_node, TileSet* set);
 	bool LoadTilesetImage(pugi::xml_node& tileset_node, TileSet* set);
 	bool LoadLayer(pugi::xml_node& node, MapLayer* layer);
-	float LoadParallax(pugi::xml_node& node);
+
 	
 
 	TileSet* GetTilesetFromTileId(int id) const;

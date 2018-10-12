@@ -9,7 +9,7 @@
  <tileset firstgid="1161" name="Background" tilewidth="16" tileheight="16" tilecount="15625" columns="125">
   <image source="Background.png" width="2000" height="2000"/>
  </tileset>
- <layer name="cielo" width="200" height="30">
+ <layer name="sky" width="200" height="30">
   <properties>
    <property name="parallaxspeed" type="float" value="0"/>
   </properties>
@@ -6016,7 +6016,7 @@
    <tile gid="5593"/>
   </data>
  </layer>
- <layer name="arboles 1" width="200" height="30">
+ <layer name="tree 1" width="200" height="30">
   <properties>
    <property name="parallaxspeed" type="float" value="0.3"/>
   </properties>
@@ -12023,7 +12023,7 @@
    <tile gid="0"/>
   </data>
  </layer>
- <layer name="arboles 2" width="200" height="30">
+ <layer name="tree 2" width="200" height="30">
   <properties>
    <property name="parallaxspeed" type="float" value="0.3"/>
   </properties>
@@ -18030,7 +18030,7 @@
    <tile gid="0"/>
   </data>
  </layer>
- <layer name="arboles 3" width="200" height="30">
+ <layer name="tree 3" width="200" height="30">
   <properties>
    <property name="parallaxspeed" type="float" value="0.3"/>
   </properties>
@@ -24037,7 +24037,7 @@
    <tile gid="0"/>
   </data>
  </layer>
- <layer name="arboles 4" width="200" height="30">
+ <layer name="tree 4" width="200" height="30">
   <properties>
    <property name="parallaxspeed" type="float" value="0.6"/>
   </properties>
@@ -30044,7 +30044,7 @@
    <tile gid="0"/>
   </data>
  </layer>
- <layer name="arboles 5" width="200" height="30">
+ <layer name="tree 5" width="200" height="30">
   <properties>
    <property name="parallaxspeed" type="float" value="0.6"/>
   </properties>
@@ -36051,7 +36051,7 @@
    <tile gid="0"/>
   </data>
  </layer>
- <layer name="luces" width="200" height="30">
+ <layer name="lights" width="200" height="30">
   <properties>
    <property name="parallaxspeed" type="float" value="0.6"/>
   </properties>
@@ -42058,7 +42058,7 @@
    <tile gid="0"/>
   </data>
  </layer>
- <layer name="arbustos de arriba" width="200" height="30">
+ <layer name="up bushes" width="200" height="30">
   <properties>
    <property name="parallaxspeed" type="float" value="0.8"/>
   </properties>
@@ -48065,7 +48065,7 @@
    <tile gid="0"/>
   </data>
  </layer>
- <layer name="yerba verde" width="200" height="30">
+ <layer name="green grass" width="200" height="30">
   <properties>
    <property name="parallaxspeed" type="float" value="0.8"/>
   </properties>
@@ -54072,7 +54072,7 @@
    <tile gid="0"/>
   </data>
  </layer>
- <layer name="yerba negra" width="200" height="30">
+ <layer name="black grass" width="200" height="30">
   <properties>
    <property name="parallaxspeed" type="float" value="0.8"/>
   </properties>

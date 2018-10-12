@@ -30,7 +30,7 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
-		
+	bool SetAnimation(pugi::xml_node& node, Animation& anim);
 	void CalculatePosition(); 
 	void CalculateTime();
 	// Collision Callback
