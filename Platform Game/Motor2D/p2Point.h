@@ -39,9 +39,17 @@ public:
 	}
 
 	// Math ------------------------------------------------
+
+	p2Point operator *(const TYPE & num) const {
+		p2Point r;
+		r.x = x * num;
+		r.y = y * num;
+		return r;
+	}
+
 	p2Point operator -(const p2Point &v) const
 	{
-		p2Vector2 r;
+		p2Point r;
 
 		r.x = x - v.x;
 		r.y = y - v.y;
@@ -51,7 +59,7 @@ public:
 
 	p2Point operator + (const p2Point &v) const
 	{
-		p2Vector2 r;
+		p2Point r;
 
 		r.x = x + v.x;
 		r.y = y + v.y;

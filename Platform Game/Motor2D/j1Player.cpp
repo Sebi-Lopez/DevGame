@@ -8,8 +8,6 @@
 #include "j1App.h"
 #include "p2Log.h"
 
-#define PLAYER_SPEED 1.5f
-
 j1Player::j1Player()
 {
 	name.create("player");
@@ -125,44 +123,64 @@ bool j1Player::Start()
 	}
 
 
+	last_time = actual_time = SDL_GetTicks();
+
 	position.x = 10.f;
 	position.y = 300.f;
+
+	velocity.x = 0;
+	velocity.y = 0;
+	acceleration.x = 0;
+	acceleration.y = 0;
+
 	return true;
 }
 
 bool j1Player::PreUpdate()
 {
 
+	current_animation = &idle;
 
+
+	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && App->input->GetKey(SDL_SCANCODE_A) == KEY_IDLE) {
+		velocity.x = speed_x;
+		current_animation = &run_forward;
+	}
+
+	else if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && App->input->GetKey(SDL_SCANCODE_D) == KEY_IDLE) {
+		velocity.x = -speed_x;
+		current_animation = &run_backward; 
+	}
+	else
+	{
+		velocity.x = 0;
+	}
+	
+	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
+		velocity.y =  - speed_y;
+		acceleration.y = gravity;
+		current_animation = &jump;
+	}
+	else if (App->input->GetKey(SDL_SCANCODE_O) == KEY_DOWN) {
+		
+		current_animation = &attack;
+	}
 
 	return true;
 }
 
 bool j1Player::Update(float dt)
 {
-	current_animation = &idle;
-
-
-	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
-		position.x += PLAYER_SPEED;
-		current_animation = &run_forward;
-	}
-
-	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
-		position.x -= PLAYER_SPEED;
-		current_animation = &run_backward;
-	}
-
-	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
-		position.y -= PLAYER_SPEED;
-		current_animation = &jump;
-	}
-	if (App->input->GetKey(SDL_SCANCODE_O) == KEY_DOWN) {
-		
-		current_animation = &attack;
-	}
+	
+	CalculateTime();
+	CalculatePosition();
 	App->render->Blit(player_texture, position.x, position.y, &(current_animation->GetCurrentFrame()));
 
+	return true;
+}
+
+bool j1Player::PostUpdate()
+{
 	return true;
 }
 
@@ -170,6 +188,20 @@ bool j1Player::CleanUp()
 {
 	App->tex->UnLoad(player_texture);
 	return true;
+}
+
+void j1Player::CalculatePosition()
+{
+	velocity = velocity + acceleration * time;
+	position = position + velocity * time;
+}
+
+void j1Player::CalculateTime()
+{
+	actual_time = SDL_GetTicks();
+	time = actual_time - last_time;
+	time /= 1000;
+	last_time = actual_time;
 }
 
 void j1Player::OnCollision(Collider * c1, Collider * c2)

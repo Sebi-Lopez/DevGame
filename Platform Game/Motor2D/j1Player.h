@@ -26,9 +26,13 @@ public:
 
 	bool Update(float dt);
 
+	bool PostUpdate(); 
 	// Called before quitting
 	bool CleanUp();
 
+		
+	void CalculatePosition(); 
+	void CalculateTime();
 	// Collision Callback
 	void OnCollision(Collider* c1, Collider* c2);
 
@@ -50,8 +54,22 @@ private:
 
 
 	SDL_Texture* player_texture = nullptr;
+
+	float speed_x = 60; 
+	float speed_y = 100; 
+	float gravity = 110; 
+	fPoint velocity;
+	fPoint acceleration;
+
+
+	float time; 
+	uint actual_time; 
+	uint last_time = 0; 
+
 public:
+
 	fPoint position;
+	
 };
 
 #endif
