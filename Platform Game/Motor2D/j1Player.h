@@ -41,8 +41,7 @@ private:
 	bool attacked = false;
 	Animation* current_animation;
 	Animation idle;
-	Animation run_forward;
-	Animation run_backward;
+	Animation run;
 	Animation jump;
 	Animation fall;
 	Animation attack;
@@ -53,7 +52,6 @@ private:
 	Animation die;
 	Animation slide;
 	Animation crouch;
-	//Animation fall;
 
 
 	SDL_Texture* player_texture = nullptr;
