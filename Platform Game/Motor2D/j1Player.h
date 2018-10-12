@@ -37,8 +37,7 @@ public:
 	void OnCollision(Collider* c1, Collider* c2);
 
 private:
-	bool rightdirection=false;
-	bool leftdirection=false;
+	bool flip = false;
 	bool attacked = false;
 	Animation* current_animation;
 	Animation idle;

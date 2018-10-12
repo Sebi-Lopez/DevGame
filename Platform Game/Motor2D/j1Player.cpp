@@ -156,8 +156,7 @@ bool j1Player::PreUpdate()
 
 
 	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && App->input->GetKey(SDL_SCANCODE_A) == KEY_IDLE) {
-		leftdirection = false;
-		rightdirection = true;
+		flip = false; 
 		velocity.x = speed_x;
 		current_animation = &run_forward;
 		attacked = false;
@@ -165,8 +164,7 @@ bool j1Player::PreUpdate()
 	}
 	
 	else if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && App->input->GetKey(SDL_SCANCODE_D) == KEY_IDLE) {
-		rightdirection = false;
-		leftdirection = true;
+		flip = true; 
 		velocity.x = -speed_x;
 		current_animation = &run_forward;
 		attacked=false;
@@ -202,12 +200,8 @@ bool j1Player::Update(float dt)
 	
 	CalculateTime();
 	CalculatePosition();
-	if (leftdirection==true) {
-		App->render->Blit(player_texture, position.x, position.y, &(current_animation->GetCurrentFrame()), 1.0f, SDL_FLIP_HORIZONTAL);
-	}
-	else {
-		App->render->Blit(player_texture, position.x, position.y, &(current_animation->GetCurrentFrame()), 1.0f);
-	}
+	App->render->Blit(player_texture, position.x, position.y, &(current_animation->GetCurrentFrame()), 1.0f, flip);
+
 	return true;
 }
 
