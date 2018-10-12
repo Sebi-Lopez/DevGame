@@ -49,8 +49,10 @@ void j1Map::Draw()
 						SDL_Rect r = tileset->GetTileRect(tile_id);
 						iPoint pos = MapToWorld(x, y);
 						
-
-						App->render->Blit(tileset->texture, pos.x, pos.y, &r);
+						
+							App->render->Blit(tileset->texture, pos.x, pos.y, &r);
+						
+						
 					}
 				}
 			}
@@ -247,6 +249,8 @@ bool j1Map::Load(const char* file_name)
 
 	LoadCollisions(cnode);
 
+	
+
 	if(ret == true)
 	{
 		LOG("Successfully parsed map XML file: %s", file_name);
@@ -414,7 +418,7 @@ bool j1Map::LoadLayer(pugi::xml_node& node, MapLayer* layer)
 	layer->name = node.attribute("name").as_string();
 	layer->width = node.attribute("width").as_int();
 	layer->height = node.attribute("height").as_int();
-	LoadProperties(node, layer->properties);
+	
 	pugi::xml_node layer_data = node.child("data");
 
 	if(layer_data == NULL)
@@ -439,12 +443,11 @@ bool j1Map::LoadLayer(pugi::xml_node& node, MapLayer* layer)
 }
 
 // Load a group of properties from a node and fill a list with it
-bool j1Map::LoadProperties(pugi::xml_node& node, Properties& properties)
+float j1Map::LoadParallax(pugi::xml_node& node)
 {
-	bool ret = false;
-
-	// TODO 6: Fill in the method to fill the custom properties from 
-	// an xml_node
-
-	return ret;
+	for (pugi::xml_node propnode = node.child("properties").child("property"); propnode; propnode = node.next_sibling("properties").child("property")) {
+		float parallax;
+		parallax = propnode.attribute("value").as_float();
+		return parallax;
+	}
 }

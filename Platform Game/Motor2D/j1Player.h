@@ -37,7 +37,9 @@ public:
 	void OnCollision(Collider* c1, Collider* c2);
 
 private:
-	
+	bool rightdirection=false;
+	bool leftdirection=false;
+	bool attacked = false;
 	Animation* current_animation;
 	Animation idle;
 	Animation run_forward;
@@ -51,6 +53,8 @@ private:
 	Animation hurt;
 	Animation die;
 	Animation slide;
+	Animation crouch;
+	//Animation fall;
 
 
 	SDL_Texture* player_texture = nullptr;
@@ -61,7 +65,7 @@ private:
 	fPoint velocity;
 	fPoint acceleration;
 
-	bool flip = false; 
+	
 
 	float time; 
 	uint actual_time; 

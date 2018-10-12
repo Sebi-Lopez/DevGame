@@ -16,7 +16,7 @@ j1Player::j1Player()
 	idle.PushBack({ 66,6,17,30 });
 	idle.PushBack({ 115,6,19,30 });
 	idle.PushBack({ 163,7,20,29 });
-	idle.speed = 0.18f;
+	idle.speed = 0.2f;
 	idle.loop = true;
 
 	run_forward.PushBack({ 67,45,20,28 });
@@ -25,17 +25,10 @@ j1Player::j1Player()
 	run_forward.PushBack({ 217,45,23,28 });
 	run_forward.PushBack({ 266,46,20,27 });
 	run_forward.PushBack({ 316,48,20,25 });
-	run_forward.speed = 0.15f;
+	run_forward.speed = 0.2f;
 	run_forward.loop = true;
 
-	run_backward.PushBack({376,375,20,28});
-	run_backward.PushBack({327,376,20,27});
-	run_backward.PushBack({277,378,20,25});
-	run_backward.PushBack({223,375,23,28});
-	run_backward.PushBack({177,376,20,27});
-	run_backward.PushBack({127,378,20,25});
-	run_backward.speed = 0.15f;
-	run_backward.loop = true;
+	
 
 	attack.PushBack({7,263,27,22});
 	attack.PushBack({58,238,25,20});
@@ -63,40 +56,60 @@ j1Player::j1Player()
 	jump.speed = 0.15f;
 	jump.loop = false;
 
-	grab.PushBack({});
-	grab.PushBack({});
-	grab.PushBack({});
-	grab.PushBack({});
+	grab.PushBack({72,151,12,34});
+	grab.PushBack({122,151,13,34});
+	grab.PushBack({170,151,15,34});
+	grab.PushBack({221,151,14,34});
+	grab.speed = 0.15f;
+	grab.loop = true;
 
-	climb.PushBack({});
-	climb.PushBack({});
-	climb.PushBack({});
-	climb.PushBack({});
-	climb.PushBack({});
+	climb.PushBack({271,154,16,29});
+	climb.PushBack({321,155,15,26});
+	climb.PushBack({20,193,15,24});
+	climb.PushBack({71,191,14,24});
+	climb.PushBack({121,191,15,24});
+	climb.speed = 0.2f;
+	climb.loop = false;
 
-	idlesword.PushBack({});
-	idlesword.PushBack({});
-	idlesword.PushBack({});
-	idlesword.PushBack({});
+	idlesword.PushBack({160,194,23,27});
+	idlesword.PushBack({210,194,23,27});
+	idlesword.PushBack({259,193,25,28});
+	idlesword.PushBack({309,193,25,28});
+	idlesword.speed = 0.15f;
+	idlesword.loop = true;
 
 
-	hurt.PushBack({});
-	hurt.PushBack({});
-	hurt.PushBack({});
+	hurt.PushBack({166,308,21,24});
+	hurt.PushBack({217,308,18,24});
+	hurt.PushBack({265,308,19,24});
+	hurt.speed = 0.2f;
+	hurt.loop = false;
 
-	die.PushBack({});
-	die.PushBack({});
-	die.PushBack({});
-	die.PushBack({});
-	die.PushBack({});
-	die.PushBack({});
-	die.PushBack({});
+	die.PushBack({316,308,21,24});
+	die.PushBack({17,345,18,24});
+	die.PushBack({65,345,19,24});
+	die.PushBack({116,347,20,22});
+	die.PushBack({168,351,17,18});
+	die.PushBack({221,352,14,17});
+	die.PushBack({269,351,17,18});
+	die.speed = 0.2f;
+	die.loop = false;
 
-	slide.PushBack({});
-	slide.PushBack({});
-	slide.PushBack({});
-	slide.PushBack({});
-	slide.PushBack({});
+	slide.PushBack({155,132,34,15});
+	slide.PushBack({205,132,34,15});
+	slide.PushBack({255,131,34,16});
+	slide.PushBack({309,130,30,17});
+	slide.PushBack({14,167,23,17});
+	slide.speed = 0.2f;
+	slide.loop = false;
+
+	/*crouch.PushBack({216,15,19,21});
+	crouch.PushBack({265,14,20,22});
+	crouch.PushBack({315,15,19,21});
+	crouch.PushBack({17,54,17,21});
+
+	fall.PushBack({68,112,17,31});
+	fall.PushBack({118,113,17,30});*/
 
 }
 
@@ -143,22 +156,28 @@ bool j1Player::PreUpdate()
 
 
 	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && App->input->GetKey(SDL_SCANCODE_A) == KEY_IDLE) {
+		leftdirection = false;
+		rightdirection = true;
 		velocity.x = speed_x;
 		current_animation = &run_forward;
-		flip = false;
+		attacked = false;
+		
 	}
-
+	
 	else if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && App->input->GetKey(SDL_SCANCODE_D) == KEY_IDLE) {
+		rightdirection = false;
+		leftdirection = true;
 		velocity.x = -speed_x;
 		current_animation = &run_forward;
-		flip = true; 
+		attacked=false;
+		 
 	}
 	else
 	{
 		velocity.x = 0;
 	}
 	
-	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
+	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT) {
 		velocity.y =  - speed_y;
 		acceleration.y = gravity;
 		current_animation = &jump;
@@ -166,8 +185,15 @@ bool j1Player::PreUpdate()
 	else if (App->input->GetKey(SDL_SCANCODE_O) == KEY_DOWN) {
 		
 		current_animation = &attack;
+		attacked = true;
 	}
+	else if (attacked == true) {
+		current_animation = &idlesword;
+		//attacked = false;
+	}
+	
 
+	
 	return true;
 }
 
@@ -176,8 +202,12 @@ bool j1Player::Update(float dt)
 	
 	CalculateTime();
 	CalculatePosition();
-	App->render->Blit(player_texture, position.x, position.y, &(current_animation->GetCurrentFrame()), 1.0f, flip);
-
+	if (leftdirection==true) {
+		App->render->Blit(player_texture, position.x, position.y, &(current_animation->GetCurrentFrame()), 1.0f, SDL_FLIP_HORIZONTAL);
+	}
+	else {
+		App->render->Blit(player_texture, position.x, position.y, &(current_animation->GetCurrentFrame()), 1.0f);
+	}
 	return true;
 }
 
