@@ -91,15 +91,15 @@ bool j1Player::Start()
 	last_time = actual_time = SDL_GetTicks();
 
 	position.x = 10.f;
-	position.y = 300.f;
+	position.y = 200.f;
 
 	velocity.x = 0;
 	velocity.y = 0;
 	acceleration.x = 0;
-	acceleration.y = 0;
+	acceleration.y = gravity;
 
 
-	player_collider = App->collision->AddCollider({ (int)position.x, (int)position.y,19,29 }, COLLIDER_PLAYER,nullptr);
+	player_collider = App->collision->AddCollider({ (int)position.x, (int)position.y,19,29 }, COLLIDER_PLAYER, this);
 	return true;
 }
 
@@ -107,7 +107,7 @@ bool j1Player::PreUpdate()
 {
 
 	current_animation = &idle;
-
+	acceleration.y = gravity; 
 
 	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && App->input->GetKey(SDL_SCANCODE_A) == KEY_IDLE) {
 		flip = false; 
@@ -128,7 +128,7 @@ bool j1Player::PreUpdate()
 		velocity.x = 0;
 	}
 	
-	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT) {
+	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
 		velocity.y =  - jump_speed;
 		current_animation = &jump;
 	}
@@ -184,11 +184,17 @@ void j1Player::CalculateTime()
 
 void j1Player::OnCollision(Collider * c1, Collider * c2)
 {
-	if (c2->type == COLLIDER_FLOOR)
-		velocity.y = 0; 
+	if (c1->type == COLLIDER_PLAYER && c2->type == COLLIDER_FLOOR) 
+	{
+		if (velocity.y >= 0)
+		{
+			position.y = c2->rect.y - c1->rect.h;
+			acceleration.y = 0;
+		}
+	}
 }
 
-bool j1Player::SetAnimation(pugi::xml_node& node, Animation& anim) {
+void j1Player::SetAnimation(pugi::xml_node& node, Animation& anim) {
 
 	for (; node; node = node.next_sibling("anim")) {
 		SDL_Rect components;
@@ -198,7 +204,6 @@ bool j1Player::SetAnimation(pugi::xml_node& node, Animation& anim) {
 		components.h = node.attribute("h").as_uint();
 		anim.PushBack(components);
 	}
-	return true;
 }
 
 

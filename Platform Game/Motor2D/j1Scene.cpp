@@ -34,8 +34,13 @@ bool j1Scene::Awake()
 // Called before the first frame
 bool j1Scene::Start()
 {
+<<<<<<< HEAD
 	App->map->Load("SecondMap.tmx");
+=======
+	//App->map->Load("FirstMap.tmx");
+>>>>>>> cd03805153fb4ed115b0d907de8e02524f9687a9
 	
+	App->collision->AddCollider({ 0,300, 100,100 }, COLLIDER_FLOOR, nullptr);
 	return true;
 }
 
