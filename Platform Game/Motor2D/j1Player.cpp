@@ -5,6 +5,7 @@
 #include "j1Input.h"
 #include "j1Render.h"
 #include "j1Textures.h"
+#include "j1Collision.h"
 #include "j1App.h"
 #include "p2Log.h"
 
@@ -146,6 +147,8 @@ bool j1Player::Start()
 	acceleration.x = 0;
 	acceleration.y = 0;
 
+
+	player_collider = App->collision->AddCollider({ (int)position.x, (int)position.y,19,29 }, COLLIDER_PLAYER,nullptr);
 	return true;
 }
 
@@ -167,8 +170,7 @@ bool j1Player::PreUpdate()
 		flip = true; 
 		velocity.x = -speed_x;
 		current_animation = &run_forward;
-		attacked=false;
-		 
+		attacked = false;
 	}
 	else
 	{
@@ -177,7 +179,6 @@ bool j1Player::PreUpdate()
 	
 	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT) {
 		velocity.y =  - speed_y;
-		acceleration.y = gravity;
 		current_animation = &jump;
 	}
 	else if (App->input->GetKey(SDL_SCANCODE_O) == KEY_DOWN) {
@@ -201,7 +202,7 @@ bool j1Player::Update(float dt)
 	CalculateTime();
 	CalculatePosition();
 	App->render->Blit(player_texture, position.x, position.y, &(current_animation->GetCurrentFrame()), 1.0f, flip);
-
+	player_collider->SetPos(position.x, position.y);
 	return true;
 }
 
@@ -220,6 +221,7 @@ void j1Player::CalculatePosition()
 {
 	velocity = velocity + acceleration * time;
 	position = position + velocity * time;
+	future_position = position + velocity * (time + 0.1);
 }
 
 void j1Player::CalculateTime()
@@ -232,11 +234,12 @@ void j1Player::CalculateTime()
 
 void j1Player::OnCollision(Collider * c1, Collider * c2)
 {
-
+	if (c2->type == COLLIDER_FLOOR)
+		velocity.y = 0; 
 }
 
 bool j1Player::SetAnimation(pugi::xml_node& node, Animation& anim) {
-
+	return true; 
 }
 
 

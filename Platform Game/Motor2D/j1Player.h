@@ -37,9 +37,9 @@ public:
 	void OnCollision(Collider* c1, Collider* c2);
 
 private:
-	bool flip = false;
-	bool attacked = false;
-	Animation* current_animation;
+
+	// Animations 
+	Animation* current_animation = nullptr;
 	Animation idle;
 	Animation run_forward;
 	Animation run_backward;
@@ -55,20 +55,27 @@ private:
 	Animation crouch;
 	//Animation fall;
 
-
-	SDL_Texture* player_texture = nullptr;
-
+	// Position variables
 	float speed_x = 60; 
 	float speed_y = 100; 
 	float gravity = 110; 
 	fPoint velocity;
 	fPoint acceleration;
-
+	fPoint future_position; 
 	
+	// Collider variables
+	
+	Collider* player_collider = nullptr; 
 
+	// Time variables
 	float time; 
 	uint actual_time; 
 	uint last_time = 0; 
+
+	// Graphic variables
+	SDL_Texture* player_texture = nullptr;	
+	bool flip = false;
+	bool attacked = false;
 
 public:
 
