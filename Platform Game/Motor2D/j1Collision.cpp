@@ -22,11 +22,13 @@ j1Collision::j1Collision()
 
 	matrix[COLLIDER_END][COLLIDER_FLOOR] = false;
 	matrix[COLLIDER_END][COLLIDER_DEAD] = false;
+	matrix[COLLIDER_END][COLLIDER_END] = false;
 	matrix[COLLIDER_END][COLLIDER_PLAYER] = true;
 	
 	matrix[COLLIDER_PLAYER][COLLIDER_FLOOR] = true;
 	matrix[COLLIDER_PLAYER][COLLIDER_DEAD] = true;
 	matrix[COLLIDER_PLAYER][COLLIDER_END] = true;
+	matrix[COLLIDER_PLAYER][COLLIDER_PLAYER] = false;
 
 }
 
@@ -166,6 +168,7 @@ bool Collider::CheckCollision(const SDL_Rect& r) const
 	// TODO 0: Return true if there is an overlap
 	// between argument "r" and property "rect"
 
+	/*bool ret = true;	// 
 
 	if (r.x + r.w < rect.x) ret = false;
 	else if (r.x > rect.x + rect.w) ret = false;
