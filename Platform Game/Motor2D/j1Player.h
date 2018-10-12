@@ -11,6 +11,16 @@ struct Collider;
 
 class j1Player : public j1Module
 {
+	enum class STATE {
+		IDLE = 1,
+		ONGROUND,
+		ONAIR,
+		RUNNING_L,
+		RUNNING_R,
+		FLYING_L,
+		FLYING_R,
+		FALLING
+	};
 public:
 	j1Player();
 	~j1Player();
@@ -41,8 +51,7 @@ private:
 	// Animations 
 	Animation* current_animation = nullptr;
 	Animation idle;
-	Animation run_forward;
-	Animation run_backward;
+	Animation run;
 	Animation jump;
 	Animation fall;
 	Animation attack;
@@ -53,11 +62,10 @@ private:
 	Animation die;
 	Animation slide;
 	Animation crouch;
-	//Animation fall;
 
 	// Position variables
-	float speed_x = 60; 
-	float speed_y = 100; 
+	float run_speed = 60; 
+	float jump_speed = 100; 
 	float gravity = 110; 
 	fPoint velocity;
 	fPoint acceleration;
