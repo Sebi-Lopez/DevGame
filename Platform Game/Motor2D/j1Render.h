@@ -43,6 +43,8 @@ public:
 	// Set background color
 	void SetBackgroundColor(SDL_Color color);
 
+	bool CameraView(SDL_Rect r);
+
 public:
 
 	SDL_Renderer*	renderer;
