@@ -145,11 +145,13 @@ bool j1Player::PreUpdate()
 	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && App->input->GetKey(SDL_SCANCODE_A) == KEY_IDLE) {
 		velocity.x = speed_x;
 		current_animation = &run_forward;
+		flip = false;
 	}
 
 	else if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && App->input->GetKey(SDL_SCANCODE_D) == KEY_IDLE) {
 		velocity.x = -speed_x;
-		current_animation = &run_backward; 
+		current_animation = &run_forward;
+		flip = true; 
 	}
 	else
 	{
@@ -174,7 +176,7 @@ bool j1Player::Update(float dt)
 	
 	CalculateTime();
 	CalculatePosition();
-	App->render->Blit(player_texture, position.x, position.y, &(current_animation->GetCurrentFrame()));
+	App->render->Blit(player_texture, position.x, position.y, &(current_animation->GetCurrentFrame()), 1.0f, flip);
 
 	return true;
 }

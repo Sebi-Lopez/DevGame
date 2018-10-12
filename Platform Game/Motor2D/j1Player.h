@@ -61,6 +61,7 @@ private:
 	fPoint velocity;
 	fPoint acceleration;
 
+	bool flip = false; 
 
 	float time; 
 	uint actual_time; 
