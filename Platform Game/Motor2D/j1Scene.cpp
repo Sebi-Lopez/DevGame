@@ -11,7 +11,7 @@
 #include "j1Collision.h"
 #include "j1Player.h"
 
-#define Camera_margin 100
+
 
 j1Scene::j1Scene() : j1Module()
 {
@@ -35,7 +35,7 @@ bool j1Scene::Awake()
 bool j1Scene::Start()
 {
 	//App->map->Load("SecondMap.tmx");
-	//App->map->Load("FirstMap.tmx");
+	App->map->Load("FirstMap.tmx");
 	App->audio->PlayMusic("audio/music/3.ogg");
 	App->collision->AddCollider({ 0,300, 500,100 }, COLLIDER_FLOOR, nullptr);
 	App->collision->AddCollider({ 300,200, 50, 100 }, COLLIDER_FLOOR, nullptr);
@@ -69,13 +69,7 @@ bool j1Scene::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
 		App->render->camera.x -= 10;
 
-	/*if (App->render->camera.x + Camera_margin > App->player->position.x) {
-		App->render->camera.x = 0;
-	}
-	else
-	{
-		App->render->camera.x = ((-App->player->position.x) + Camera_margin)*App->win->GetScale();
-	}*/
+	
 
 
 	App->map->Draw();

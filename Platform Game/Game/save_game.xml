@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<game_state>
+	<input />
+	<window />
+	<textures />
+	<audio />
+	<map />
+	<scene />
+	<player>
+		<platerattributes x="252.47995" y="251.517746" velocityx="60" velocityy="93.25" gravity="250" currentanimation="true" state="IDLE" />
+	</player>
+	<:anonymous />
+	<renderer>
+		<camera x="0" y="-120" />
+	</renderer>
+</game_state>

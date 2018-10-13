@@ -9,7 +9,7 @@
   <renderer>
     <vsync value="true"/>
   </renderer>
-
+  <camera x="" y=""/>
   <window>
     <resolution width="1024" height="768" scale="2"/>
     <fullscreen value="false"/>

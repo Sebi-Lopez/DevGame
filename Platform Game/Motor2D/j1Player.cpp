@@ -135,12 +135,14 @@ bool j1Player::Update(float dt)
 	CalculateTime();
 	CalculatePosition();
 	
+	
+
 	return true;
 }
 
 bool j1Player::PostUpdate()
 {
-	App->render->Blit(player_texture, (int)position.x, (int)position.y, &(current_animation->GetCurrentFrame()), 1.0F, flip);
+	App->render->Blit(player_texture, (int)position.x, (int)position.y, &(current_animation->GetCurrentFrame()), 1.0f, flip);
 	player_collider->SetPos(position.x, position.y);
 	return true;
 }
@@ -493,11 +495,104 @@ void j1Player::SetAnimation(pugi::xml_node& node, Animation& anim) {
 	}
 }
 
-bool j1Player::Save(pugi::xml_node& node) const{
-	pugi::xml_node posave = node.append_child("player");
+bool j1Player::Load(pugi::xml_node& node)
+{
+	pugi::xml_node load = node.child("player").child("playerattributes");
+	position.x = load.attribute("x").as_float();
+	position.y = load.attribute("y").as_float();
+	velocity.x = load.attribute("velocityx").as_float();
+	velocity.y = load.attribute("velocityy").as_float();
+	
+	p2SString state=load.attribute("state").as_string();
+	if (state == "IDLE") {
+		State = STATE::IDLE;
+	}
+	else if (state == "RUNNING_FORWARD") {
+		State = STATE::RUNNING_FORWARD;
+	}
+	else if (state == "RUNNING_BACKWARD") {
+		State = STATE::RUNNING_BACKWARD;
+	}
+	else if (state == "JUMPING") {
+		State = STATE::JUMPING;
+	}
+	else if (state == "JUMPING_FORWARD") {
+		State = STATE::JUMPING_FORWARD;
+	}
+	else if (state == "JUMPING_BACKWARD") {
+		State = STATE::JUMPING_BACKWARD;
+	}
+	else if (state == "DOUBLE_JUMP") {
+		State = STATE::DOUBLE_JUMP;
+	}
+	else if (state == "DOUBLE_JUMP_FORWARD") {
+		State = STATE::DOUBLE_JUMP_FORWARD;
+	}
+	else if (state == "DOUBLE_JUMP_BACKWARD") {
+		State = STATE::DOUBLE_JUMP_BACKWARD;
+	}
+	else if (state == "FALLING") {
+		State = STATE::FALLING;
+	}
+	else if (state == "FALLING_FORWARD") {
+		State = STATE::FALLING_FORWARD;
+	}
+	else if (state == "FALLING_BACKWARD") {
+		State = STATE::FALLING_BACKWARD;
+	}
+	return true;
+	
+}
 
-	posave.append_attribute("x") = position.x;
-	posave.append_attribute("y") = position.y;
+bool j1Player::Save(pugi::xml_node& node) const{
+	pugi::xml_node save = node.append_child("playerattributes");
+
+	save.append_attribute("x") = position.x;
+	save.append_attribute("y") = position.y;
+	save.append_attribute("velocityx") = velocity.x;
+	save.append_attribute("velocityy") = velocity.y;
+	
+	
+	p2SString state;
+	if (State == STATE::IDLE) {
+		state = "IDLE";
+	}
+	else if (State == STATE::RUNNING_FORWARD) {
+		state = "RUNNING_FORWARD";
+	}
+	else if (State == STATE::RUNNING_BACKWARD) {
+		state = "RUNNING_BACKWARD";
+	}
+	else if (State == STATE::JUMPING) {
+		state = "JUMPING";
+	}
+	else if (State == STATE::JUMPING_FORWARD) {
+		state = "JUMPING_FORWARD";
+	}
+	else if (State == STATE::JUMPING_BACKWARD) {
+		state = "JUMPING_BACKWARD";
+	}
+	else if (State == STATE::DOUBLE_JUMP) {
+		state = "DOUBLE_JUMP";
+	}
+	else if (State == STATE::DOUBLE_JUMP_FORWARD) {
+		state = "DOUBLE_JUMP_FORWARD";
+	}
+	else if (State == STATE::DOUBLE_JUMP_BACKWARD) {
+		state = "DOUBLE_JUMP_BACKWARD";
+	}
+	else if (State == STATE::FALLING) {
+		state = "FALLING";
+	}
+	else if (State == STATE::FALLING_FORWARD) {
+		state = "FALLING_FORWARD";
+	}
+	else if (State == STATE::FALLING_BACKWARD) {
+		state = "FALLING_BACKWARD";
+	}
+	
+
+	save.append_attribute("state") = state.GetString();
 
 	return true;
 }

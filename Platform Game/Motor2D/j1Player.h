@@ -65,7 +65,7 @@ public:
 	// Collision Callback
 	void OnCollision(Collider* c1, Collider* c2);
 
-	//bool Load(pugi::xml_node&);
+	bool Load(pugi::xml_node&);
 	bool Save(pugi::xml_node&) const;
 
 private:
@@ -101,8 +101,8 @@ private:
 	bool hasJumped = false;
 	bool hasDoubleJumped = false; 
 	// Collider variables
+	Collider* player_collider = nullptr;
 	
-	Collider* player_collider = nullptr; 
 
 	// Time variables
 	float time; 
@@ -115,8 +115,9 @@ private:
 	bool attacked = false;
 
 public:
-
+	
 	fPoint position;
+	
 	
 };
 
