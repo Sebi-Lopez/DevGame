@@ -64,6 +64,9 @@ public:
 	// Collision Callback
 	void OnCollision(Collider* c1, Collider* c2);
 
+	//bool Load(pugi::xml_node&);
+	bool Save(pugi::xml_node&) const;
+
 private:
 
 	STATE State = STATE::FALLING;

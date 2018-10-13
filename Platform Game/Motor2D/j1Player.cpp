@@ -73,6 +73,14 @@ bool j1Player::Awake(pugi::xml_node& node)
 	double_jump.speed = node.child("animations").child("doublejanimation").attribute("speed").as_float();
 	double_jump.loop = node.child("animations").child("doublejanimation").attribute("loop").as_bool();
 
+	position.x = node.child("initial_attributes").attribute("x").as_float();
+	position.y = node.child("initial_attributes").attribute("y").as_float();
+	velocity.x = node.child("initial_attributes").attribute("velx").as_float();
+	velocity.y = node.child("initial_attributes").attribute("vely").as_float();
+	acceleration.x = node.child("initial_attributes").attribute("accx").as_float();
+	gravity = node.child("initial_attributes").attribute("gravity").as_float();
+	acceleration.y = gravity;
+
 	return true;
 }
 
@@ -92,13 +100,6 @@ bool j1Player::Start()
 
 	last_time = actual_time = SDL_GetTicks();
 
-	position.x = 10.f;
-	position.y = 200.f;
-
-	velocity.x = 0;
-	velocity.y = 0;
-	acceleration.x = 0;
-	acceleration.y = gravity;
 	current_animation = &fall;
 	State = STATE::FALLING;
 
@@ -150,10 +151,6 @@ void j1Player::CalculatePosition()
 	position = position + velocity * time + acceleration*time*time * 0.5F;
 	player_collider->SetPos(position.x, position.y);
 
-	//if (velocity.y > 0) direction = Direction::GOING_DOWN;
-	//if (velocity.y < 0) direction = Direction::GOING_UP;
-	//if (velocity.x > 0) direction = Direction::GOING_RIGHT;
-	//if (velocity.x < 0) direction = Direction::GOING_LEFT;
 }
 
 void j1Player::CalculateTime()
@@ -418,10 +415,10 @@ void j1Player::SetPlayerActions()
 		break;
 
 
-	case STATE::FALLING:
+	case STATE::FALLING:		
+		velocity.x = 0;
 		current_animation = &fall;
 		double_jump.Reset();
-		velocity.x = 0;
 		break;
 
 	case STATE::FALLING_FORWARD:
@@ -537,4 +534,12 @@ void j1Player::SetAnimation(pugi::xml_node& node, Animation& anim) {
 	}
 }
 
+bool j1Player::Save(pugi::xml_node& node) const{
+	pugi::xml_node posave = node.append_child("player");
+
+	posave.append_attribute("x") = position.x;
+	posave.append_attribute("y") = position.y;
+
+	return true;
+}
 

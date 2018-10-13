@@ -253,5 +253,5 @@ bool j1Render::DrawCircle(int x, int y, int radius, Uint8 r, Uint8 g, Uint8 b, U
 }
 
 bool j1Render::CameraView(SDL_Rect rect) {
-	return((-camera.x < rect.x + rect.w) && (rect.x < -camera.x + camera.w) && (-camera.y < rect.y + rect.h) && (rect.y < -camera.y + camera.h));
+	return((camera.x < rect.x + rect.w) && (rect.x < camera.x + camera.w) && (camera.y < rect.y + rect.h) && (rect.y < camera.y + camera.h));
 }
