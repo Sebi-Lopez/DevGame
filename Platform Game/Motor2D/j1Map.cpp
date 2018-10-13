@@ -39,7 +39,7 @@ void j1Map::Draw()
 	while (layer != NULL) {
 		for (int y = 0; y < data.height; ++y)
 		{
-			for (int x = 0; x < (- App->render->camera.x - App->render->camera.w) / 16; ++x)
+			for (int x = 0; x < data.width ; ++x)
 			{
 				int tile_id = layer->data->Get(x, y);
 				if (tile_id > 0)
