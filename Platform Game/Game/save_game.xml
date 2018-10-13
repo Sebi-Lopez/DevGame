@@ -7,10 +7,10 @@
 	<map />
 	<scene />
 	<player>
-		<playerattributes x="134" y="249" velocityx="0" velocityy="91" state="IDLE" />
+		<playerattributes x="10" y="271" velocityx="0" velocityy="185.25" state="IDLE" />
 	</player>
 	<:anonymous />
 	<renderer>
-		<camera x="0" y="-120" />
+		<camera x="-470" y="-120" />
 	</renderer>
 </game_state>
