@@ -66,7 +66,7 @@ j1App::~j1App()
 
 void j1App::AddModule(j1Module* module, bool active)
 {
-	if(active) module->Init();
+	if(active) module->Init();		// Now it only initiates the ones that are active
 
 	modules.add(module);
 }
@@ -115,7 +115,7 @@ bool j1App::Start()
 
 	while(item != NULL && ret == true)
 	{
-		if(item->data->active)
+		if(item->data->active)				// Only Starts Modules that are active
 			ret = item->data->Start();
 		item = item->next;
 	}

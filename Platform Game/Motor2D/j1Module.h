@@ -70,6 +70,9 @@ public:
 		return true;
 	}
 
+
+	// Now we can Activate or Deactivate Modules from across the App
+
 	void Activate()
 	{
 		if (active == false)
