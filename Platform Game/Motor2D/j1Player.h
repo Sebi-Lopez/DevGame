@@ -23,6 +23,7 @@ class j1Player : public j1Module
 		FALLING_BACKWARD,
 		NONE
 	};
+
 public:
 	j1Player();
 	~j1Player();
@@ -54,6 +55,8 @@ public:
 
 private:
 
+	STATE State = STATE::IDLE;
+
 	// Animations 
 	Animation* current_animation = nullptr;
 	Animation idle;
@@ -71,12 +74,14 @@ private:
 
 	// Position variables
 	float run_speed = 60; 
+	float fly_speed = 40;
 	float jump_speed = 100; 
 	float gravity = 110; 
 	fPoint velocity;
 	fPoint acceleration;
 	fPoint future_position; 
-	
+	bool isGrounded = true; 
+
 	// Collider variables
 	
 	Collider* player_collider = nullptr; 

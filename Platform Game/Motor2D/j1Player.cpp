@@ -97,7 +97,7 @@ bool j1Player::Start()
 	velocity.y = 0;
 	acceleration.x = 0;
 	acceleration.y = gravity;
-
+	current_animation = &idle;
 
 	player_collider = App->collision->AddCollider({ (int)position.x, (int)position.y,19,29 }, COLLIDER_PLAYER, this);
 	return true;
@@ -106,31 +106,30 @@ bool j1Player::Start()
 bool j1Player::PreUpdate()
 {
 
-	current_animation = &idle;
-	acceleration.y = gravity; 
+	//current_animation = &idle;
 
 	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && App->input->GetKey(SDL_SCANCODE_A) == KEY_IDLE) {
 		flip = false; 
-		velocity.x = run_speed;
+		/*velocity.x = run_speed;
 		current_animation = &run;
-		attacked = false;
+		attacked = false;*/
 		
 	}
 	
 	else if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && App->input->GetKey(SDL_SCANCODE_D) == KEY_IDLE) {
 		flip = true; 
-		velocity.x = -run_speed;
+	/*	velocity.x = -run_speed;
 		current_animation = &run;
-		attacked=false;
+		attacked=false;*/
 	}
 	else
 	{
-		velocity.x = 0;
+	/*	velocity.x = 0;*/
 	}
 	
 	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
-		velocity.y =  - jump_speed;
-		current_animation = &jump;
+	/*	velocity.y =  - jump_speed;
+		current_animation = &jump;*/
 	}
 	else if (App->input->GetKey(SDL_SCANCODE_O) == KEY_DOWN) {
 		
@@ -143,21 +142,28 @@ bool j1Player::PreUpdate()
 	if (App->input->GetKey(SDL_SCANCODE_RSHIFT) == KEY_REPEAT)
 		current_animation = &crouch;
 	
+
+
+	
+
+	SetPlayerState(); 
+
 	return true;
 }
 
 bool j1Player::Update(float dt)
 {
-	
+	SetPlayerActions();
 	CalculateTime();
 	CalculatePosition();
-	App->render->Blit(player_texture, position.x, position.y, &(current_animation->GetCurrentFrame()), 1.0f, flip);
-	player_collider->SetPos(position.x, position.y);
+	
 	return true;
 }
 
 bool j1Player::PostUpdate()
 {
+	App->render->Blit(player_texture, position.x, position.y, &(current_animation->GetCurrentFrame()), 1.0f, flip);
+	player_collider->SetPos(position.x, position.y);
 	return true;
 }
 
@@ -182,6 +188,123 @@ void j1Player::CalculateTime()
 	last_time = actual_time;
 }
 
+void j1Player::SetPlayerState()
+{
+	bool pressed_right = (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT);
+	bool pressed_left = (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT);
+	bool released_right = (App->input->GetKey(SDL_SCANCODE_D) == KEY_UP);
+	bool released_left = (App->input->GetKey(SDL_SCANCODE_A) == KEY_UP);
+	bool pressed_space = (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN);
+
+	switch (State)
+	{
+	case STATE::IDLE:
+		if (pressed_right && !pressed_left)
+		{
+			State = STATE::RUNNING_FORWARD;
+		}
+		if (pressed_left && !pressed_right)
+		{
+			State = STATE::RUNNING_BACKWARD;
+		}
+		if (pressed_space)
+		{
+			State = STATE::JUMPING;
+		}
+		break;
+
+	case STATE::RUNNING_FORWARD:
+		if (released_right || pressed_left)
+		{
+			State = STATE::IDLE;
+		}
+		if (pressed_space)
+		{
+			State = STATE::JUMPING;
+		}
+		break;
+
+	case STATE::RUNNING_BACKWARD:
+		if (released_left || pressed_right)
+		{
+			State = STATE::IDLE;
+		}
+		if (pressed_space)
+		{
+			State = STATE::JUMPING;
+		}
+		break;
+
+	case STATE::JUMPING:
+		if (pressed_right && !pressed_left)
+		{
+			State = STATE::JUMPING_FORWARD;
+		}
+		if (pressed_left && !pressed_right)
+		{
+			State = STATE::JUMPING_BACKWARD;
+		}
+		break;
+
+	case STATE::JUMPING_FORWARD:
+		if (released_right || pressed_left)
+		{
+			State = STATE::JUMPING;
+		}
+		break;
+
+	case STATE::JUMPING_BACKWARD:
+		if (released_left || pressed_right)
+		{
+			State = STATE::JUMPING;
+		}
+		break;		
+	}
+
+
+
+}
+
+void j1Player::SetPlayerActions()
+{
+	switch (State)
+	{
+	case STATE::IDLE:
+		velocity.x = 0; 
+		current_animation = &idle;
+		break;
+
+	case STATE::RUNNING_FORWARD:
+		velocity.x = run_speed; 
+		current_animation = &run;
+		break; 
+
+	case STATE::RUNNING_BACKWARD:
+		velocity.x = -run_speed;
+		current_animation = &run;
+		break;
+
+	case STATE::JUMPING:		
+		velocity.x = 0;
+		current_animation = &jump;
+		if (isGrounded) 
+		{
+			velocity.y = -jump_speed;			
+			acceleration.y = gravity;
+		}
+		isGrounded = false;
+		break;
+
+	case STATE::JUMPING_FORWARD:
+		velocity.x = fly_speed;
+		break;
+
+	case STATE::JUMPING_BACKWARD:
+		velocity.x = -fly_speed;
+		break;
+	}
+}
+
 void j1Player::OnCollision(Collider * c1, Collider * c2)
 {
 	if (c1->type == COLLIDER_PLAYER && c2->type == COLLIDER_FLOOR) 
@@ -190,6 +313,7 @@ void j1Player::OnCollision(Collider * c1, Collider * c2)
 		{
 			position.y = c2->rect.y - c1->rect.h;
 			acceleration.y = 0;
+			isGrounded = true; 
 		}
 	}
 }
