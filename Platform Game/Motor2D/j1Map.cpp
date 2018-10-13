@@ -32,14 +32,28 @@ void j1Map::Draw()
 {
 	if(map_loaded == false)
 		return;
+	uint camera_width;
+	uint camera_height;
 
-	// TODO 4: Make sure we draw all the layers and not just the first one
+	App->win->GetWindowSize(camera_width, camera_height);	
+
+	
+		
+		
 	p2List_item<MapLayer*>* layer = this->data.layers.start;
-
 	while (layer != NULL) {
-		for (int y = 0; y < data.height; ++y)
+		iPoint top_left_camera = WorldToMap(-App->render->camera.x * layer->data->parallax / App->win->GetScale(), 0);
+		iPoint bottom_right_camera = WorldToMap((-(App->render->camera.x) * layer->data->parallax + (int)camera_width) / App->win->GetScale(), (int)camera_height / App->win->GetScale());
+
+		if (top_left_camera.x < 0)
+			top_left_camera.x = 0;
+
+		if (bottom_right_camera.x > layer->data->width)
+			bottom_right_camera.x = layer->data->width;
+
+		for (int y = 0; y < data.height ; ++y)
 		{
-			for (int x = 0; x < data.width ; ++x)
+			for (int x = top_left_camera.x; x < bottom_right_camera.x; ++x)
 			{
 				int tile_id = layer->data->Get(x, y);
 				if (tile_id > 0)
@@ -50,8 +64,8 @@ void j1Map::Draw()
 						SDL_Rect r = tileset->GetTileRect(tile_id);
 						iPoint pos = MapToWorld(x, y);
 						
-						if(App->render->CameraView({pos.x,pos.y,r.w,r.w}))
-							App->render->Blit(tileset->texture, pos.x, pos.y, &r, layer->data->parallax);
+						App->render->Blit(tileset->texture, pos.x, pos.y, &r, layer->data->parallax);
+				
 					}
 				}
 			}

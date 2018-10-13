@@ -37,7 +37,7 @@ bool j1Scene::Start()
 {
 
 	//App->map->Load("SecondMap.tmx");
-	//App->map->Load("FirstMap.tmx");
+	App->map->Load("FirstMap.tmx");
 	App->audio->PlayMusic("audio/music/3.ogg");
 	
 	App->player->Activate();
