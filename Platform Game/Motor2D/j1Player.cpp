@@ -71,6 +71,10 @@ bool j1Player::Awake(pugi::xml_node& node)
 	crouch.speed = node.child("animations").child("crouchanimation").attribute("speed").as_float();
 	crouch.loop = node.child("animations").child("crouchanimation").attribute("loop").as_bool();
 
+	SetAnimation(node.child("animations").child("doublejanimation").child("anim"), double_jump);
+	double_jump.speed = node.child("animations").child("doublejanimation").attribute("speed").as_float();
+	double_jump.loop = node.child("animations").child("doublejanimation").attribute("loop").as_bool();
+
 	return true;
 }
 
@@ -420,7 +424,7 @@ void j1Player::SetPlayerActions()
 
 	case STATE::DOUBLE_JUMP:
 		velocity.x = 0;
-		//current_animation = &double_jump;
+		current_animation = &double_jump;
 		if (!hasDoubleJumped)
 		{
 			velocity.y = -jump_speed;

@@ -107,6 +107,16 @@
         <anim x="68" y="112" w="17" h="31"/>
         <anim x="118" y="113" w="17" h="30"/>
       </fallanimation>
+      <doublejanimation speed="0.3" loop="false">
+        <anim x="15" y="86" w="20" h="24"/>
+        <anim x="65" y="88" w="20" h="24"/>
+        <anim x="117" y="81" w="19" h="27"/>
+        <anim x="164" y="79" w="21" h="23"/>
+        <anim x="218" y="82" w="15" h="20"/>
+        <anim x="264" y="84" w="23" h="17"/>
+        <anim x="320" y="84" w="18" h="20"/>
+        <anim x="14" y="124" w="23" h="17"/>
+      </doublejanimation>
     </animations>
   </player>
   <file_system>

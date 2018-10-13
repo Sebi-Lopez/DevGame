@@ -42056,8 +42056,8 @@
   </data>
  </layer>
  <objectgroup name="Collisions" offsetx="0" offsety="-2">
-  <object id="1" name="dead" x="4" y="392" width="1085" height="25"/>
-  <object id="3" name="dead" x="1553" y="397" width="1521" height="14"/>
+  <object id="1" name="dead" x="6" y="370" width="1085" height="25"/>
+  <object id="3" name="dead" x="1551" y="368" width="1521" height="14"/>
   <object id="5" name="floor" x="0.666667" y="150.333" width="48.6667" height="36.6667"/>
   <object id="6" name="floor" x="81" y="215.333" width="46.6667" height="34.3333"/>
   <object id="7" name="floor" x="160.667" y="279.667" width="47.6667" height="34"/>

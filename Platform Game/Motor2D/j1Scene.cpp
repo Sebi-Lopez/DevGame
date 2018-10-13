@@ -36,7 +36,7 @@ bool j1Scene::Start()
 {
 	//App->map->Load("SecondMap.tmx");
 	//App->map->Load("FirstMap.tmx");
-	
+	App->audio->PlayMusic("audio/music/Battleship.ogg");
 	App->collision->AddCollider({ 0,300, 500,100 }, COLLIDER_FLOOR, nullptr);
 	App->collision->AddCollider({ 300,200, 50, 100 }, COLLIDER_FLOOR, nullptr);
 	return true;
