@@ -13,13 +13,15 @@ class j1Player : public j1Module
 {
 	enum class STATE {
 		IDLE = 1,
-		ONGROUND,
-		ONAIR,
-		RUNNING_L,
-		RUNNING_R,
-		FLYING_L,
-		FLYING_R,
-		FALLING
+		RUNNING_FORWARD,
+		RUNNING_BACKWARD,
+		JUMPING,
+		JUMPING_FORWARD,
+		JUMPING_BACKWARD,
+		FALLING,
+		FALLING_FORWARD,
+		FALLING_BACKWARD,
+		NONE
 	};
 public:
 	j1Player();
@@ -43,6 +45,10 @@ public:
 	void SetAnimation(pugi::xml_node& node, Animation& anim);
 	void CalculatePosition(); 
 	void CalculateTime();
+
+	void SetPlayerState();
+	void SetPlayerActions(); 
+
 	// Collision Callback
 	void OnCollision(Collider* c1, Collider* c2);
 
