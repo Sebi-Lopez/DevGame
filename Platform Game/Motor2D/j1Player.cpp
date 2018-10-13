@@ -13,8 +13,6 @@ j1Player::j1Player()
 {
 	name.create("player");
 
-	
-
 }
 
 j1Player::~j1Player()
@@ -121,23 +119,22 @@ bool j1Player::PreUpdate()
 
 
 	SetPlayerState(); 
+	CalculateTime();	
+	SetPlayerActions();
+	CalculatePosition();
 
 	return true;
 }
 
 bool j1Player::Update(float dt)
-{
-	SetPlayerActions();
-	CalculateTime();
-	CalculatePosition();
-	
+{	
+
 	return true;
 }
 
 bool j1Player::PostUpdate()
-{
+{	
 	App->render->Blit(player_texture, (int)position.x, (int)position.y, &(current_animation->GetCurrentFrame()), 1.0F, flip);
-	player_collider->SetPos(position.x, position.y);
 	return true;
 }
 
@@ -151,12 +148,12 @@ void j1Player::CalculatePosition()
 {
 	velocity = velocity + acceleration * time;
 	position = position + velocity * time + acceleration*time*time * 0.5F;
-	future_position = position + velocity * (time + 0.1);
+	player_collider->SetPos(position.x, position.y);
 
-	if (velocity.y > 0) direction = Direction::GOING_DOWN;
-	if (velocity.y < 0) direction = Direction::GOING_UP;
-	if (velocity.x > 0) direction = Direction::GOING_RIGHT;
-	if (velocity.x < 0) direction = Direction::GOING_LEFT;
+	//if (velocity.y > 0) direction = Direction::GOING_DOWN;
+	//if (velocity.y < 0) direction = Direction::GOING_UP;
+	//if (velocity.x > 0) direction = Direction::GOING_RIGHT;
+	//if (velocity.x < 0) direction = Direction::GOING_LEFT;
 }
 
 void j1Player::CalculateTime()
@@ -341,6 +338,10 @@ void j1Player::SetPlayerState()
 		{
 			State = STATE::FALLING;
 		}
+		if (double_jump.Finished())
+		{
+			State = STATE::FALLING;
+		}
 		break;
 
 	case STATE::DOUBLE_JUMP_FORWARD:
@@ -352,6 +353,10 @@ void j1Player::SetPlayerState()
 		{
 			State = STATE::FALLING;
 		}
+		if (double_jump.Finished())
+		{
+			State = STATE::FALLING;
+		}
 		break; 
 
 	case STATE::DOUBLE_JUMP_BACKWARD:
@@ -360,6 +365,10 @@ void j1Player::SetPlayerState()
 			State = STATE::DOUBLE_JUMP;
 		}
 		if (going_down)
+		{
+			State = STATE::FALLING;
+		}
+		if (double_jump.Finished())
 		{
 			State = STATE::FALLING;
 		}
@@ -411,6 +420,7 @@ void j1Player::SetPlayerActions()
 
 	case STATE::FALLING:
 		current_animation = &fall;
+		double_jump.Reset();
 		velocity.x = 0;
 		break;
 
@@ -453,7 +463,45 @@ void j1Player::OnCollision(Collider * c1, Collider * c2)
 			acceleration.y = 0;
 			isGrounded = true;
 		}
+		/*if (position.y + c1->rect.h < c2->rect.y)
+		{
+			reject = Reject::REJECT_UP;
+		}
+		else if (position.y > c2->rect.y + c2->rect.h)
+		{
+			reject = Reject::REJECT_DOWN;
+		}
+		else if (position.x + c1->rect.w < c2->rect.x)
+		{
+			reject = Reject::REJECT_LEFT;
+		}
+		else if (position.x > c2->rect.x + c2->rect.w)
+		{
+			reject = Reject::REJECT_RIGHT;
+		}
 
+		switch (reject)
+		{
+		case Reject::REJECT_UP:
+			position.y = c2->rect.y - c1->rect.h;
+			acceleration.y = 0;
+			isGrounded = true; 
+			break;
+
+		case Reject::REJECT_DOWN:
+			break;
+
+		case Reject::REJECT_LEFT:
+			position.x = c2->rect.x - c1->rect.w;	
+			velocity.x = 0;
+			break;
+
+		case Reject::REJECT_RIGHT:
+			position.x = c2->rect.x + c2->rect.w;
+			velocity.x = 0;
+			break;
+		}*/
+		player_collider->SetPos(position.x, position.y);
 		/*switch (direction)
 		{
 		case Direction::GOING_DOWN:

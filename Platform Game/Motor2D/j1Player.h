@@ -11,13 +11,12 @@ struct Collider;
 
 class j1Player : public j1Module
 {
-	enum class Direction
+	enum class Reject
 	{
-		IDLE,
-		GOING_LEFT,
-		GOING_RIGHT,
-		GOING_UP,
-		GOING_DOWN
+		REJECT_LEFT,
+		REJECT_RIGHT,
+		REJECT_UP,
+		REJECT_DOWN
 	};
 	enum class STATE 
 	{
@@ -90,10 +89,9 @@ private:
 	float fly_speed = 40;
 	float jump_speed = 150; 
 	float gravity = 250; 
-	Direction direction = Direction::IDLE;
+	Reject reject = Reject::REJECT_UP;
 	fPoint velocity;
 	fPoint acceleration;
-	fPoint future_position; 
 	bool isGrounded = false; 
 	bool hasJumped = false;
 	bool hasDoubleJumped = false; 

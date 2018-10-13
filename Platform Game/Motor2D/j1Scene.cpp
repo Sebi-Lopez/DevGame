@@ -38,7 +38,7 @@ bool j1Scene::Start()
 	//App->map->Load("FirstMap.tmx");
 	App->audio->PlayMusic("audio/music/3.ogg");
 	App->collision->AddCollider({ 0,300, 500,100 }, COLLIDER_FLOOR, nullptr);
-	App->collision->AddCollider({ 300,200, 50, 100 }, COLLIDER_FLOOR, nullptr);
+	App->collision->AddCollider({ 300,150, 50, 100 }, COLLIDER_FLOOR, nullptr);
 	return true;
 }
 
