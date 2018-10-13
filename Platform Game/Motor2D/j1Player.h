@@ -54,18 +54,21 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
-	void SetAnimation(pugi::xml_node& node, Animation& anim);
 	void CalculatePosition(); 
+
 	void CalculateTime();
 
 	void SetPlayerState();
+
 	void SetPlayerActions(); 
+
 
 	// Collision Callback
 	void OnCollision(Collider* c1, Collider* c2);
 
 	//bool Load(pugi::xml_node&);
 	bool Save(pugi::xml_node&) const;
+	void SetAnimation(pugi::xml_node& node, Animation& anim);
 
 private:
 

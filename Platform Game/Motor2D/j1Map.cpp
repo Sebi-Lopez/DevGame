@@ -5,6 +5,7 @@
 #include "j1Textures.h"
 #include "j1Map.h"
 #include "j1Collision.h"
+#include "j1Window.h"
 #include <math.h>
 
 j1Map::j1Map() : j1Module(), map_loaded(false)
@@ -38,7 +39,7 @@ void j1Map::Draw()
 	while (layer != NULL) {
 		for (int y = 0; y < data.height; ++y)
 		{
-			for (int x = 0; x < data.width ; ++x)
+			for (int x = 0; x < (- App->render->camera.x - App->render->camera.w) / 16; ++x)
 			{
 				int tile_id = layer->data->Get(x, y);
 				if (tile_id > 0)
@@ -49,8 +50,7 @@ void j1Map::Draw()
 						SDL_Rect r = tileset->GetTileRect(tile_id);
 						iPoint pos = MapToWorld(x, y);
 						
-						if(App->render->CameraView({r}))
-							App->render->Blit(tileset->texture, pos.x, pos.y, &r, layer->data->parallax);
+						App->render->Blit(tileset->texture, pos.x, pos.y, &r, layer->data->parallax);
 						
 					}
 				}

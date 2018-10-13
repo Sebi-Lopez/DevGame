@@ -120,7 +120,7 @@ bool j1Player::PreUpdate()
 
 
 	SetPlayerState(); 
-	CalculateTime();	
+	CalculateTime();			
 	SetPlayerActions();
 	CalculatePosition();
 
@@ -163,11 +163,15 @@ void j1Player::CalculateTime()
 
 void j1Player::SetPlayerState()
 {
+
+	// Input cases 
 	bool pressed_right = (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT);
 	bool pressed_left = (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT);
 	bool released_right = (App->input->GetKey(SDL_SCANCODE_D) == KEY_UP);
 	bool released_left = (App->input->GetKey(SDL_SCANCODE_A) == KEY_UP);
 	bool pressed_space = (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN);
+
+	// Peak point of the parabol
 	bool going_down = (velocity.y >= 0);
 
 	switch (State)
@@ -460,6 +464,9 @@ void j1Player::OnCollision(Collider * c1, Collider * c2)
 			acceleration.y = 0;
 			isGrounded = true;
 		}
+
+		
+			//reject = Reject::REJECT_UP
 		/*if (position.y + c1->rect.h < c2->rect.y)
 		{
 			reject = Reject::REJECT_UP;
