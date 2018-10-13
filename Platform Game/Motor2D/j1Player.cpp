@@ -97,7 +97,8 @@ bool j1Player::Start()
 	velocity.y = 0;
 	acceleration.x = 0;
 	acceleration.y = gravity;
-	current_animation = &idle;
+	current_animation = &fall;
+	State = STATE::FALLING;
 
 	player_collider = App->collision->AddCollider({ (int)position.x, (int)position.y,19,29 }, COLLIDER_PLAYER, this);
 	return true;
@@ -131,7 +132,7 @@ bool j1Player::Update(float dt)
 
 bool j1Player::PostUpdate()
 {
-	App->render->Blit(player_texture, position.x, position.y, &(current_animation->GetCurrentFrame()), 1.0f, flip);
+	App->render->Blit(player_texture, (int)position.x, (int)position.y, &(current_animation->GetCurrentFrame()), 1.0F, flip);
 	player_collider->SetPos(position.x, position.y);
 	return true;
 }
@@ -145,8 +146,13 @@ bool j1Player::CleanUp()
 void j1Player::CalculatePosition()
 {
 	velocity = velocity + acceleration * time;
-	position = position + velocity * time;
+	position = position + velocity * time + acceleration*time*time * 0.5F;
 	future_position = position + velocity * (time + 0.1);
+
+	if (velocity.y > 0) direction = Direction::GOING_DOWN;
+	if (velocity.y < 0) direction = Direction::GOING_UP;
+	if (velocity.x > 0) direction = Direction::GOING_RIGHT;
+	if (velocity.x < 0) direction = Direction::GOING_LEFT;
 }
 
 void j1Player::CalculateTime()
@@ -215,10 +221,6 @@ void j1Player::SetPlayerState()
 		{
 			State = STATE::JUMPING_BACKWARD;
 		}
-	/*	if (isGrounded)
-		{
-			State = STATE::IDLE;
-		}*/
 		if (going_down)
 		{
 			State = STATE::FALLING;
@@ -230,10 +232,6 @@ void j1Player::SetPlayerState()
 		{
 			State = STATE::JUMPING;
 		}
-		/*if (isGrounded)
-		{
-			State = STATE::IDLE;
-		}*/
 		if (going_down)
 		{
 			State = STATE::FALLING;
@@ -245,10 +243,6 @@ void j1Player::SetPlayerState()
 		{
 			State = STATE::JUMPING;
 		}
-		/*if (isGrounded)
-		{
-			State = STATE::IDLE;
-		}*/
 		if (going_down)
 		{
 			State = STATE::FALLING;
@@ -269,6 +263,7 @@ void j1Player::SetPlayerState()
 			State = STATE::IDLE;
 		}
 		break;
+
 	case STATE::FALLING_FORWARD:
 		if (released_right || pressed_left)
 		{
@@ -353,12 +348,32 @@ void j1Player::OnCollision(Collider * c1, Collider * c2)
 {
 	if (c1->type == COLLIDER_PLAYER && c2->type == COLLIDER_FLOOR) 
 	{
-		if (velocity.y >= 0)
-		{
+		if (velocity.y >= 0) {
 			position.y = c2->rect.y - c1->rect.h;
 			acceleration.y = 0;
-			isGrounded = true; 
+			isGrounded = true;
 		}
+
+		/*switch (direction)
+		{
+		case Direction::GOING_DOWN:
+			position.y = c2->rect.y - c1->rect.h;
+			acceleration.y = 0;
+			isGrounded = true;
+			break;
+
+		case Direction::GOING_UP:
+			break;
+
+		case Direction::GOING_RIGHT:
+			position.x = c2->rect.x - c1->rect.w;
+			break;
+
+		case Direction::GOING_LEFT:
+			position.x = c2->rect.x + c2->rect.w;
+			break;
+		}
+			*/
 	}
 }
 

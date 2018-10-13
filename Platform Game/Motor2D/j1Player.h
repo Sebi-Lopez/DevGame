@@ -11,7 +11,16 @@ struct Collider;
 
 class j1Player : public j1Module
 {
-	enum class STATE {
+	enum class Direction
+	{
+		IDLE,
+		GOING_LEFT,
+		GOING_RIGHT,
+		GOING_UP,
+		GOING_DOWN
+	};
+	enum class STATE 
+	{
 		IDLE = 1,
 		RUNNING_FORWARD,
 		RUNNING_BACKWARD,
@@ -55,7 +64,7 @@ public:
 
 private:
 
-	STATE State = STATE::IDLE;
+	STATE State = STATE::FALLING;
 
 	// Animations 
 	Animation* current_animation = nullptr;
@@ -75,12 +84,13 @@ private:
 	// Position variables
 	float run_speed = 60; 
 	float fly_speed = 40;
-	float jump_speed = 100; 
-	float gravity = 110; 
+	float jump_speed = 150; 
+	float gravity = 250; 
+	Direction direction = Direction::IDLE;
 	fPoint velocity;
 	fPoint acceleration;
 	fPoint future_position; 
-	bool isGrounded = true; 
+	bool isGrounded = false; 
 	bool hasJumped = false;
 	// Collider variables
 	

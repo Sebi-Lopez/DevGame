@@ -38,6 +38,7 @@ bool j1Scene::Start()
 	//App->map->Load("FirstMap.tmx");
 	
 	App->collision->AddCollider({ 0,300, 500,100 }, COLLIDER_FLOOR, nullptr);
+	App->collision->AddCollider({ 300,200, 50, 100 }, COLLIDER_FLOOR, nullptr);
 	return true;
 }
 
