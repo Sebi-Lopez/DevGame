@@ -174,6 +174,8 @@ void j1Player::SetPlayerState()
 
 	switch (State)
 	{
+		// ON GROUND CASES
+
 	case STATE::IDLE:
 		if (pressed_right && !pressed_left)
 		{
@@ -211,6 +213,9 @@ void j1Player::SetPlayerState()
 		}
 		break;
 
+
+		// JUMPING CASES
+
 	case STATE::JUMPING:
 	
 		if (pressed_right && !pressed_left)
@@ -225,6 +230,10 @@ void j1Player::SetPlayerState()
 		{
 			State = STATE::FALLING;
 		}
+		if (pressed_space && !hasDoubleJumped)
+		{
+			State = STATE::DOUBLE_JUMP;
+		}
 		break;
 
 	case STATE::JUMPING_FORWARD:
@@ -236,6 +245,11 @@ void j1Player::SetPlayerState()
 		{
 			State = STATE::FALLING;
 		}
+		if (pressed_space && !hasDoubleJumped)
+		{
+			State = STATE::DOUBLE_JUMP;
+		}
+
 		break;
 
 	case STATE::JUMPING_BACKWARD:
@@ -247,7 +261,14 @@ void j1Player::SetPlayerState()
 		{
 			State = STATE::FALLING;
 		}
+		if (pressed_space && !hasDoubleJumped)
+		{
+			State = STATE::DOUBLE_JUMP;
+		}
 		break;	
+
+
+		// FALLING CASES
 
 	case STATE::FALLING:
 		if (pressed_right && !pressed_left)
@@ -262,6 +283,10 @@ void j1Player::SetPlayerState()
 		{
 			State = STATE::IDLE;
 		}
+		if (pressed_space && !hasDoubleJumped)
+		{
+			State = STATE::DOUBLE_JUMP;
+		}
 		break;
 
 	case STATE::FALLING_FORWARD:
@@ -273,6 +298,11 @@ void j1Player::SetPlayerState()
 		{
 			State = STATE::IDLE;
 		}
+		
+		if (pressed_space && !hasDoubleJumped)
+		{
+			State = STATE::DOUBLE_JUMP;
+		}
 		break;
 
 	case STATE::FALLING_BACKWARD:
@@ -283,6 +313,51 @@ void j1Player::SetPlayerState()
 		if (isGrounded)
 		{
 			State = STATE::IDLE;
+		}
+
+		if (pressed_space && !hasDoubleJumped)
+		{
+			State = STATE::DOUBLE_JUMP;
+		}
+		break;
+
+
+		// DOUBLE JUMP CASES
+
+	case STATE::DOUBLE_JUMP:
+		if (pressed_right && !pressed_left)
+		{
+			State = STATE::DOUBLE_JUMP_FORWARD;
+		}
+		if (pressed_left && !pressed_right)
+		{
+			State = STATE::DOUBLE_JUMP_BACKWARD;
+		}
+		if (going_down)
+		{
+			State = STATE::FALLING;
+		}
+		break;
+
+	case STATE::DOUBLE_JUMP_FORWARD:
+		if (released_right || pressed_left)
+		{
+			State = STATE::DOUBLE_JUMP;
+		}
+		if (going_down)
+		{
+			State = STATE::FALLING;
+		}
+		break; 
+
+	case STATE::DOUBLE_JUMP_BACKWARD:
+		if (released_left || pressed_right)
+		{
+			State = STATE::DOUBLE_JUMP;
+		}
+		if (going_down)
+		{
+			State = STATE::FALLING;
 		}
 		break;
 	}
@@ -296,6 +371,7 @@ void j1Player::SetPlayerActions()
 		velocity.x = 0; 
 		current_animation = &idle;
 		hasJumped = false; 
+		hasDoubleJumped = false;
 		break;
 
 	case STATE::RUNNING_FORWARD:
@@ -339,6 +415,26 @@ void j1Player::SetPlayerActions()
 		break;
 
 	case STATE::FALLING_BACKWARD:
+		velocity.x = -fly_speed;
+		break;
+
+	case STATE::DOUBLE_JUMP:
+		velocity.x = 0;
+		//current_animation = &double_jump;
+		if (!hasDoubleJumped)
+		{
+			velocity.y = -jump_speed;
+			acceleration.y = gravity;
+			hasDoubleJumped = true;
+			isGrounded = false;
+		}
+		break;
+
+	case STATE::DOUBLE_JUMP_FORWARD:
+		velocity.x = fly_speed;
+		break;
+
+	case STATE::DOUBLE_JUMP_BACKWARD:
 		velocity.x = -fly_speed;
 		break;
 	}

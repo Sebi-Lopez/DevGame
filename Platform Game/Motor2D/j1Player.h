@@ -27,6 +27,9 @@ class j1Player : public j1Module
 		JUMPING,
 		JUMPING_FORWARD,
 		JUMPING_BACKWARD,
+		DOUBLE_JUMP,
+		DOUBLE_JUMP_FORWARD,
+		DOUBLE_JUMP_BACKWARD,
 		FALLING,
 		FALLING_FORWARD,
 		FALLING_BACKWARD,
@@ -71,6 +74,7 @@ private:
 	Animation idle;
 	Animation run;
 	Animation jump;
+	Animation double_jump;		// NOTICE ME -- I must be not LOOPABLE
 	Animation fall;
 	Animation attack;
 	Animation climb;
@@ -92,6 +96,7 @@ private:
 	fPoint future_position; 
 	bool isGrounded = false; 
 	bool hasJumped = false;
+	bool hasDoubleJumped = false; 
 	// Collider variables
 	
 	Collider* player_collider = nullptr; 
