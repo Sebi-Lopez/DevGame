@@ -75,6 +75,14 @@ bool j1Player::Awake(pugi::xml_node& node)
 	double_jump.speed = node.child("animations").child("doublejanimation").attribute("speed").as_float();
 	double_jump.loop = node.child("animations").child("doublejanimation").attribute("loop").as_bool();
 
+	position.x = node.child("playerattributes").attribute("x").as_float();
+	position.y = node.child("playerattributes").attribute("y").as_float();
+	velocity.x = node.child("playerattributes").attribute("velx").as_float();
+	velocity.y = node.child("playerattributes").attribute("vely").as_float();
+	acceleration.x = node.child("playerattributes").attribute("accx").as_float();
+	gravity = node.child("playerattributes").attribute("gravity").as_float();
+	acceleration.y = gravity;
+
 	return true;
 }
 
@@ -94,13 +102,9 @@ bool j1Player::Start()
 
 	last_time = actual_time = SDL_GetTicks();
 
-	position.x = 10.f;
-	position.y = 200.f;
 
-	velocity.x = 0;
-	velocity.y = 0;
-	acceleration.x = 0;
-	acceleration.y = gravity;
+
+
 	current_animation = &fall;
 	State = STATE::FALLING;
 
@@ -372,7 +376,7 @@ void j1Player::SetPlayerActions()
 	switch (State)
 	{
 	case STATE::IDLE:
-		velocity.x = 0; 
+		velocity.x; 
 		current_animation = &idle;
 		hasJumped = false; 
 		hasDoubleJumped = false;
@@ -389,7 +393,7 @@ void j1Player::SetPlayerActions()
 		break;
 
 	case STATE::JUMPING:		
-		velocity.x = 0;
+		velocity.x;
 		current_animation = &jump;
 		if (!hasJumped) 
 		{
@@ -411,7 +415,7 @@ void j1Player::SetPlayerActions()
 
 	case STATE::FALLING:
 		current_animation = &fall;
-		velocity.x = 0;
+		velocity.x;
 		break;
 
 	case STATE::FALLING_FORWARD:
@@ -423,7 +427,7 @@ void j1Player::SetPlayerActions()
 		break;
 
 	case STATE::DOUBLE_JUMP:
-		velocity.x = 0;
+		velocity.x;
 		current_animation = &double_jump;
 		if (!hasDoubleJumped)
 		{
@@ -489,4 +493,12 @@ void j1Player::SetAnimation(pugi::xml_node& node, Animation& anim) {
 	}
 }
 
+bool j1Player::Save(pugi::xml_node& node) const{
+	pugi::xml_node posave = node.append_child("player");
+
+	posave.append_attribute("x") = position.x;
+	posave.append_attribute("y") = position.y;
+
+	return true;
+}
 
