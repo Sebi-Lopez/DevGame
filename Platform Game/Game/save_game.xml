@@ -7,7 +7,7 @@
 	<map />
 	<scene />
 	<player>
-		<platerattributes x="252.47995" y="251.517746" velocityx="60" velocityy="93.25" gravity="250" currentanimation="true" state="IDLE" />
+		<playerattributes x="134" y="249" velocityx="0" velocityy="91" state="IDLE" />
 	</player>
 	<:anonymous />
 	<renderer>

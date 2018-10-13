@@ -13,8 +13,6 @@ j1Player::j1Player()
 {
 	name.create("player");
 
-	
-
 }
 
 j1Player::~j1Player()
@@ -75,12 +73,12 @@ bool j1Player::Awake(pugi::xml_node& node)
 	double_jump.speed = node.child("animations").child("doublejanimation").attribute("speed").as_float();
 	double_jump.loop = node.child("animations").child("doublejanimation").attribute("loop").as_bool();
 
-	position.x = node.child("playerattributes").attribute("x").as_float();
-	position.y = node.child("playerattributes").attribute("y").as_float();
-	velocity.x = node.child("playerattributes").attribute("velx").as_float();
-	velocity.y = node.child("playerattributes").attribute("vely").as_float();
-	acceleration.x = node.child("playerattributes").attribute("accx").as_float();
-	gravity = node.child("playerattributes").attribute("gravity").as_float();
+	position.x = node.child("initial_attributes").attribute("x").as_float();
+	position.y = node.child("initial_attributes").attribute("y").as_float();
+	velocity.x = node.child("initial_attributes").attribute("velx").as_float();
+	velocity.y = node.child("initial_attributes").attribute("vely").as_float();
+	acceleration.x = node.child("initial_attributes").attribute("accx").as_float();
+	gravity = node.child("initial_attributes").attribute("gravity").as_float();
 	acceleration.y = gravity;
 
 	return true;
@@ -102,9 +100,6 @@ bool j1Player::Start()
 
 	last_time = actual_time = SDL_GetTicks();
 
-
-
-
 	current_animation = &fall;
 	State = STATE::FALLING;
 
@@ -125,25 +120,25 @@ bool j1Player::PreUpdate()
 
 
 	SetPlayerState(); 
+	CalculateTime();			
+	SetPlayerActions();
+	CalculatePosition();
 
 	return true;
 }
 
 bool j1Player::Update(float dt)
-{
-	SetPlayerActions();
-	CalculateTime();
-	CalculatePosition();
-	
-	
 
+{
+	
 	return true;
 }
 
 bool j1Player::PostUpdate()
+
 {
 	App->render->Blit(player_texture, (int)position.x, (int)position.y, &(current_animation->GetCurrentFrame()), 1.0f, flip);
-	player_collider->SetPos(position.x, position.y);
+	
 	return true;
 }
 
@@ -157,12 +152,8 @@ void j1Player::CalculatePosition()
 {
 	velocity = velocity + acceleration * time;
 	position = position + velocity * time + acceleration*time*time * 0.5F;
-	future_position = position + velocity * (time + 0.1);
+	player_collider->SetPos(position.x, position.y);
 
-	if (velocity.y > 0) direction = Direction::GOING_DOWN;
-	if (velocity.y < 0) direction = Direction::GOING_UP;
-	if (velocity.x > 0) direction = Direction::GOING_RIGHT;
-	if (velocity.x < 0) direction = Direction::GOING_LEFT;
 }
 
 void j1Player::CalculateTime()
@@ -175,11 +166,15 @@ void j1Player::CalculateTime()
 
 void j1Player::SetPlayerState()
 {
+
+	// Input cases 
 	bool pressed_right = (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT);
 	bool pressed_left = (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT);
 	bool released_right = (App->input->GetKey(SDL_SCANCODE_D) == KEY_UP);
 	bool released_left = (App->input->GetKey(SDL_SCANCODE_A) == KEY_UP);
 	bool pressed_space = (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN);
+
+	// Peak point of the parabol
 	bool going_down = (velocity.y >= 0);
 
 	switch (State)
@@ -347,6 +342,10 @@ void j1Player::SetPlayerState()
 		{
 			State = STATE::FALLING;
 		}
+		if (double_jump.Finished())
+		{
+			State = STATE::FALLING;
+		}
 		break;
 
 	case STATE::DOUBLE_JUMP_FORWARD:
@@ -355,6 +354,10 @@ void j1Player::SetPlayerState()
 			State = STATE::DOUBLE_JUMP;
 		}
 		if (going_down)
+		{
+			State = STATE::FALLING;
+		}
+		if (double_jump.Finished())
 		{
 			State = STATE::FALLING;
 		}
@@ -369,6 +372,10 @@ void j1Player::SetPlayerState()
 		{
 			State = STATE::FALLING;
 		}
+		if (double_jump.Finished())
+		{
+			State = STATE::FALLING;
+		}
 		break;
 	}
 }
@@ -378,7 +385,7 @@ void j1Player::SetPlayerActions()
 	switch (State)
 	{
 	case STATE::IDLE:
-		velocity.x; 
+		velocity.x = 0; 
 		current_animation = &idle;
 		hasJumped = false; 
 		hasDoubleJumped = false;
@@ -395,7 +402,7 @@ void j1Player::SetPlayerActions()
 		break;
 
 	case STATE::JUMPING:		
-		velocity.x;
+		velocity.x = 0;
 		current_animation = &jump;
 		if (!hasJumped) 
 		{
@@ -415,9 +422,10 @@ void j1Player::SetPlayerActions()
 		break;
 
 
-	case STATE::FALLING:
+	case STATE::FALLING:		
+		velocity.x = 0;
 		current_animation = &fall;
-		velocity.x;
+		double_jump.Reset();
 		break;
 
 	case STATE::FALLING_FORWARD:
@@ -429,7 +437,7 @@ void j1Player::SetPlayerActions()
 		break;
 
 	case STATE::DOUBLE_JUMP:
-		velocity.x;
+		velocity.x = 0;
 		current_animation = &double_jump;
 		if (!hasDoubleJumped)
 		{
@@ -460,6 +468,47 @@ void j1Player::OnCollision(Collider * c1, Collider * c2)
 			isGrounded = true;
 		}
 
+		
+			//reject = Reject::REJECT_UP
+		/*if (position.y + c1->rect.h < c2->rect.y)
+		{
+			reject = Reject::REJECT_UP;
+		}
+		else if (position.y > c2->rect.y + c2->rect.h)
+		{
+			reject = Reject::REJECT_DOWN;
+		}
+		else if (position.x + c1->rect.w < c2->rect.x)
+		{
+			reject = Reject::REJECT_LEFT;
+		}
+		else if (position.x > c2->rect.x + c2->rect.w)
+		{
+			reject = Reject::REJECT_RIGHT;
+		}
+
+		switch (reject)
+		{
+		case Reject::REJECT_UP:
+			position.y = c2->rect.y - c1->rect.h;
+			acceleration.y = 0;
+			isGrounded = true; 
+			break;
+
+		case Reject::REJECT_DOWN:
+			break;
+
+		case Reject::REJECT_LEFT:
+			position.x = c2->rect.x - c1->rect.w;	
+			velocity.x = 0;
+			break;
+
+		case Reject::REJECT_RIGHT:
+			position.x = c2->rect.x + c2->rect.w;
+			velocity.x = 0;
+			break;
+		}*/
+		player_collider->SetPos(position.x, position.y);
 		/*switch (direction)
 		{
 		case Direction::GOING_DOWN:

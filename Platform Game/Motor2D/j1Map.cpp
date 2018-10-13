@@ -5,6 +5,7 @@
 #include "j1Textures.h"
 #include "j1Map.h"
 #include "j1Collision.h"
+#include "j1Window.h"
 #include <math.h>
 
 j1Map::j1Map() : j1Module(), map_loaded(false)
@@ -49,8 +50,12 @@ void j1Map::Draw()
 						SDL_Rect r = tileset->GetTileRect(tile_id);
 						iPoint pos = MapToWorld(x, y);
 						
+
 						//if(App->render->CameraView({pos.x,pos.y,r.w,r.w}))
 							App->render->Blit(tileset->texture, pos.x, pos.y, &r, layer->data->parallax);
+
+
+
 						
 					}
 				}
