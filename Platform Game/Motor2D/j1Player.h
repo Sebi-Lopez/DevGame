@@ -81,7 +81,7 @@ private:
 	fPoint acceleration;
 	fPoint future_position; 
 	bool isGrounded = true; 
-
+	bool hasJumped = false;
 	// Collider variables
 	
 	Collider* player_collider = nullptr; 

@@ -106,45 +106,14 @@ bool j1Player::Start()
 bool j1Player::PreUpdate()
 {
 
-	//current_animation = &idle;
-
 	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && App->input->GetKey(SDL_SCANCODE_A) == KEY_IDLE) {
-		flip = false; 
-		/*velocity.x = run_speed;
-		current_animation = &run;
-		attacked = false;*/
-		
+		flip = false;		
 	}
 	
 	else if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && App->input->GetKey(SDL_SCANCODE_D) == KEY_IDLE) {
 		flip = true; 
-	/*	velocity.x = -run_speed;
-		current_animation = &run;
-		attacked=false;*/
-	}
-	else
-	{
-	/*	velocity.x = 0;*/
-	}
-	
-	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
-	/*	velocity.y =  - jump_speed;
-		current_animation = &jump;*/
-	}
-	else if (App->input->GetKey(SDL_SCANCODE_O) == KEY_DOWN) {
-		
-		current_animation = &attack;
-		attacked = true;
-	}
-	else if (attacked == true) {
-		current_animation = &idlesword;
-	}
-	if (App->input->GetKey(SDL_SCANCODE_RSHIFT) == KEY_REPEAT)
-		current_animation = &crouch;
-	
+	}	
 
-
-	
 
 	SetPlayerState(); 
 
@@ -184,7 +153,7 @@ void j1Player::CalculateTime()
 {
 	actual_time = SDL_GetTicks();
 	time = actual_time - last_time;
-	time /= 1000;
+	time /= 1000;			
 	last_time = actual_time;
 }
 
@@ -236,6 +205,7 @@ void j1Player::SetPlayerState()
 		break;
 
 	case STATE::JUMPING:
+	
 		if (pressed_right && !pressed_left)
 		{
 			State = STATE::JUMPING_FORWARD;
@@ -244,6 +214,12 @@ void j1Player::SetPlayerState()
 		{
 			State = STATE::JUMPING_BACKWARD;
 		}
+
+		if (isGrounded)
+		{
+			State = STATE::IDLE;
+		}
+
 		break;
 
 	case STATE::JUMPING_FORWARD:
@@ -251,12 +227,20 @@ void j1Player::SetPlayerState()
 		{
 			State = STATE::JUMPING;
 		}
+		if (isGrounded)
+		{
+			State = STATE::IDLE;
+		}
 		break;
 
 	case STATE::JUMPING_BACKWARD:
 		if (released_left || pressed_right)
 		{
 			State = STATE::JUMPING;
+		}
+		if (isGrounded)
+		{
+			State = STATE::IDLE;
 		}
 		break;		
 	}
@@ -272,6 +256,7 @@ void j1Player::SetPlayerActions()
 	case STATE::IDLE:
 		velocity.x = 0; 
 		current_animation = &idle;
+		hasJumped = false; 
 		break;
 
 	case STATE::RUNNING_FORWARD:
@@ -287,12 +272,13 @@ void j1Player::SetPlayerActions()
 	case STATE::JUMPING:		
 		velocity.x = 0;
 		current_animation = &jump;
-		if (isGrounded) 
+		if (!hasJumped) 
 		{
 			velocity.y = -jump_speed;			
-			acceleration.y = gravity;
+			acceleration.y = gravity;		
+			hasJumped = true;		
+			isGrounded = false;
 		}
-		isGrounded = false;
 		break;
 
 	case STATE::JUMPING_FORWARD:
