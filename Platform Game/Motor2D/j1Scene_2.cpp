@@ -9,6 +9,7 @@
 #include "j1Map.h"
 #include "j1Scene_2.h"
 #include "j1Collision.h"
+#include "j1FadeToBlack.h"
 #include "j1Player.h"
 
 
@@ -38,7 +39,13 @@ bool j1Scene_2::Start()
 	App->map->Load("SecondMap.tmx");
 	App->audio->PlayMusic("audio/music/SecondMap.ogg");
 
+	App->player->Activate();	
+	App->map->Activate();
+	App->collision->Activate();
+	App->audio->Activate();
 
+	App->player->position.y = 0;
+	App->player->position.x = 25; 
 	/*App->collision->AddCollider({ 0,300, 500,100 }, COLLIDER_FLOOR, nullptr);
 	App->collision->AddCollider({ 300,150, 50, 100 }, COLLIDER_FLOOR, nullptr);*/
 	return true;
@@ -71,7 +78,8 @@ bool j1Scene_2::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
 		App->render->camera.x -= 10;
 
-
+	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
+		App->fade->FadeToBlack((j1Module*)this, (j1Module*)App->scene);
 
 
 	App->map->Draw();
@@ -104,6 +112,11 @@ bool j1Scene_2::PostUpdate()
 bool j1Scene_2::CleanUp()
 {
 	LOG("Freeing scene");
+
+	App->player->Deactivate();
+	App->collision->Deactivate();
+	App->map->Deactivate();
+	App->audio->Deactivate();
 
 	return true;
 }

@@ -9,7 +9,6 @@
 	<player>
 		<playerattributes x="10" y="271" velocityx="0" velocityy="185.25" state="IDLE" />
 	</player>
-	<:anonymous />
 	<renderer>
 		<camera x="-470" y="-120" />
 	</renderer>

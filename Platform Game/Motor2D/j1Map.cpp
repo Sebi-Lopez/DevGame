@@ -50,13 +50,8 @@ void j1Map::Draw()
 						SDL_Rect r = tileset->GetTileRect(tile_id);
 						iPoint pos = MapToWorld(x, y);
 						
-
-						//if(App->render->CameraView({pos.x,pos.y,r.w,r.w}))
+						if(App->render->CameraView({pos.x,pos.y,r.w,r.w}))
 							App->render->Blit(tileset->texture, pos.x, pos.y, &r, layer->data->parallax);
-
-
-
-						
 					}
 				}
 			}

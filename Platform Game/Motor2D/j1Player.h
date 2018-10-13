@@ -18,7 +18,7 @@ class j1Player : public j1Module
 		REJECT_UP,
 		REJECT_DOWN
 	};
-	enum class STATE 
+	enum class STATE
 	{
 		IDLE = 1,
 		RUNNING_FORWARD,
@@ -32,6 +32,7 @@ class j1Player : public j1Module
 		FALLING,
 		FALLING_FORWARD,
 		FALLING_BACKWARD,
+		DEAD,
 		NONE
 	};
 
