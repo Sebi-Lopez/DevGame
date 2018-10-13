@@ -164,6 +164,7 @@ void j1Player::SetPlayerState()
 	bool released_right = (App->input->GetKey(SDL_SCANCODE_D) == KEY_UP);
 	bool released_left = (App->input->GetKey(SDL_SCANCODE_A) == KEY_UP);
 	bool pressed_space = (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN);
+	bool going_down = (velocity.y >= 0);
 
 	switch (State)
 	{
@@ -214,12 +215,14 @@ void j1Player::SetPlayerState()
 		{
 			State = STATE::JUMPING_BACKWARD;
 		}
-
-		if (isGrounded)
+	/*	if (isGrounded)
 		{
 			State = STATE::IDLE;
+		}*/
+		if (going_down)
+		{
+			State = STATE::FALLING;
 		}
-
 		break;
 
 	case STATE::JUMPING_FORWARD:
@@ -227,9 +230,13 @@ void j1Player::SetPlayerState()
 		{
 			State = STATE::JUMPING;
 		}
-		if (isGrounded)
+		/*if (isGrounded)
 		{
 			State = STATE::IDLE;
+		}*/
+		if (going_down)
+		{
+			State = STATE::FALLING;
 		}
 		break;
 
@@ -238,15 +245,52 @@ void j1Player::SetPlayerState()
 		{
 			State = STATE::JUMPING;
 		}
+		/*if (isGrounded)
+		{
+			State = STATE::IDLE;
+		}*/
+		if (going_down)
+		{
+			State = STATE::FALLING;
+		}
+		break;	
+
+	case STATE::FALLING:
+		if (pressed_right && !pressed_left)
+		{
+			State = STATE::FALLING_FORWARD;
+		}
+		if (pressed_left && !pressed_right)
+		{
+			State = STATE::FALLING_BACKWARD;
+		}
 		if (isGrounded)
 		{
 			State = STATE::IDLE;
 		}
-		break;		
+		break;
+	case STATE::FALLING_FORWARD:
+		if (released_right || pressed_left)
+		{
+			State = STATE::FALLING;
+		}
+		if (isGrounded)
+		{
+			State = STATE::IDLE;
+		}
+		break;
+
+	case STATE::FALLING_BACKWARD:
+		if (released_left || pressed_right)
+		{
+			State = STATE::FALLING;
+		}
+		if (isGrounded)
+		{
+			State = STATE::IDLE;
+		}
+		break;
 	}
-
-
-
 }
 
 void j1Player::SetPlayerActions()
@@ -286,6 +330,20 @@ void j1Player::SetPlayerActions()
 		break;
 
 	case STATE::JUMPING_BACKWARD:
+		velocity.x = -fly_speed;
+		break;
+
+
+	case STATE::FALLING:
+		current_animation = &fall;
+		velocity.x = 0;
+		break;
+
+	case STATE::FALLING_FORWARD:
+		velocity.x = fly_speed;
+		break;
+
+	case STATE::FALLING_BACKWARD:
 		velocity.x = -fly_speed;
 		break;
 	}
