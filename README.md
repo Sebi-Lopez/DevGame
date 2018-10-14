@@ -1,4 +1,4 @@
-# 2D Platform Game
+# Jungle Jumper
 Game for Development of Games subject, created by two students of the University of Terrassa, CITM, Eric Navarro and Sebastia Lopez.
 
 ### How I Play This Game?
@@ -36,8 +36,18 @@ We have implemented double jump for the player.
 
 Programming: Sebastián Lopez Tenorio
 
-Github:https://github.com/Sebi-Lopez
+Github: https://github.com/Sebi-Lopez
 
 Programming: Eric Navarro de Santiago
 
-Github:https://github.com/lakaens
+Github: https://github.com/lakaens
+
+Art from the first map: https://opengameart.org/content/magic-cliffs-environment
+
+Art from the second map: https://opengameart.org/content/seamless-hd-landscape-in-parts
+
+Player sprites: https://rvros.itch.io/animated-pixel-hero
+
+Jump: http://sonidosmp3gratis.com/
+
+Music: https://patrickdearteaga.com/audio/Intergalactic%20Odyssey.ogg
