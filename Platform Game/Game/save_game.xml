@@ -10,13 +10,13 @@
 	<scene />
 	<scene />
 	<player>
-		<playerattributes x="352.380035" y="272.332916" state="FALLING">
+		<playerattributes x="10" y="296" state="IDLE">
 			<map value="false" />
 		</playerattributes>
 	</player>
 	<:anonymous />
 	<:anonymous />
 	<renderer>
-		<camera x="-448" y="-120" />
+		<camera x="0" y="-120" />
 	</renderer>
 </game_state>

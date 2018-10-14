@@ -14,7 +14,6 @@ struct Properties
 {
 };
 
-// ----------------------------------------------------
 struct MapLayer
 {
 	p2SString	name;
@@ -55,6 +54,11 @@ struct TileSet
 	int					num_tiles_height;
 	int					offset_x;
 	int					offset_y;
+
+	/*~TileSet()
+	{
+		RELEASE(texture);
+	}*/
 };
 
 enum MapTypes
