@@ -9,7 +9,7 @@
   <renderer>
     <vsync value="true"/>
   </renderer>
-  <camera x="" y=""/>
+  
   <window>
     <resolution width="1024" height="768" scale="2"/>
     <fullscreen value="false"/>
@@ -120,6 +120,10 @@
     </animations>
     <initial_attributes x="10.f" y="200.f" velx="0.f" vely="0.f" accx="0.f" gravity="250.f"/>
   </player>
+  <audio>
+    <music path1="audio/music/FirstMap.ogg" path2="audio/music/SecondMap.ogg"/>
+    <fx jump="audio/fx/jump.wav" />
+  </audio>
   <file_system>
     <path>data.zip</path>
   </file_system>
