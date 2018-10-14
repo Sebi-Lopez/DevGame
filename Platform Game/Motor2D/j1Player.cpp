@@ -139,25 +139,6 @@ bool j1Player::PreUpdate()
 bool j1Player::Update(float dt)
 
 {
-	/*if (-position.x<100)
-	{
-		App->render->camera.x = 0;
-	}
-	else
-	{*/
-		App->render->camera.x = (-position.x * App->win->scale) + (App->win->width / 2);
-	//}
-	/*if (-position.y>8)
-	{
-		App->render->camera.y = 100;
-	}
-	else if(position.y<370)
-	{
-		App->render->camera.y = 200;
-	}
-	else {*/
-		App->render->camera.y = (-position.y * App->win->scale) + (App->win->height / 2);
-	//}
 	
 	return true;
 }
