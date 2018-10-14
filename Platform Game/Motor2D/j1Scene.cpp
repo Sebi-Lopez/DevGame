@@ -43,17 +43,11 @@ bool j1Scene::Start()
 	App->audio->PlayMusic(App->audio->music1.GetString());
 	App->audio->MusicVolume(App->audio->volume);
 
-
-
-	
 	App->player->Activate();
 	App->collision->Activate();
 	App->map->Activate();
 	App->audio->Activate();
 
-
-	App->collision->AddCollider({ 0,300, 500,100 }, COLLIDER_FLOOR, nullptr);
-	//App->collision->AddCollider({ 300,150, 50, 100 }, COLLIDER_FLOOR, nullptr);
 
 	return true;
 }
@@ -139,7 +133,7 @@ bool j1Scene::CleanUp()
 
 	App->player->Deactivate();
 	App->collision->Deactivate();
-	App->map->Deactivate();
+	App->map->Reset();
 	App->audio->Deactivate();
 
 

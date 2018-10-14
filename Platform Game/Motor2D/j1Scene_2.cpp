@@ -44,10 +44,6 @@ bool j1Scene_2::Start()
 	App->collision->Activate();
 	App->audio->Activate();
 
-	App->player->position.y = 0;
-	App->player->position.x = 25; 
-	/*App->collision->AddCollider({ 0,300, 500,100 }, COLLIDER_FLOOR, nullptr);
-	App->collision->AddCollider({ 300,150, 50, 100 }, COLLIDER_FLOOR, nullptr);*/
 	return true;
 }
 
@@ -115,8 +111,7 @@ bool j1Scene_2::CleanUp()
 
 	App->player->Deactivate();
 	App->collision->Deactivate();
-	App->map->Deactivate();
+	App->map->Reset();
 	App->audio->Deactivate();
-
 	return true;
 }

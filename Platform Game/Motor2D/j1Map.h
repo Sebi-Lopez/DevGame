@@ -99,6 +99,8 @@ public:
 	// Load new map
 	bool Load(const char* path);
 
+	bool Reset();
+
 	iPoint MapToWorld(int x, int y) const;
 	iPoint WorldToMap(int x, int y) const;
 	void LoadCollisions(pugi::xml_node &node);
