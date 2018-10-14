@@ -96,6 +96,8 @@ bool j1Scene::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
 		App->fade->FadeToBlack((j1Module*) this, (j1Module*)App->scene_2);
 
+	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
+		App->fade->FadeToBlack((j1Module*)this, (j1Module*)this);
 
 
 
