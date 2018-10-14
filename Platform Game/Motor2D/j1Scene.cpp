@@ -40,10 +40,12 @@ bool j1Scene::Start()
 	
 	App->map->Load("FirstMap.tmx");
 
+
 	App->audio->PlayMusic(App->audio->music1.GetString());
 	App->audio->MusicVolume(App->audio->volume);
+	App->player->isSecondMap = false;
 
-	
+
 	App->collision->Activate();
 	App->map->Activate();
 	App->audio->Activate();
@@ -105,7 +107,6 @@ bool j1Scene::Update(float dt)
 
 
 	App->map->Draw();
-
 	
 	return true;
 }
@@ -136,3 +137,4 @@ bool j1Scene::CleanUp()
 
 	return true;
 }
+

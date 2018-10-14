@@ -540,6 +540,7 @@ void j1Player::OnCollision(Collider * c1, Collider * c2)
 	 
 	if (c2->type == COLLIDER_END)
 		State = STATE::WIN;
+
 }
 
 void j1Player::SetAnimation(pugi::xml_node& node, Animation& anim) {
@@ -560,8 +561,27 @@ bool j1Player::Load(pugi::xml_node& node)
 	pugi::xml_node load = node.child("playerattributes");
 	position.x = load.attribute("x").as_float();
 	position.y = load.attribute("y").as_float();
+	bool wasSecondMap = load.child("map").attribute("value").as_bool();
 	
-	
+
+	if (wasSecondMap == true)
+	{
+		if(isSecondMap == true)
+			App->fade->FadeToBlack((j1Module*)App->scene_2, (j1Module*)App->scene_2);
+		else
+			App->fade->FadeToBlack((j1Module*)App->scene, (j1Module*)App->scene_2);
+	}
+
+	else 
+	{
+		if(isSecondMap == true)
+			App->fade->FadeToBlack((j1Module*)App->scene_2, (j1Module*)App->scene);
+
+		else
+			App->fade->FadeToBlack((j1Module*)App->scene, (j1Module*)App->scene);
+
+	}
+
 	p2SString state=load.attribute("state").as_string();
 	if (state == "IDLE") {
 		State = STATE::IDLE;
@@ -608,6 +628,10 @@ bool j1Player::Save(pugi::xml_node& node) const{
 
 	save.append_attribute("x") = position.x;
 	save.append_attribute("y") = position.y;
+	
+	
+	save.append_child("map").append_attribute("value") = isSecondMap;
+	
 	
 	
 	
