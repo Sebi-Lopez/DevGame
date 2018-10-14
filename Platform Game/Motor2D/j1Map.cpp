@@ -8,6 +8,9 @@
 #include "j1Window.h"
 #include <math.h>
 
+
+#define OFFSET 50
+
 j1Map::j1Map() : j1Module(), map_loaded(false)
 {
 	name.create("map");
@@ -37,9 +40,6 @@ void j1Map::Draw()
 
 	App->win->GetWindowSize(camera_width, camera_height);	
 
-	
-		
-		
 	p2List_item<MapLayer*>* layer = this->data.layers.start;
 	while (layer != NULL) {
 		iPoint top_left_camera = WorldToMap(-App->render->camera.x * layer->data->parallax / App->win->GetScale(), 0);
@@ -48,12 +48,12 @@ void j1Map::Draw()
 		if (top_left_camera.x < 0)
 			top_left_camera.x = 0;
 
-		if (bottom_right_camera.x > layer->data->width)
-			bottom_right_camera.x = layer->data->width;
+		if (bottom_right_camera.x > data.width)
+			bottom_right_camera.x = data.width;
 
 		for (int y = 0; y < data.height ; ++y)
 		{
-			for (int x = top_left_camera.x; x < bottom_right_camera.x; ++x)
+			for (int x = top_left_camera.x; x <= bottom_right_camera.x; ++x)
 			{
 				int tile_id = layer->data->Get(x, y);
 				if (tile_id > 0)
