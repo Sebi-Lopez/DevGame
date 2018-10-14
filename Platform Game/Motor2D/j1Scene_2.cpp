@@ -44,6 +44,9 @@ bool j1Scene_2::Start()
 	App->collision->Activate();
 	App->audio->Activate();
 
+	App->render->camera.x = 0;
+	App->render->camera.y = -120;
+
 	return true;
 }
 

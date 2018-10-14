@@ -469,7 +469,7 @@ void j1Player::SetPlayerActions()
 		break;
 
 	case STATE::DEAD:
-		App->fade->FadeToBlack((j1Module*)App->scene, (j1Module*)App->scene_2);
+		App->fade->FadeToBlack((j1Module*)App->scene, (j1Module*)App->scene);
 		break;
 	}
 }
@@ -483,72 +483,16 @@ void j1Player::OnCollision(Collider * c1, Collider * c2)
 			acceleration.y = 0;
 			isGrounded = true;
 		}
-
 		
-			//reject = Reject::REJECT_UP
-		/*if (position.y + c1->rect.h < c2->rect.y)
-		{
-			reject = Reject::REJECT_UP;
-		}
-		else if (position.y > c2->rect.y + c2->rect.h)
-		{
-			reject = Reject::REJECT_DOWN;
-		}
-		else if (position.x + c1->rect.w < c2->rect.x)
-		{
-			reject = Reject::REJECT_LEFT;
-		}
-		else if (position.x > c2->rect.x + c2->rect.w)
-		{
-			reject = Reject::REJECT_RIGHT;
-		}
-
-		switch (reject)
-		{
-		case Reject::REJECT_UP:
-			position.y = c2->rect.y - c1->rect.h;
-			acceleration.y = 0;
-			isGrounded = true; 
-			break;
-
-		case Reject::REJECT_DOWN:
-			break;
-
-		case Reject::REJECT_LEFT:
-			position.x = c2->rect.x - c1->rect.w;	
-			velocity.x = 0;
-			break;
-
-		case Reject::REJECT_RIGHT:
-			position.x = c2->rect.x + c2->rect.w;
-			velocity.x = 0;
-			break;
-		}*/
+		
 		player_collider->SetPos(position.x, position.y);
-		/*switch (direction)
-		{
-		case Direction::GOING_DOWN:
-			position.y = c2->rect.y - c1->rect.h;
-			acceleration.y = 0;
-			isGrounded = true;
-			break;
-
-		case Direction::GOING_UP:
-			break;
-
-		case Direction::GOING_RIGHT:
-			position.x = c2->rect.x - c1->rect.w;
-			break;
-
-		case Direction::GOING_LEFT:
-			position.x = c2->rect.x + c2->rect.w;
-			break;
-		}
-			*/
 	}
 
 	if (c2->type == COLLIDER_DEAD)
 		State = STATE::DEAD;
+
+	if (c2->type == COLLIDER_END)
+		App->fade->FadeToBlack((j1Module*)App->scene, (j1Module*)App->scene_2);
 }
 
 void j1Player::SetAnimation(pugi::xml_node& node, Animation& anim) {

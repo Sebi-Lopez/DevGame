@@ -48,7 +48,8 @@ bool j1Scene::Start()
 	App->map->Activate();
 	App->audio->Activate();
 
-
+	App->render->camera.x = 0;
+	App->render->camera.y = -120;
 	return true;
 }
 

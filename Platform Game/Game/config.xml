@@ -25,7 +25,7 @@
         <anim x="115" y="6" w="19" h="30"/>
         <anim x="163" y="7" w="20" h="29"/>
       </idleanimation>
-      <runanimation speed="0.2" loop="true">
+      <runanimation speed="0.35" loop="true">
         <anim x="67" y="45" w="20" h="28"/>
         <anim x="116" y="46" w="20" h="27"/>
         <anim x="166" y="48" w="20" h="25"/>
@@ -107,7 +107,7 @@
         <anim x="68" y="112" w="17" h="31"/>
         <anim x="118" y="113" w="17" h="30"/>
       </fallanimation>
-      <doublejanimation speed="0.3" loop="false">
+      <doublejanimation speed="0.4" loop="false">
         <anim x="15" y="86" w="20" h="24"/>
         <anim x="65" y="88" w="20" h="24"/>
         <anim x="117" y="81" w="19" h="27"/>
@@ -118,7 +118,7 @@
         <anim x="14" y="124" w="23" h="17"/>
       </doublejanimation>
     </animations>
-    <initial_attributes velx="0.f" vely="0.f" accx="0.f" gravity="250.f" runspeed="60" flyspeed="40" jumpspeed="150"/>
+    <initial_attributes velx="0.f" vely="0.f" accx="0.f" gravity="250.f" runspeed="90" flyspeed="60" jumpspeed="150"/>
   </player>
   <audio>
     <music path1="audio/music/FirstMap.ogg" path2="audio/music/SecondMap.ogg"/>
