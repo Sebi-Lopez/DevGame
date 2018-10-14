@@ -28,10 +28,6 @@ F9 Logic view(you can decide if you want to see it or not)
 
 F10 God Mode
 
-## Innovations
-
-We have implemented double jump for the player.
-
 ## Credits
 
 Programming: Sebastián Lopez Tenorio
