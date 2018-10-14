@@ -111,6 +111,8 @@ bool j1Player::Start()
 	
 	position.x = App->map->spawnpos.x;
 	position.y = App->map->spawnpos.y;
+	acceleration.y = gravity;
+	velocity.y = 1; 
 
 	current_animation = &fall;
 	State = STATE::FALLING;
@@ -166,6 +168,8 @@ bool j1Player::PreUpdate()
 		if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)
 			position.y += god_speed;
 	}
+
+	isGrounded = false; 
 
 	CalculateTime();	
 	CalculatePosition();
@@ -263,6 +267,10 @@ void j1Player::SetPlayerState()
 		{
 			State = STATE::JUMPING;
 		}
+		if (!isGrounded)
+		{
+			State = STATE::FALLING;
+		}
 		break;
 
 	case STATE::RUNNING_BACKWARD:
@@ -273,6 +281,10 @@ void j1Player::SetPlayerState()
 		if (pressed_space)
 		{
 			State = STATE::JUMPING;
+		}
+		if (!isGrounded)
+		{
+			State = STATE::FALLING;
 		}
 		break;
 
@@ -465,7 +477,6 @@ void j1Player::SetPlayerActions()
 		current_animation = &jump;
 		if (!hasJumped) 
 		{
-
 			App->audio->PlayFx(1);
 			velocity.y = -jump_speed;			
 			acceleration.y = gravity;		
@@ -485,6 +496,7 @@ void j1Player::SetPlayerActions()
 
 	case STATE::FALLING:		
 		velocity.x = 0;
+		acceleration.y = gravity;
 		current_animation = &fall;
 		double_jump.Reset();
 		break;
@@ -519,23 +531,29 @@ void j1Player::SetPlayerActions()
 		break;
 
 	case STATE::DEAD:
-		App->fade->FadeToBlack((j1Module*)App->scene, (j1Module*)App->scene);
+		if (isSecondMap)
+			App->fade->FadeToBlack((j1Module*)App->scene_2, (j1Module*)App->scene_2);
+		else
+			App->fade->FadeToBlack((j1Module*)App->scene, (j1Module*)App->scene); 
 		break;
 
 	case STATE::WIN:
-		App->fade->FadeToBlack((j1Module*)App->scene, (j1Module*)App->scene_2);
+		if (isSecondMap)
+			App->fade->FadeToBlack((j1Module*)App->scene_2, (j1Module*)App->scene);
+		else
+			App->fade->FadeToBlack((j1Module*)App->scene, (j1Module*)App->scene_2);
 		break;
 	}
 }
 
 void j1Player::OnCollision(Collider * c1, Collider * c2)
 {
-	if (c1->type == COLLIDER_PLAYER && c2->type == COLLIDER_FLOOR) 
+	if (c1->type == COLLIDER_PLAYER && c2->type == COLLIDER_FLOOR)
 	{
 		uint distance_up = c2->rect.y - (position.y + player_collider->rect.h / 2);
 		uint distance_down = (position.y + player_collider->rect.h / 2) - (c2->rect.y + c2->rect.h);
-		uint distance_left = (c2->rect.x) -(position.x + player_collider->rect.w / 2);
-		uint distance_right = (position.x + player_collider->rect.w /2) - (c2->rect.x + c2->rect.w);
+		uint distance_left = (c2->rect.x) - (position.x + player_collider->rect.w / 2);
+		uint distance_right = (position.x + player_collider->rect.w / 2) - (c2->rect.x + c2->rect.w);
 		uint shortest = UINT_MAX;
 
 		if (distance_up < shortest)
@@ -545,7 +563,7 @@ void j1Player::OnCollision(Collider * c1, Collider * c2)
 		if (distance_left < shortest)
 			shortest = distance_left;
 		if (distance_right < shortest)
-			shortest = distance_right; 
+			shortest = distance_right;
 
 
 		if (shortest == distance_up)
@@ -557,7 +575,7 @@ void j1Player::OnCollision(Collider * c1, Collider * c2)
 		else if (shortest == distance_left)
 		{
 			position.x = c2->rect.x - player_collider->rect.w;
-			velocity.x = 0; 
+			velocity.x = 0;
 		}
 		else if (shortest == distance_right)
 		{

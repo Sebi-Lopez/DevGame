@@ -16,6 +16,7 @@
     <borderless value="false"/>
     <resizable value="false"/>
     <fullscreen_window value="false"/>
+    <window_name>Jungle Jumping</window_name>
   </window>
   <player>
     <animations>
