@@ -73,6 +73,8 @@ public:
 	bool Save(pugi::xml_node&) const;
 	void SetAnimation(pugi::xml_node& node, Animation& anim);
 
+	bool IsSecondMap=false;
+
 private:
 
 	STATE State = STATE::FALLING;

@@ -77,8 +77,8 @@ bool j1Render::Update(float dt)
 	pos.x = App->player->position.x;
 	pos.y = App->player->position.y;
 
-	if(pos.x > App->win->width/(4 *App->win->GetScale()) && pos.x<App->win->width*2.75f)
-	App->render->camera.x = (-pos.x * App->win->scale) + (App->win->width / 4);
+	if(pos.x > App->win->width/(getleftmargin *App->win->GetScale()) && pos.x<App->win->width*getrightmargin)
+	App->render->camera.x = (-pos.x * App->win->scale) + (App->win->width / getleftmargin);
 
 	return true;
 }

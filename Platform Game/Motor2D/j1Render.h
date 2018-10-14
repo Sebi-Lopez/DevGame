@@ -51,6 +51,8 @@ public:
 	SDL_Rect		camera;
 	SDL_Rect		viewport;
 	SDL_Color		background;
+	float getleftmargin = 4.f;
+	float getrightmargin = 2.75f;
 };
 
 #endif // __j1RENDER_H__
