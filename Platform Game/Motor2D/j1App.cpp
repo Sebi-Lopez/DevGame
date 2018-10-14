@@ -10,9 +10,11 @@
 #include "j1Textures.h"
 #include "j1Audio.h"
 #include "j1Scene.h"
+#include "j1Scene_2.h"
 #include "j1Map.h"
 #include "j1Player.h"
 #include "j1Collision.h"
+#include "j1FadeToBlack.h"
 #include "j1App.h"
 
 // Constructor
@@ -27,9 +29,11 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	tex = new j1Textures();
 	audio = new j1Audio();
 	scene = new j1Scene();
+	scene_2 = new j1Scene_2(); 
 	map = new j1Map();
 	player = new j1Player();
 	collision = new j1Collision(); 
+	fade = new j1FadeToBlack(); 
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
@@ -39,8 +43,10 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(audio);
 	AddModule(map);
 	AddModule(scene);
+	AddModule(scene_2,false);
 	AddModule(player);
 	AddModule(collision); 
+	AddModule(fade);
 
 	// render last to swap buffer
 	AddModule(render);
@@ -61,9 +67,10 @@ j1App::~j1App()
 	modules.clear();
 }
 
-void j1App::AddModule(j1Module* module)
+void j1App::AddModule(j1Module* module, bool active)
 {
-	module->Init();
+	if(active) module->Init();		// Now it only initiates the ones that are active
+
 	modules.add(module);
 }
 
@@ -111,7 +118,8 @@ bool j1App::Start()
 
 	while(item != NULL && ret == true)
 	{
-		ret = item->data->Start();
+		if(item->data->active)				// Only Starts Modules that are active
+			ret = item->data->Start();
 		item = item->next;
 	}
 

@@ -71,6 +71,27 @@ public:
 	}
 
 
+	// Now we can Activate or Deactivate Modules from across the App
+
+	void Activate()
+	{
+		if (active == false)
+		{
+			active = true;
+			Start();
+		}
+	}
+
+	void Deactivate()
+	{
+		if (active == true)
+		{
+			active = false;
+			CleanUp();
+		}
+	}
+
+
 	// Collision Callback
 
 	virtual void OnCollision(Collider*, Collider*) {}

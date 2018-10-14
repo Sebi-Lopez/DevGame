@@ -6,6 +6,7 @@
 #include "j1Render.h"
 #include "j1Textures.h"
 #include "j1Collision.h"
+#include "j1FadeToBlack.h"
 #include "j1App.h"
 #include "p2Log.h"
 #include"j1Audio.h"
@@ -463,6 +464,10 @@ void j1Player::SetPlayerActions()
 	case STATE::DOUBLE_JUMP_BACKWARD:
 		velocity.x = -fly_speed;
 		break;
+
+	case STATE::DEAD:
+		App->fade->FadeToBlack((j1Module*)App->scene, (j1Module*)App->scene_2);
+		break;
 	}
 }
 
@@ -538,6 +543,9 @@ void j1Player::OnCollision(Collider * c1, Collider * c2)
 		}
 			*/
 	}
+
+	if (c2->type == COLLIDER_DEAD)
+		State = STATE::DEAD;
 }
 
 void j1Player::SetAnimation(pugi::xml_node& node, Animation& anim) {
