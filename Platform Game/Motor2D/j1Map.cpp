@@ -297,6 +297,17 @@ bool j1Map::Load(const char* file_name)
 	return ret;
 }
 
+bool j1Map::Reset() 
+{
+	
+	if (CleanUp())
+	{
+		return true;
+	}
+
+	return false; 
+}
+
 // Load map general properties
 bool j1Map::LoadMap()
 {
