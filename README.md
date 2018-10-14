@@ -36,4 +36,8 @@ We have implemented double jump for the player.
 
 Programming: Sebastián Lopez Tenorio
 
-[https://github.com/Sebi-Lopez]
+Github:https://github.com/Sebi-Lopez
+
+Programming: Eric Navarro de Santiago
+
+Github:https://github.com/lakaens
