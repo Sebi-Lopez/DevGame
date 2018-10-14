@@ -39,18 +39,18 @@ bool j1Scene::Start()
 
 	
 	App->map->Load("FirstMap.tmx");
-<<<<<<< HEAD
+
 	App->audio->PlayMusic(App->audio->music1.GetString());
 	App->audio->MusicVolume(App->audio->volume);
 
-=======
-	App->audio->PlayMusic("audio/music/3.ogg");
+
+
 	
 	App->player->Activate();
 	App->collision->Activate();
 	App->map->Activate();
 	App->audio->Activate();
->>>>>>> ea85a10b33585ae2104fabc07dd073bb5e108402
+
 
 	App->collision->AddCollider({ 0,300, 500,100 }, COLLIDER_FLOOR, nullptr);
 	//App->collision->AddCollider({ 300,150, 50, 100 }, COLLIDER_FLOOR, nullptr);
@@ -86,7 +86,7 @@ bool j1Scene::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
 		App->render->camera.x -= 10;
 
-<<<<<<< HEAD
+
 	else if (App->input->GetKey(SDL_SCANCODE_KP_PLUS) == KEY_DOWN) {
 		volumechange = true;
 		App->audio->VolumeChange(volumechange);
@@ -97,10 +97,10 @@ bool j1Scene::Update(float dt)
 		App->audio->VolumeChange(volumechange);
 	}
 	
-=======
+
 	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
 		App->fade->FadeToBlack((j1Module*) this, (j1Module*)App->scene_2);
->>>>>>> ea85a10b33585ae2104fabc07dd073bb5e108402
+
 
 
 
@@ -135,13 +135,13 @@ bool j1Scene::CleanUp()
 {
 	LOG("Freeing scene");
 	
-<<<<<<< HEAD
-=======
+
+
 	App->player->Deactivate();
 	App->collision->Deactivate();
 	App->map->Deactivate();
 	App->audio->Deactivate();
 
->>>>>>> ea85a10b33585ae2104fabc07dd073bb5e108402
+
 	return true;
 }

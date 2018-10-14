@@ -92,10 +92,10 @@ private:
 	Animation crouch;
 
 	// Position variables
-	float run_speed = 60; 
-	float fly_speed = 40;
-	float jump_speed = 150; 
-	float gravity = 250; 
+	float run_speed; 
+	float fly_speed;
+	float jump_speed; 
+	float gravity; 
 	Reject reject = Reject::REJECT_UP;
 	fPoint velocity;
 	fPoint acceleration;
