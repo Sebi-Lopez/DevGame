@@ -8,4 +8,4 @@ A: Move Left.
 D: Move Right.
 Space: Jump, if you press twice you will have double jump.
 
-# Debug:
+## Debug:
