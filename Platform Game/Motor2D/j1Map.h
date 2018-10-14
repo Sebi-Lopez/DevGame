@@ -55,6 +55,7 @@ struct TileSet
 	int					num_tiles_height;
 	int					offset_x;
 	int					offset_y;
+	
 };
 
 enum MapTypes
@@ -119,6 +120,7 @@ private:
 public:
 
 	MapData data;
+	fPoint spawnpos;
 
 private:
 

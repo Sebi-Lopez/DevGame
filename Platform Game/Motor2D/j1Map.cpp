@@ -21,6 +21,7 @@ j1Map::j1Map() : j1Module(), map_loaded(false)
 j1Map::~j1Map()
 {}
 
+
 // Called before render is available
 bool j1Map::Awake(pugi::xml_node& config)
 {
@@ -267,8 +268,8 @@ bool j1Map::Load(const char* file_name)
 	LoadCollisions(cnode);
 
 	pugi::xml_node positionode = map_file.child("map").child("properties").child("property");
-	App->player->position.x = positionode.attribute("value").as_float();
-	App->player->position.y = positionode.next_sibling("property").attribute("value").as_float();
+	spawnpos.x = positionode.attribute("value").as_float();
+	spawnpos.y = positionode.next_sibling("property").attribute("value").as_float();
 
 
 	if(ret == true)

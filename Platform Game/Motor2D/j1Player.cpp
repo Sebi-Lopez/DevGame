@@ -109,6 +109,9 @@ bool j1Player::Start()
 	App->audio->LoadFx(App->audio->fxjump.GetString());
 	last_time = actual_time = SDL_GetTicks();
 
+	position.x = App->map->spawnpos.x;
+	position.y = App->map->spawnpos.y;
+
 	current_animation = &fall;
 	State = STATE::FALLING;
 
@@ -173,6 +176,7 @@ bool j1Player::PreUpdate()
 bool j1Player::Update(float dt)
 
 {
+	
 	App->render->Blit(player_texture, (int)position.x, (int)position.y, &(current_animation->GetCurrentFrame()), 1.0f, flip);
 
 	return true;
@@ -559,27 +563,36 @@ void j1Player::SetAnimation(pugi::xml_node& node, Animation& anim) {
 bool j1Player::Load(pugi::xml_node& node)
 {
 	pugi::xml_node load = node.child("playerattributes");
-	position.x = load.attribute("x").as_float();
-	position.y = load.attribute("y").as_float();
+	
 	bool wasSecondMap = load.child("map").attribute("value").as_bool();
 	
 
 	if (wasSecondMap == true)
 	{
-		if(isSecondMap == true)
-			App->fade->FadeToBlack((j1Module*)App->scene_2, (j1Module*)App->scene_2);
-		else
+		if(isSecondMap == true){
+			App->fade->FadeToBlack((j1Module*)App->scene_2, (j1Module*)App->scene_2); 
+			position.x = load.attribute("x").as_float();
+			position.y = load.attribute("y").as_float();
+		}
+		else {
 			App->fade->FadeToBlack((j1Module*)App->scene, (j1Module*)App->scene_2);
+			position.x = load.attribute("x").as_float();
+			position.y = load.attribute("y").as_float();
+		}
 	}
 
 	else 
 	{
-		if(isSecondMap == true)
+		if (isSecondMap == true) {
 			App->fade->FadeToBlack((j1Module*)App->scene_2, (j1Module*)App->scene);
-
-		else
+			position.x = load.attribute("x").as_float();
+			position.y = load.attribute("y").as_float();
+		}
+		else {
 			App->fade->FadeToBlack((j1Module*)App->scene, (j1Module*)App->scene);
-
+			position.x = load.attribute("x").as_float();
+			position.y = load.attribute("y").as_float();
+		}
 	}
 
 	p2SString state=load.attribute("state").as_string();

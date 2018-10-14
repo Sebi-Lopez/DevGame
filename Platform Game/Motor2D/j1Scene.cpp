@@ -41,7 +41,7 @@ bool j1Scene::Start()
 	App->map->Load("FirstMap.tmx");
 
 
-	App->audio->PlayMusic(App->audio->music1.GetString());
+	App->audio->PlayMusic(App->audio->music2.GetString());
 	App->audio->MusicVolume(App->audio->volume);
 	App->player->isSecondMap = false;
 
@@ -133,6 +133,7 @@ bool j1Scene::CleanUp()
 	App->collision->Deactivate();
 	App->map->Reset();
 	App->audio->Deactivate();
+
 
 
 	return true;

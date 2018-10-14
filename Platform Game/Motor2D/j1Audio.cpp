@@ -25,7 +25,7 @@ bool j1Audio::Awake(pugi::xml_node& config)
 	bool ret = true;
 	SDL_Init(0);
 
-	music1 = config.child("music").attribute("path1").as_string();
+	
 	music2 = config.child("music").attribute("path2").as_string();
 	fxjump = config.child("fx").attribute("jump").as_string();
 

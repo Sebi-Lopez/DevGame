@@ -35,10 +35,10 @@ bool j1Scene_2::Awake()
 // Called before the first frame
 bool j1Scene_2::Start()
 {
-
+	
 	App->map->Load("SecondMap.tmx");
 
-	App->audio->PlayMusic(App->audio->music2.GetString());
+	
 	App->player->isSecondMap = true;
 
 

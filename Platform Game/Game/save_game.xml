@@ -4,19 +4,19 @@
 	<window />
 	<textures />
 	<audio>
-		<volume v="50" />
+		<volume v="10" />
 	</audio>
 	<map />
 	<scene />
 	<scene />
 	<player>
-		<playerattributes x="352.380035" y="272.332916" state="FALLING">
+		<playerattributes x="389.690735" y="320" state="IDLE">
 			<map value="false" />
 		</playerattributes>
 	</player>
 	<:anonymous />
 	<:anonymous />
 	<renderer>
-		<camera x="-448" y="-120" />
+		<camera x="-523" y="-120" />
 	</renderer>
 </game_state>
