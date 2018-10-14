@@ -85,7 +85,7 @@ bool j1Player::Awake(pugi::xml_node& node)
 	gravity = node.child("initial_attributes").attribute("gravity").as_float();
 	acceleration.y = gravity;
 	run_speed = node.child("initial_attributes").attribute("runspeed").as_float();
-	fly_speed = node.child("initial_attributes").attribute("flspeed").as_float();
+	fly_speed = node.child("initial_attributes").attribute("flyspeed").as_float();
 	jump_speed = node.child("initial_attributes").attribute("jumpspeed").as_float();
 
 	return true;
