@@ -36052,7 +36052,7 @@
    <tile gid="2723"/>
   </data>
  </layer>
- <layer name="MainGround" width="200" height="30" offsetx="1" offsety="0">
+ <layer name="MainGround" width="200" height="30" offsetx="0" offsety="75">
   <properties>
    <property name="parallaxspeed" type="float" value="1"/>
   </properties>
@@ -42059,7 +42059,7 @@
    <tile gid="0"/>
   </data>
  </layer>
- <objectgroup name="Collisions" offsetx="0" offsety="-2">
+ <objectgroup name="Collisions" offsetx="0" offsety="74">
   <object id="1" name="dead" x="6" y="370" width="1085" height="25"/>
   <object id="3" name="dead" x="1551" y="368" width="1521" height="14"/>
   <object id="5" name="floor" x="0.666667" y="150.333" width="48.6667" height="36.6667"/>
