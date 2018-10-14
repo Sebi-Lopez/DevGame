@@ -93,7 +93,7 @@ bool j1Scene::Update(float dt)
 	}
 
 	else if (App->input->GetKey(SDL_SCANCODE_KP_MINUS) == KEY_DOWN) {
-		volumechange = true;
+		volumechange = false;
 		App->audio->VolumeChange(volumechange);
 	}
 	

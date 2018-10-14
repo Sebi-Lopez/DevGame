@@ -4,14 +4,17 @@
 	<window />
 	<textures />
 	<audio>
-		<volume v="40" />
+		<volume v="20" />
 	</audio>
 	<map />
+	<scene />
 	<scene />
 	<player>
 		<playerattributes x="10" y="271" state="IDLE" />
 	</player>
+	<:anonymous />
+	<:anonymous />
 	<renderer>
-		<camera x="0" y="-120" />
+		<camera x="492" y="-158" />
 	</renderer>
 </game_state>
