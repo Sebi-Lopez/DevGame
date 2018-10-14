@@ -33,6 +33,7 @@ public:
 	bool CleanUp();
 
 private:
+	bool volumechange = false;
 };
 
 #endif // __j1SCENE_H__

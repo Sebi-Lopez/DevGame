@@ -9,6 +9,8 @@
 #include "j1FadeToBlack.h"
 #include "j1App.h"
 #include "p2Log.h"
+#include"j1Audio.h"
+#include "SDL_mixer\include\SDL_mixer.h"
 
 j1Player::j1Player()
 {
@@ -22,65 +24,69 @@ j1Player::~j1Player()
 
 bool j1Player::Awake(pugi::xml_node& node)
 {
-	SetAnimation(node.child("animations").child("idleanimation").child("anim"), idle);
-	idle.speed = node.child("animations").child("idleanimation").attribute("speed").as_float();
-	idle.loop = node.child("animations").child("idleanimation").attribute("loop").as_bool();
+	pugi::xml_node animations = node.child("animations");
+	SetAnimation(animations.child("idleanimation").child("anim"),idle);
+	idle.speed = animations.child("idleanimation").attribute("speed").as_float();
+	idle.loop = animations.child("idleanimation").attribute("loop").as_bool();
 
-	SetAnimation(node.child("animations").child("runanimation").child("anim"), run);
-	run.speed = node.child("animations").child("runanimation").attribute("speed").as_float();
-	run.loop = node.child("animations").child("runanimation").attribute("loop").as_bool();
+	SetAnimation(animations.child("runanimation").child("anim"), run);
+	run.speed = animations.child("runanimation").attribute("speed").as_float();
+	run.loop = animations.child("runanimation").attribute("loop").as_bool();
 
-	SetAnimation(node.child("animations").child("jumpanimation").child("anim"), jump);
-	jump.speed = node.child("animations").child("jumpanimation").attribute("speed").as_float();
-	jump.loop = node.child("animations").child("jumpanimation").attribute("loop").as_bool();
+	SetAnimation(animations.child("jumpanimation").child("anim"), jump);
+	jump.speed = animations.child("jumpanimation").attribute("speed").as_float();
+	jump.loop = animations.child("jumpanimation").attribute("loop").as_bool();
 
-	SetAnimation(node.child("animations").child("fallanimation").child("anim"), fall);
-	fall.speed = node.child("animations").child("fallanimation").attribute("speed").as_float();
-	fall.loop = node.child("animations").child("fallanimation").attribute("loop").as_bool();
+	SetAnimation(animations.child("fallanimation").child("anim"), fall);
+	fall.speed = animations.child("fallanimation").attribute("speed").as_float();
+	fall.loop = animations.child("fallanimation").attribute("loop").as_bool();
 
-	SetAnimation(node.child("animations").child("attackanimation").child("anim"), attack);
-	attack.speed = node.child("animations").child("attackanimation").attribute("speed").as_float();
-	attack.loop = node.child("animations").child("attackanimation").attribute("loop").as_bool();
+	SetAnimation(animations.child("attackanimation").child("anim"), attack);
+	attack.speed = animations.child("attackanimation").attribute("speed").as_float();
+	attack.loop = animations.child("attackanimation").attribute("loop").as_bool();
 
-	SetAnimation(node.child("animations").child("climbanimation").child("anim"), climb);
-	climb.speed = node.child("animations").child("climbanimation").attribute("speed").as_float();
-	climb.loop = node.child("animations").child("climbanimation").attribute("loop").as_bool();
+	SetAnimation(animations.child("climbanimation").child("anim"), climb);
+	climb.speed = animations.child("climbanimation").attribute("speed").as_float();
+	climb.loop = animations.child("climbanimation").attribute("loop").as_bool();
 
-	SetAnimation(node.child("animations").child("grabanimation").child("anim"), grab);
-	grab.speed = node.child("animations").child("grabanimation").attribute("speed").as_float();
-	grab.loop = node.child("animations").child("grabanimation").attribute("loop").as_bool();
+	SetAnimation(animations.child("grabanimation").child("anim"), grab);
+	grab.speed = animations.child("grabanimation").attribute("speed").as_float();
+	grab.loop = animations.child("grabanimation").attribute("loop").as_bool();
 
-	SetAnimation(node.child("animations").child("idlesword").child("anim"), idlesword);
-	idlesword.speed = node.child("animations").child("idlesword").attribute("speed").as_float();
-	idlesword.loop = node.child("animations").child("idlesword").attribute("loop").as_bool();
+	SetAnimation(animations.child("idlesword").child("anim"), idlesword);
+	idlesword.speed = animations.child("idlesword").attribute("speed").as_float();
+	idlesword.loop = animations.child("idlesword").attribute("loop").as_bool();
 
-	SetAnimation(node.child("animations").child("hurtanimation").child("anim"), hurt);
-	hurt.speed = node.child("animations").child("hurtanimation").attribute("speed").as_float();
-	hurt.loop = node.child("animations").child("hurtanimation").attribute("loop").as_bool();
+	SetAnimation(animations.child("hurtanimation").child("anim"), hurt);
+	hurt.speed = animations.child("hurtanimation").attribute("speed").as_float();
+	hurt.loop = animations.child("hurtanimation").attribute("loop").as_bool();
 
-	SetAnimation(node.child("animations").child("dieanimation").child("anim"), die);
-	die.speed = node.child("animations").child("dieanimation").attribute("speed").as_float();
-	die.loop = node.child("animations").child("dieanimation").attribute("loop").as_bool();
+	SetAnimation(animations.child("dieanimation").child("anim"), die);
+	die.speed = animations.child("dieanimation").attribute("speed").as_float();
+	die.loop = animations.child("dieanimation").attribute("loop").as_bool();
 
-	SetAnimation(node.child("animations").child("slideanimation").child("anim"), slide);
-	slide.speed = node.child("animations").child("slideanimation").attribute("speed").as_float();
-	slide.loop = node.child("animations").child("slideanimation").attribute("loop").as_bool();
+	SetAnimation(animations.child("slideanimation").child("anim"), slide);
+	slide.speed = animations.child("slideanimation").attribute("speed").as_float();
+	slide.loop = animations.child("slideanimation").attribute("loop").as_bool();
 
-	SetAnimation(node.child("animations").child("crouchanimation").child("anim"), crouch);
-	crouch.speed = node.child("animations").child("crouchanimation").attribute("speed").as_float();
-	crouch.loop = node.child("animations").child("crouchanimation").attribute("loop").as_bool();
+	SetAnimation(animations.child("crouchanimation").child("anim"), crouch);
+	crouch.speed = animations.child("crouchanimation").attribute("speed").as_float();
+	crouch.loop = animations.child("crouchanimation").attribute("loop").as_bool();
 
-	SetAnimation(node.child("animations").child("doublejanimation").child("anim"), double_jump);
-	double_jump.speed = node.child("animations").child("doublejanimation").attribute("speed").as_float();
-	double_jump.loop = node.child("animations").child("doublejanimation").attribute("loop").as_bool();
+	SetAnimation(animations.child("doublejanimation").child("anim"), double_jump);
+	double_jump.speed = animations.child("doublejanimation").attribute("speed").as_float();
+	double_jump.loop = animations.child("doublejanimation").attribute("loop").as_bool();
 
-	position.x = node.child("initial_attributes").attribute("x").as_float();
-	position.y = node.child("initial_attributes").attribute("y").as_float();
+	//condicio de si es primer mapa o segon i carregar la posicio corresponents
+	
 	velocity.x = node.child("initial_attributes").attribute("velx").as_float();
 	velocity.y = node.child("initial_attributes").attribute("vely").as_float();
 	acceleration.x = node.child("initial_attributes").attribute("accx").as_float();
 	gravity = node.child("initial_attributes").attribute("gravity").as_float();
 	acceleration.y = gravity;
+	run_speed = node.child("initial_attributes").attribute("runspeed").as_float();
+	fly_speed = node.child("initial_attributes").attribute("flspeed").as_float();
+	jump_speed = node.child("initial_attributes").attribute("jumpspeed").as_float();
 
 	return true;
 }
@@ -98,7 +104,7 @@ bool j1Player::Start()
 		LOG("There was an error loading Player texture.");
 	}
 
-
+	App->audio->LoadFx(App->audio->fxjump.GetString());
 	last_time = actual_time = SDL_GetTicks();
 
 	current_animation = &fall;
@@ -146,6 +152,7 @@ bool j1Player::PostUpdate()
 bool j1Player::CleanUp()
 {
 	App->tex->UnLoad(player_texture);
+
 	return true;
 }
 
@@ -174,7 +181,7 @@ void j1Player::SetPlayerState()
 	bool released_right = (App->input->GetKey(SDL_SCANCODE_D) == KEY_UP);
 	bool released_left = (App->input->GetKey(SDL_SCANCODE_A) == KEY_UP);
 	bool pressed_space = (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN);
-
+	
 	// Peak point of the parabol
 	bool going_down = (velocity.y >= 0);
 
@@ -333,6 +340,7 @@ void j1Player::SetPlayerState()
 	case STATE::DOUBLE_JUMP:
 		if (pressed_right && !pressed_left)
 		{
+
 			State = STATE::DOUBLE_JUMP_FORWARD;
 		}
 		if (pressed_left && !pressed_right)
@@ -407,6 +415,8 @@ void j1Player::SetPlayerActions()
 		current_animation = &jump;
 		if (!hasJumped) 
 		{
+
+			App->audio->PlayFx(1);
 			velocity.y = -jump_speed;			
 			acceleration.y = gravity;		
 			hasJumped = true;		
@@ -442,6 +452,7 @@ void j1Player::SetPlayerActions()
 		current_animation = &double_jump;
 		if (!hasDoubleJumped)
 		{
+			App->audio->PlayFx(1);
 			velocity.y = -jump_speed;
 			acceleration.y = gravity;
 			hasDoubleJumped = true;
@@ -541,24 +552,24 @@ void j1Player::OnCollision(Collider * c1, Collider * c2)
 }
 
 void j1Player::SetAnimation(pugi::xml_node& node, Animation& anim) {
-
+	SDL_Rect components;
 	for (; node; node = node.next_sibling("anim")) {
-		SDL_Rect components;
 		components.x = node.attribute("x").as_uint();
 		components.y = node.attribute("y").as_uint();
 		components.w = node.attribute("w").as_uint();
 		components.h = node.attribute("h").as_uint();
 		anim.PushBack(components);
 	}
+	
+	
 }
 
 bool j1Player::Load(pugi::xml_node& node)
 {
-	pugi::xml_node load = node.child("player").child("playerattributes");
+	pugi::xml_node load = node.child("playerattributes");
 	position.x = load.attribute("x").as_float();
 	position.y = load.attribute("y").as_float();
-	velocity.x = load.attribute("velocityx").as_float();
-	velocity.y = load.attribute("velocityy").as_float();
+	
 	
 	p2SString state=load.attribute("state").as_string();
 	if (state == "IDLE") {
@@ -606,8 +617,7 @@ bool j1Player::Save(pugi::xml_node& node) const{
 
 	save.append_attribute("x") = position.x;
 	save.append_attribute("y") = position.y;
-	save.append_attribute("velocityx") = velocity.x;
-	save.append_attribute("velocityy") = velocity.y;
+	
 	
 	
 	p2SString state;

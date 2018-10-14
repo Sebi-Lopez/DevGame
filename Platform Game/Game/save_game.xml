@@ -3,13 +3,15 @@
 	<input />
 	<window />
 	<textures />
-	<audio />
+	<audio>
+		<volume v="40" />
+	</audio>
 	<map />
 	<scene />
 	<player>
-		<playerattributes x="10" y="271" velocityx="0" velocityy="185.25" state="IDLE" />
+		<playerattributes x="10" y="271" state="IDLE" />
 	</player>
 	<renderer>
-		<camera x="-470" y="-120" />
+		<camera x="0" y="-120" />
 	</renderer>
 </game_state>

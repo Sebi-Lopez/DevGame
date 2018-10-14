@@ -11,6 +11,7 @@
 #include "j1Collision.h"
 #include "j1FadeToBlack.h"
 #include "j1Player.h"
+#include "SDL_mixer\include\SDL_mixer.h"
 
 
 
@@ -36,14 +37,20 @@ bool j1Scene::Awake()
 bool j1Scene::Start()
 {
 
-	//App->map->Load("SecondMap.tmx");
+	
 	App->map->Load("FirstMap.tmx");
-	App->audio->PlayMusic("audio/music/3.ogg");
+
+	App->audio->PlayMusic(App->audio->music1.GetString());
+	App->audio->MusicVolume(App->audio->volume);
+
+
+
 	
 	App->player->Activate();
 	App->collision->Activate();
 	App->map->Activate();
 	App->audio->Activate();
+
 
 	App->collision->AddCollider({ 0,300, 500,100 }, COLLIDER_FLOOR, nullptr);
 	//App->collision->AddCollider({ 300,150, 50, 100 }, COLLIDER_FLOOR, nullptr);
@@ -60,6 +67,7 @@ bool j1Scene::PreUpdate()
 // Called each loop iteration
 bool j1Scene::Update(float dt)
 {
+	
 	if(App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
 		App->LoadGame("save_game.xml");
 
@@ -78,8 +86,22 @@ bool j1Scene::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
 		App->render->camera.x -= 10;
 
+
+	else if (App->input->GetKey(SDL_SCANCODE_KP_PLUS) == KEY_DOWN) {
+		volumechange = true;
+		App->audio->VolumeChange(volumechange);
+	}
+
+	else if (App->input->GetKey(SDL_SCANCODE_KP_MINUS) == KEY_DOWN) {
+		volumechange = true;
+		App->audio->VolumeChange(volumechange);
+	}
+	
+
 	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
 		App->fade->FadeToBlack((j1Module*) this, (j1Module*)App->scene_2);
+
+
 
 
 	App->map->Draw();
@@ -113,10 +135,13 @@ bool j1Scene::CleanUp()
 {
 	LOG("Freeing scene");
 	
+
+
 	App->player->Deactivate();
 	App->collision->Deactivate();
 	App->map->Reset();
 	App->audio->Deactivate();
+
 
 	return true;
 }

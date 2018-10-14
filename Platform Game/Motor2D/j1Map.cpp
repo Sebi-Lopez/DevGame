@@ -7,6 +7,7 @@
 #include "j1Collision.h"
 #include "j1Window.h"
 #include <math.h>
+#include "j1Player.h"
 
 
 #define OFFSET 50
@@ -25,6 +26,8 @@ bool j1Map::Awake(pugi::xml_node& config)
 {
 	LOG("Loading Map Parser");
 	bool ret = true;
+
+	
 
 	folder.create(config.child("folder").child_value());
 
@@ -199,6 +202,7 @@ bool j1Map::CleanUp()
 	}
 	data.layers.clear();
 
+	
 	// Clean up the pugui tree
 	map_file.reset();
 
@@ -262,7 +266,10 @@ bool j1Map::Load(const char* file_name)
 
 	LoadCollisions(cnode);
 
-	
+	pugi::xml_node positionode = map_file.child("map").child("properties").child("property");
+	App->player->position.x = positionode.attribute("value").as_float();
+	App->player->position.y = positionode.next_sibling("property").attribute("value").as_float();
+
 
 	if(ret == true)
 	{
@@ -467,4 +474,4 @@ bool j1Map::LoadLayer(pugi::xml_node& node, MapLayer* layer)
 	return ret;
 }
 
-// Load a group of properties from a node and fill a list with it
+

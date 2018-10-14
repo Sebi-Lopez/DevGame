@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="200" height="30" tilewidth="16" tileheight="16" nextobjectid="30">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="200" height="30" tilewidth="16" tileheight="16" nextobjectid="32">
+ <properties>
+  <property name="pos.x" type="float" value="19"/>
+  <property name="pos.y" type="float" value="132"/>
+ </properties>
  <tileset firstgid="1" name="background2" tilewidth="16" tileheight="16" tilecount="16384" columns="128">
   <image source="background2.png" width="2048" height="2048"/>
  </tileset>
@@ -42082,5 +42086,7 @@
   <object id="27" name="floor" x="2944.33" y="224.333" width="79.6667" height="65"/>
   <object id="28" name="floor" x="3088" y="160" width="111.667" height="32.3333"/>
   <object id="29" name="floor" x="3078.67" y="336.667" width="120" height="14.6667"/>
+  <object id="30" name="floor" x="-20" y="43" width="26" height="334"/>
+  <object id="31" name="floor" x="3197" y="39" width="25" height="352"/>
  </objectgroup>
 </map>

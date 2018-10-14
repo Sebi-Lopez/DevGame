@@ -2,6 +2,7 @@
 #include "p2Log.h"
 #include "j1App.h"
 #include "j1Audio.h"
+#include "j1Scene.h"
 
 #include "SDL/include/SDL.h"
 #include "SDL_mixer\include\SDL_mixer.h"
@@ -23,6 +24,10 @@ bool j1Audio::Awake(pugi::xml_node& config)
 	LOG("Loading Audio Mixer");
 	bool ret = true;
 	SDL_Init(0);
+
+	music1 = config.child("music").attribute("path1").as_string();
+	music2 = config.child("music").attribute("path2").as_string();
+	fxjump = config.child("fx").attribute("jump").as_string();
 
 	if(SDL_InitSubSystem(SDL_INIT_AUDIO) < 0)
 	{
@@ -170,4 +175,38 @@ bool j1Audio::PlayFx(unsigned int id, int repeat)
 	}
 
 	return ret;
+}
+
+bool j1Audio::Load(pugi::xml_node& node)
+{
+	pugi::xml_node save = node.child("volume");
+	volume = save.attribute("v").as_uint();
+	
+	return true;
+}
+
+bool j1Audio::Save(pugi::xml_node& node)const
+{
+	pugi::xml_node save = node.append_child("volume");
+	save.append_attribute("v") = volume;
+	
+	return true;
+}
+
+void j1Audio::MusicVolume(uint volume)
+{
+	Mix_VolumeMusic(volume);
+}
+
+void j1Audio::VolumeChange(bool volumechange) {
+	if (volumechange == true) 
+	{
+		if (volume < 128)
+			Mix_VolumeMusic(volume += 10);
+	}
+	else
+	{
+		if (volume > 0)
+			Mix_VolumeMusic(volume -= 10);
+	}
 }
