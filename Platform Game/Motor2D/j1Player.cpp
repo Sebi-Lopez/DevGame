@@ -90,6 +90,8 @@ bool j1Player::Awake(pugi::xml_node& node)
 	fly_speed = node.child("initial_attributes").attribute("flyspeed").as_float();
 	jump_speed = node.child("initial_attributes").attribute("jumpspeed").as_float();
 	god_speed = node.child("initial_attributes").attribute("godspeed").as_float();
+
+	
 	return true;
 }
 
@@ -108,10 +110,11 @@ bool j1Player::Start()
 
 	App->audio->LoadFx(App->audio->fxjump.GetString());
 	last_time = actual_time = SDL_GetTicks();
-
-	position.x = App->map->spawnpos.x;
-	position.y = App->map->spawnpos.y;
-
+	if (loadpos != true) {
+		position.x = App->map->spawnpos.x;
+		position.y = App->map->spawnpos.y;
+	}
+	loadpos = false;
 	current_animation = &fall;
 	State = STATE::FALLING;
 
@@ -563,35 +566,41 @@ void j1Player::SetAnimation(pugi::xml_node& node, Animation& anim) {
 bool j1Player::Load(pugi::xml_node& node)
 {
 	pugi::xml_node load = node.child("playerattributes");
-	
+	loadpos = true;
 	bool wasSecondMap = load.child("map").attribute("value").as_bool();
 	
 
 	if (wasSecondMap == true)
 	{
+		
 		if(isSecondMap == true){
 			App->fade->FadeToBlack((j1Module*)App->scene_2, (j1Module*)App->scene_2); 
 			position.x = load.attribute("x").as_float();
 			position.y = load.attribute("y").as_float();
+			
 		}
 		else {
 			App->fade->FadeToBlack((j1Module*)App->scene, (j1Module*)App->scene_2);
 			position.x = load.attribute("x").as_float();
 			position.y = load.attribute("y").as_float();
+			
 		}
 	}
 
 	else 
 	{
+		
 		if (isSecondMap == true) {
 			App->fade->FadeToBlack((j1Module*)App->scene_2, (j1Module*)App->scene);
 			position.x = load.attribute("x").as_float();
 			position.y = load.attribute("y").as_float();
+			
 		}
 		else {
 			App->fade->FadeToBlack((j1Module*)App->scene, (j1Module*)App->scene);
 			position.x = load.attribute("x").as_float();
 			position.y = load.attribute("y").as_float();
+			
 		}
 	}
 
