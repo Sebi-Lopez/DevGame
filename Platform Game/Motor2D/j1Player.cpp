@@ -536,7 +536,7 @@ void j1Player::OnCollision(Collider * c1, Collider * c2)
 		uint distance_down = (position.y + player_collider->rect.h / 2) - (c2->rect.y + c2->rect.h);
 		uint distance_left = (c2->rect.x) -(position.x + player_collider->rect.w / 2);
 		uint distance_right = (position.x + player_collider->rect.w /2) - (c2->rect.x + c2->rect.w);
-		uint shortest = 10000;
+		uint shortest = UINT_MAX;
 
 		if (distance_up < shortest)
 			shortest = distance_up;
