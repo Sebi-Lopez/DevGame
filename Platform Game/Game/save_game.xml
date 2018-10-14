@@ -4,14 +4,13 @@
 	<window />
 	<textures />
 	<audio>
-		<volume v="50" />
+		<volume v="10" />
 	</audio>
 	<map />
 	<scene />
 	<scene />
 	<player>
 		<playerattributes x="10" y="296" state="IDLE">
-			<map value="false" />
 		</playerattributes>
 	</player>
 	<:anonymous />
