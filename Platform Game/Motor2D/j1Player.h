@@ -117,6 +117,7 @@ private:
 	SDL_Texture* player_texture = nullptr;	
 	bool flip = false;
 	bool attacked = false;
+	bool loadpos=false;
 
 public:
 	

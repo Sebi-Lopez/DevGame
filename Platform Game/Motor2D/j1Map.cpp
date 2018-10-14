@@ -80,8 +80,6 @@ void j1Map::Draw()
 
 TileSet* j1Map::GetTilesetFromTileId(int id) const
 {
-	// TODO 3: Complete this method so we pick the right
-	// Tileset based on a tile id
 	p2List_item<TileSet*>* tile_item = data.tilesets.start;
 
 	for (tile_item; tile_item != NULL; tile_item = tile_item->next)

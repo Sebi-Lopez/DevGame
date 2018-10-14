@@ -6,21 +6,12 @@
 #include "p2Point.h"
 #include "j1Module.h"
 
-// TODO 5: Create a generic structure to hold properties
-// TODO 7: Our custom properties should have one method
-// to ask for the value of a custom property
-// ----------------------------------------------------
-struct Properties
-{
-};
-
 struct MapLayer
 {
 	p2SString	name;
 	int			width;
 	int			height;
 	uint*		data;
-	Properties	properties;
 	float		parallax;
 	MapLayer() : data(NULL)
 	{}

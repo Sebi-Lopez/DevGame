@@ -50,7 +50,6 @@ bool j1FadeToBlack::Update(float dt)
 	{
 		if (now >= total_time)
 		{
-			// TODO 3: enable / disable the modules received when FadeToBlacks() gets called
 			ModuleOff->Deactivate();
 			ModuleOn->Activate();
 			// ---

@@ -4,7 +4,7 @@
 	<window />
 	<textures />
 	<audio>
-		<volume v="10" />
+		<volume v="50" />
 	</audio>
 	<map />
 	<scene />
@@ -16,6 +16,6 @@
 	<:anonymous />
 	<:anonymous />
 	<renderer>
-		<camera x="0" y="-120" />
+    <camera x="0" y="-120" />
 	</renderer>
 </game_state>

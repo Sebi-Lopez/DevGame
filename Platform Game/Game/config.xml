@@ -119,7 +119,7 @@
         <anim x="14" y="124" w="23" h="17"/>
       </doublejanimation>
     </animations>
-    <initial_attributes velx="0.f" vely="0.f" accx="0.f" gravity="250.f" runspeed="90" flyspeed="100" jumpspeed="150" godspeed="5"/>
+    <initial_attributes velx="0.f" vely="0.f" accx="0.f" gravity="300.f" runspeed="120" flyspeed="110" jumpspeed="180" godspeed="5"/>
   </player> 
   <audio>
     <music path1="audio/music/FirstMap.ogg" path2="audio/music/SecondMap.ogg"/>

@@ -37,9 +37,7 @@ bool j1Scene::Awake()
 bool j1Scene::Start()
 {
 
-	
 	App->map->Load("FirstMap.tmx");
-
 
 	App->audio->PlayMusic(App->audio->music2.GetString());
 	App->audio->MusicVolume(App->audio->volume);
@@ -126,6 +124,7 @@ bool j1Scene::PostUpdate()
 bool j1Scene::CleanUp()
 {
 	LOG("Freeing scene");
+
 	
 
 
