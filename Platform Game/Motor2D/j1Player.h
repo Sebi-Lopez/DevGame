@@ -34,6 +34,7 @@ class j1Player : public j1Module
 		FALLING_FORWARD,
 		FALLING_BACKWARD,
 		DEAD,
+		GOD,
 		NONE
 	};
 
@@ -95,7 +96,8 @@ private:
 	// Position variables
 	float run_speed; 
 	float fly_speed;
-	float jump_speed; 
+	float jump_speed;
+	float god_speed; 
 	float gravity; 
 	fPoint velocity;
 	fPoint acceleration;

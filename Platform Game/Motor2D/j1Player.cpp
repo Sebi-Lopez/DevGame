@@ -89,7 +89,7 @@ bool j1Player::Awake(pugi::xml_node& node)
 	run_speed = node.child("initial_attributes").attribute("runspeed").as_float();
 	fly_speed = node.child("initial_attributes").attribute("flyspeed").as_float();
 	jump_speed = node.child("initial_attributes").attribute("jumpspeed").as_float();
-
+	god_speed = node.child("initial_attributes").attribute("godspeed").as_float();
 	return true;
 }
 
@@ -127,10 +127,44 @@ bool j1Player::PreUpdate()
 		flip = true; 
 	}	
 
+	if (App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
+	{
+		if (State != STATE::GOD)
+		{
+			State = STATE::GOD;
+		}
+		else
+		{
+			State = STATE::FALLING;
+			player_collider->type = COLLIDER_TYPE::COLLIDER_PLAYER;
+			acceleration.y = gravity;
+		}
 
-	SetPlayerState(); 
-	CalculateTime();			
-	SetPlayerActions();
+	}
+	if (State != STATE::GOD) {
+		SetPlayerState();
+		SetPlayerActions();
+	}
+	else {
+		player_collider->type = COLLIDER_TYPE::COLLIDER_NONE;
+		acceleration.y = 0;
+		velocity.y = 0;
+		velocity.x = 0;
+		current_animation = &idle;
+		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
+			position.x -= god_speed;
+
+		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
+			position.x += god_speed;
+
+		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
+			position.y -= god_speed;
+
+		if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)
+			position.y += god_speed;
+	}
+
+	CalculateTime();	
 	CalculatePosition();
 
 	return true;
@@ -178,12 +212,13 @@ void j1Player::SetPlayerState()
 {
 
 	// Input cases 
+
 	bool pressed_right = (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT);
 	bool pressed_left = (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT);
 	bool released_right = (App->input->GetKey(SDL_SCANCODE_D) == KEY_UP);
 	bool released_left = (App->input->GetKey(SDL_SCANCODE_A) == KEY_UP);
 	bool pressed_space = (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN);
-	
+
 	// Peak point of the parabol
 	bool going_down = (velocity.y >= 0);
 
