@@ -173,21 +173,23 @@ bool j1Player::PreUpdate()
 bool j1Player::Update(float dt)
 
 {
-	
+	App->render->Blit(player_texture, (int)position.x, (int)position.y, &(current_animation->GetCurrentFrame()), 1.0f, flip);
+
 	return true;
 }
 
 bool j1Player::PostUpdate()
 
 {
-	App->render->Blit(player_texture, (int)position.x, (int)position.y, &(current_animation->GetCurrentFrame()), 1.0f, flip);
-	
+		
 	return true;
 }
 
 bool j1Player::CleanUp()
 {
 	App->tex->UnLoad(player_texture);
+	player_collider->to_delete = true; 
+	current_animation = nullptr; 
 
 	return true;
 }
@@ -508,6 +510,10 @@ void j1Player::SetPlayerActions()
 	case STATE::DEAD:
 		App->fade->FadeToBlack((j1Module*)App->scene, (j1Module*)App->scene);
 		break;
+
+	case STATE::WIN:
+		App->fade->FadeToBlack((j1Module*)App->scene, (j1Module*)App->scene_2);
+		break;
 	}
 }
 
@@ -529,7 +535,7 @@ void j1Player::OnCollision(Collider * c1, Collider * c2)
 		State = STATE::DEAD;
 
 	if (c2->type == COLLIDER_END)
-		App->fade->FadeToBlack((j1Module*)App->scene, (j1Module*)App->scene_2);
+		State = STATE::WIN;
 }
 
 void j1Player::SetAnimation(pugi::xml_node& node, Animation& anim) {

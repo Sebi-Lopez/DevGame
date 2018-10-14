@@ -165,18 +165,5 @@ Collider* j1Collision::AddCollider(SDL_Rect rect, COLLIDER_TYPE type, j1Module* 
 
 bool Collider::CheckCollision(const SDL_Rect& r) const
 {
-	// TODO 0: Return true if there is an overlap
-	// between argument "r" and property "rect"
-
-	/*bool ret = true;	// 
-
-	if (r.x + r.w < rect.x) ret = false;
-	else if (r.x > rect.x + rect.w) ret = false;
-	else if (r.y + r.h < rect.y)ret = false;
-	else if (r.y > rect.h + rect.y)ret = false;
-
-	return ret;*/
-
-	// This equals all the above. 
 	return !(r.x + r.w < rect.x || r.x > rect.x + rect.w || r.y + r.h < rect.y || r.y > rect.h + rect.y);
 }

@@ -34,6 +34,7 @@ class j1Player : public j1Module
 		FALLING_FORWARD,
 		FALLING_BACKWARD,
 		DEAD,
+		WIN,
 		GOD,
 		NONE
 	};

@@ -43,10 +43,12 @@ bool j1Scene::Start()
 	App->audio->PlayMusic(App->audio->music1.GetString());
 	App->audio->MusicVolume(App->audio->volume);
 
-	App->player->Activate();
+	
 	App->collision->Activate();
 	App->map->Activate();
 	App->audio->Activate();
+	App->player->Activate();
+
 
 	App->render->camera.x = 0;
 	App->render->camera.y = -120;
@@ -92,13 +94,14 @@ bool j1Scene::Update(float dt)
 		App->audio->VolumeChange(volumechange);
 	}
 	
-
-	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
-		App->fade->FadeToBlack((j1Module*) this, (j1Module*)App->scene_2);
-
 	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
 		App->fade->FadeToBlack((j1Module*)this, (j1Module*)this);
 
+	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
+		App->fade->FadeToBlack((j1Module*) this, (j1Module*)this);
+
+	if (App->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN)
+		App->fade->FadeToBlack((j1Module*)this, (j1Module*)App->scene_2);
 
 
 	App->map->Draw();

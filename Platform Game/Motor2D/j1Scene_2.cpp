@@ -39,10 +39,10 @@ bool j1Scene_2::Start()
 	App->map->Load("SecondMap.tmx");
 	App->audio->PlayMusic("audio/music/SecondMap.ogg");
 
-	App->player->Activate();	
 	App->map->Activate();
 	App->collision->Activate();
 	App->audio->Activate();
+	App->player->Activate();
 
 	App->render->camera.x = 0;
 	App->render->camera.y = -120;
@@ -77,10 +77,13 @@ bool j1Scene_2::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
 		App->render->camera.x -= 10;
 
-	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
-		App->fade->FadeToBlack((j1Module*)this, (j1Module*)App->scene);
+
+
 
 	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
+		App->fade->FadeToBlack((j1Module*)this, (j1Module*)App->scene);
+
+	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
 		App->fade->FadeToBlack((j1Module*)this, (j1Module*)this);
 
 
@@ -119,5 +122,6 @@ bool j1Scene_2::CleanUp()
 	App->collision->Deactivate();
 	App->map->Reset();
 	App->audio->Deactivate();
+
 	return true;
 }
