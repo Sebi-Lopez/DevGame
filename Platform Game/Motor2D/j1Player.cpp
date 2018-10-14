@@ -108,7 +108,7 @@ bool j1Player::Start()
 
 	App->audio->LoadFx(App->audio->fxjump.GetString());
 	last_time = actual_time = SDL_GetTicks();
-
+	
 	position.x = App->map->spawnpos.x;
 	position.y = App->map->spawnpos.y;
 
@@ -176,7 +176,10 @@ bool j1Player::PreUpdate()
 bool j1Player::Update(float dt)
 
 {
-	
+	if (!isGrounded) {
+		acceleration.y = gravity;
+	}
+
 	App->render->Blit(player_texture, (int)position.x, (int)position.y, &(current_animation->GetCurrentFrame()), 1.0f, flip);
 
 	return true;
@@ -529,13 +532,39 @@ void j1Player::OnCollision(Collider * c1, Collider * c2)
 {
 	if (c1->type == COLLIDER_PLAYER && c2->type == COLLIDER_FLOOR) 
 	{
-		if (velocity.y >= 0) {
-			position.y = c2->rect.y - c1->rect.h;
+		uint distance_up = c2->rect.y - (position.y + player_collider->rect.h / 2);
+		uint distance_down = (position.y + player_collider->rect.h / 2) - (c2->rect.y + c2->rect.h);
+		uint distance_left = (c2->rect.x) -(position.x + player_collider->rect.w / 2);
+		uint distance_right = (position.x + player_collider->rect.w /2) - (c2->rect.x + c2->rect.w);
+		uint shortest = 10000;
+
+		if (distance_up < shortest)
+			shortest = distance_up;
+		if (distance_down < shortest)
+			shortest = distance_down;
+		if (distance_left < shortest)
+			shortest = distance_left;
+		if (distance_right < shortest)
+			shortest = distance_right; 
+
+
+		if (shortest == distance_up)
+		{
+			position.y = c2->rect.y - player_collider->rect.h;
 			acceleration.y = 0;
 			isGrounded = true;
 		}
-		
-		
+		else if (shortest == distance_left)
+		{
+			position.x = c2->rect.x - player_collider->rect.w;
+			velocity.x = 0; 
+		}
+		else if (shortest == distance_right)
+		{
+			position.x = c2->rect.x + c2->rect.w;
+			velocity.x = 0;
+		}
+
 		player_collider->SetPos(position.x, position.y);
 	}
 
