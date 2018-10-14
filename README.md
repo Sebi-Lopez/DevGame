@@ -3,7 +3,7 @@ Game for Development of Games subject, created by two students of the University
 
 ### How I Play This Game?
 
-Input:
+## Input:
 
 A: Move Left.
 
