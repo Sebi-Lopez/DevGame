@@ -188,7 +188,12 @@ bool j1Player::PostUpdate()
 bool j1Player::CleanUp()
 {
 	App->tex->UnLoad(player_texture);
-
+		if (player_collider != nullptr)
+	{
+		player_collider->to_delete = true;
+		player_collider = nullptr;
+	}
+	player_texture = nullptr;
 	return true;
 }
 
@@ -527,7 +532,7 @@ void j1Player::OnCollision(Collider * c1, Collider * c2)
 
 	if (c2->type == COLLIDER_DEAD)
 		State = STATE::DEAD;
-
+	 
 	if (c2->type == COLLIDER_END)
 		App->fade->FadeToBlack((j1Module*)App->scene, (j1Module*)App->scene_2);
 }
