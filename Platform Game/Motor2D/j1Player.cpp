@@ -130,15 +130,6 @@ bool j1Player::Start()
 
 bool j1Player::PreUpdate()
 {
-
-	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && App->input->GetKey(SDL_SCANCODE_A) == KEY_IDLE) {
-		flip = false;		
-	}
-	
-	else if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && App->input->GetKey(SDL_SCANCODE_D) == KEY_IDLE) {
-		flip = true; 
-	}	
-
 	if (App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
 	{
 		if (State != STATE::GOD)
@@ -153,6 +144,8 @@ bool j1Player::PreUpdate()
 		}
 
 	}
+
+
 	if (State != STATE::GOD) {
 		SetPlayerState();
 		SetPlayerActions();
@@ -191,28 +184,26 @@ bool j1Player::Update(float dt)
 		acceleration.y = gravity;
 	}
 
-	App->render->Blit(player_texture, (int)position.x, (int)position.y, &(current_animation->GetCurrentFrame()), 1.0f, flip);
+	App->render->Blit(player_texture, (int)position.x, (int)position.y, &(current_animation->GetCurrentFrame()), 1.0F, flip);
 
 	return true;
 }
 
 bool j1Player::PostUpdate()
-
 {
-		
 	return true;
 }
 
 bool j1Player::CleanUp()
 {
-	App->tex->UnLoad(player_texture);
+	App->tex->UnLoad(player_texture);	
+	player_texture = nullptr;
 	current_animation = nullptr; 
 	if (player_collider != nullptr)
 	{
 		player_collider->to_delete = true;
 		player_collider = nullptr;
 	}
-	player_texture = nullptr;
 	return true;
 }
 
@@ -221,7 +212,6 @@ void j1Player::CalculatePosition()
 	velocity = velocity + acceleration * time;
 	position = position + velocity * time + acceleration*time*time * 0.5F;
 	player_collider->SetPos(position.x, position.y);
-
 }
 
 void j1Player::CalculateTime()
@@ -243,7 +233,13 @@ void j1Player::SetPlayerState()
 	bool released_left = (App->input->GetKey(SDL_SCANCODE_A) == KEY_UP);
 	bool pressed_space = (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN);
 
-	// Peak point of the parabol
+	if (pressed_right && !pressed_left)
+		flip = false; 
+
+	if (pressed_left && !pressed_right)
+		flip = true; 
+
+ 	// Peak point of the parabol
 	bool going_down = (velocity.y >= 0);
 
 	switch (State)
@@ -562,20 +558,28 @@ void j1Player::OnCollision(Collider * c1, Collider * c2)
 		uint distance_left = (c2->rect.x) - (position.x + player_collider->rect.w / 2);
 		uint distance_right = (position.x + player_collider->rect.w / 2) - (c2->rect.x + c2->rect.w);
 
-
-
+		uint distance[4];
+		distance[0] = distance_up;
+		distance[1] = distance_down; 
+		distance[2] = distance_left;
+		distance[3] = distance_right; 
 
 		uint shortest = UINT_MAX;
 
+		for (uint i = 0; i < 4; ++i){
+		
+			if (distance[i] < shortest)
+					shortest = distance[i];
+		}
 
-		if (distance_up < shortest)
+	/*	if (distance_up < shortest)
 			shortest = distance_up;
 		if (distance_down < shortest)
 			shortest = distance_down;
 		if (distance_left < shortest)
 			shortest = distance_left;
 		if (distance_right < shortest)
-			shortest = distance_right;
+			shortest = distance_right;*/
 
 
 		if (shortest == distance_up)
@@ -615,8 +619,6 @@ void j1Player::SetAnimation(pugi::xml_node& node, Animation& anim) {
 		components.h = node.attribute("h").as_uint();
 		anim.PushBack(components);
 	}
-	
-	
 }
 
 bool j1Player::Load(pugi::xml_node& node)
