@@ -129,6 +129,7 @@ bool j1App::Start()
 			ret = item->data->Start();
 		item = item->next;
 	}
+	startup_time.Start();
 
 	PERF_PEEK(ptimer);
 
