@@ -51,7 +51,7 @@ bool j1Scene::Start()
 
 
 	App->render->camera.x = 0;
-	App->render->camera.y = -120;
+	App->render->camera.y = -190;
 	return true;
 }
 

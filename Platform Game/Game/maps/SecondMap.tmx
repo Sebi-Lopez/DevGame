@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="200" height="30" tilewidth="16" tileheight="16" nextobjectid="91">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="200" height="30" tilewidth="16" tileheight="16" nextobjectid="93">
+ <properties>
+  <property name="pos.x" type="float" value="10"/>
+  <property name="pos.y" type="float" value="300"/>
+ </properties>
  <tileset firstgid="1" name="background2" tilewidth="16" tileheight="16" tilecount="16384" columns="128">
   <image source="background2.png" width="2048" height="2048"/>
  </tileset>
@@ -42072,12 +42076,10 @@
   <object id="49" name="floor" x="1734" y="384" width="208" height="66"/>
   <object id="50" name="floor" x="2032" y="310" width="45" height="37"/>
   <object id="51" name="floor" x="2158" y="245" width="49" height="35"/>
-  <object id="69" name="floor" x="2601.33" y="456" width="2.66667" height="2.66667"/>
   <object id="73" name="floor" x="2748" y="394" width="137.5" height="87"/>
   <object id="74" name="floor" x="2879.5" y="322.5" width="87.5" height="27"/>
-  <object id="75" name="floor" x="2971.5" y="316.5" width="318.5" height="163"/>
-  <object id="77" name="end" x="3089" y="240" width="196" height="75"/>
-  <object id="78" name="floor" x="3088" y="-1" width="111" height="240"/>
+  <object id="75" name="floor" x="2971.5" y="316.5" width="117" height="163"/>
+  <object id="78" name="floor" x="3088" y="-1" width="111" height="199"/>
   <object id="79" name="floor" x="3039" y="-1" width="48" height="111"/>
   <object id="80" name="floor" x="3007" y="-2" width="30" height="51"/>
   <object id="81" name="floor" x="3056" y="109" width="32" height="35"/>
@@ -42087,6 +42089,7 @@
   <object id="85" name="floor" x="3061" y="144" width="10" height="17"/>
   <object id="86" name="floor" x="3078" y="176" width="9" height="21"/>
   <object id="87" name="floor" x="3026" y="68" width="12" height="34"/>
-  <object id="89" x="2288" y="458.333" width="350.333" height="23"/>
+  <object id="89" name="floor" x="2288" y="458.333" width="350.333" height="23"/>
+  <object id="92" name="end" x="3123" y="251" width="54.3333" height="80.6667"/>
  </objectgroup>
 </map>

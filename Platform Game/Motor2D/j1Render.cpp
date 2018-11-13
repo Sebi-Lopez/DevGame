@@ -46,7 +46,7 @@ bool j1Render::Awake(pugi::xml_node& config)
 		camera.w = App->win->screen_surface->w;
 		camera.h = App->win->screen_surface->h;
 		camera.x = 0;
-		camera.y = -120;
+		camera.y = -190;
 	}
 
 	return ret;
@@ -77,10 +77,12 @@ bool j1Render::Update(float dt)
 	pos.y = App->player->position.y;
 
 
-	if(pos.x > App->win->width/(map_divisor *App->win->GetScale()) && pos.x<App->win->width*getrightmargin)
-	App->render->camera.x = (-pos.x * App->win->scale) + (App->win->width / map_divisor);
-
-
+	if (pos.x > App->win->width / (map_divisor *App->win->GetScale()) && pos.x < App->win->width*getrightmargin)
+	{
+		App->render->camera.x = (-pos.x * App->win->scale) + (App->win->width / map_divisor);
+	}
+	
+	
 	return true;
 }
 

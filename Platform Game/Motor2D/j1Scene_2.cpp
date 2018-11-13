@@ -48,7 +48,7 @@ bool j1Scene_2::Start()
 	App->player->Activate();
 
 	App->render->camera.x = 0;
-	App->render->camera.y = -120;
+	App->render->camera.y = -190;
 
 	return true;
 }

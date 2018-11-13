@@ -52,7 +52,9 @@ public:
 	SDL_Rect		viewport;
 	SDL_Color		background;
 	float map_divisor = 4.f;
+	float map_divisorvertical = 2.f;
 	float getrightmargin = 2.75f;
+	float getdownmargin = 1.f;
 };
 
 #endif // __j1RENDER_H__
