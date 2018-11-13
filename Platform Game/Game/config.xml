@@ -4,6 +4,7 @@
   <app>
     <title>2D Platform Game</title>
     <organization>UPC</organization>
+    <framerate_cap frame_rate ="30"/>
   </app>
 	
   <renderer>
