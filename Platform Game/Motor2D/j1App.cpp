@@ -211,7 +211,9 @@ void j1App::FinishUpdate()
 		avg_fps, last_frame_ms, frames_on_last_update, seconds_since_startup, frame_count);
 	App->win->SetTitle(title);
 
-	//SDL_Delay((1 / (float)framerate_cap)*1000 - last_frame_ms);
+	float frame_rate_ms = 1 / (float)framerate_cap * 1000; 
+	if(last_frame_ms < frame_rate_ms)
+	SDL_Delay(frame_rate_ms - last_frame_ms);
 
 }
 
