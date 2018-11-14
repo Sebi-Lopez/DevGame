@@ -209,7 +209,8 @@ bool j1Player::CleanUp()
 
 void j1Player::CalculatePosition()
 {
-	velocity = velocity + acceleration * time;
+	if(velocity.y < gravity)
+		velocity = velocity + acceleration * time;
 	position = position + velocity * time + acceleration*time*time * 0.5F;
 	player_collider->SetPos(position.x, position.y);
 }
