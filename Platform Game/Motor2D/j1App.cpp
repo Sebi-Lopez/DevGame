@@ -193,6 +193,12 @@ void j1App::FinishUpdate()
 
 
 	//  Frame Rate Calculations
+	if (App->input->GetKey(SDL_SCANCODE_F11) == KEY_DOWN) 
+	{
+		if (capped == false) capped = true;
+		else capped = false;
+		LOG("Frame Rate Capped ");
+	}
 
 	if (last_sec_frame_time.Read() > 1000)
 	{
@@ -206,14 +212,18 @@ void j1App::FinishUpdate()
 	uint32 last_frame_ms = frame_time.Read();
 	uint32 frames_on_last_update = prev_last_sec_frame_count;
 
+
 	static char title[256];
-	sprintf_s(title, 256, "Av.FPS: %.2f Last Frame Ms: %02u Last sec frames: %i  Time since startup: %.3f Frame Count: %lu ",
-		avg_fps, last_frame_ms, frames_on_last_update, seconds_since_startup, frame_count);
+	sprintf_s(title, 256, "FPS: %i, Av.FPS: %.2f Last Frame Ms: %02u / Frame Cap: %s Vsync: %s /Time since startup: %.3f Frame Count: %lu ",
+		frames_on_last_update, avg_fps, last_frame_ms, "On", "Off", seconds_since_startup, frame_count);
 	App->win->SetTitle(title);
 
 	float frame_rate_ms = 1 / (float)framerate_cap * 1000; 
-	if(last_frame_ms < frame_rate_ms)
-	SDL_Delay(frame_rate_ms - last_frame_ms);
+
+	if (last_frame_ms < frame_rate_ms && capped) 
+	{
+		SDL_Delay(frame_rate_ms - last_frame_ms);
+	}
 
 }
 
