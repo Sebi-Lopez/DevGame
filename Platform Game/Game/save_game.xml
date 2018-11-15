@@ -9,13 +9,26 @@
 	<map />
 	<scene />
 	<scene />
-	<player>
-		<playerattributes x="10" y="296" state="IDLE">
-		</playerattributes>
-	</player>
 	<:anonymous />
+	<entities>
+		<player>
+			<playerattributes x="268" y="3078.31592" state="">
+				<map value="false" />
+			</playerattributes>
+		</player>
+		<player>
+			<playerattributes x="179.800018" y="1694.89978" state="IDLE">
+				<map value="false" />
+			</playerattributes>
+		</player>
+		<player>
+			<playerattributes x="10" y="311.327606" state="FALLING">
+				<map value="false" />
+			</playerattributes>
+		</player>
+	</entities>
 	<:anonymous />
 	<renderer>
-    <camera x="0" y="-120" />
+		<camera x="0" y="-190" />
 	</renderer>
 </game_state>

@@ -231,9 +231,6 @@ bool Entity_Player::PreUpdate()
 
 void Entity_Player::Update(float dt)
 {
-	if (!isGrounded) {
-		acceleration.y = gravity;
-	}
 	
 	if (App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
 	{
@@ -245,34 +242,11 @@ void Entity_Player::Update(float dt)
 		{
 			State = STATE::FALLING;
 			collider->type = COLLIDER_TYPE::COLLIDER_PLAYER;
-			acceleration.y = gravity;
 		}
-
 	}
 
-
-	if (State != STATE::GOD) {
-		SetPlayerState();
-		SetPlayerActions();
-	}
-	else {
-		collider->type = COLLIDER_TYPE::COLLIDER_NONE;
-		acceleration.y = 0.0F;
-		velocity.y = 0.0F;
-		velocity.x = 0.0F;
-		animation = &idle;
-		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
-			position.x -= god_speed;
-
-		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
-			position.x += god_speed;
-
-		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
-			position.y -= god_speed;
-
-		if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)
-			position.y += god_speed;
-	}
+	SetPlayerState();
+	SetPlayerActions();
 
 	isGrounded = false;
 
@@ -627,6 +601,26 @@ void Entity_Player::SetPlayerActions()
 		velocity.x = -fly_speed;
 		break;
 
+
+	case STATE::GOD:
+		collider->type = COLLIDER_TYPE::COLLIDER_NONE;
+		acceleration.y = 0.0F;
+		velocity.y = 0.0F;
+		velocity.x = 0.0F;
+		animation = &idle;
+		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
+			position.x -= god_speed;
+
+		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
+			position.x += god_speed;
+
+		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
+			position.y -= god_speed;
+
+		if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)
+			position.y += god_speed;
+		break;
+
 	case STATE::DEAD:
 		if (isSecondMap)
 			App->fade->FadeToBlack((j1Module*)App->scene_2, (j1Module*)App->scene_2);
@@ -643,7 +637,7 @@ void Entity_Player::SetPlayerActions()
 	}
 }
 
-void Entity_Player::OnCollision(Collider * c1, Collider * c2)
+void Entity_Player::OnCollision(Collider * c2)
 {
 	if (c2->type == COLLIDER_FLOOR)
 	{

@@ -35,8 +35,6 @@ bool j1Entities::Awake(pugi::xml_node& config)
 bool j1Entities::Start()
 {
 	
-
-
 	return true;
 }
 
@@ -90,7 +88,7 @@ bool j1Entities::CreateEntities(EntityType type, int x, int y)
 	}
 	}
 
-	return true;
+	return ret;
 }
 
 

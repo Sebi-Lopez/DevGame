@@ -72,7 +72,7 @@ public:
 
 
 	// Collision Callback
-	void OnCollision(Collider* c1, Collider* c2);
+	void OnCollision(Collider* c2);
 
 	bool Load(pugi::xml_node&);
 	bool Save(pugi::xml_node&) const;
@@ -126,7 +126,7 @@ private:
 
 public:
 
-	fPoint position;
+	//fPoint position;
 	bool isSecondMap = false;
 	bool flip = false;
 
