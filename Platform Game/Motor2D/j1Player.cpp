@@ -586,7 +586,7 @@ void j1Player::OnCollision(Collider * c1, Collider * c2)
 			isGrounded = true;
 			break;
 		case 1:
-			position.y = c2->rect.y + c2->rect.h;
+			position.y = c2->rect.y + c2->rect.h + 1;
 			velocity.y = 0.0f;
 			acceleration.y = gravity;
 			break;
@@ -595,7 +595,7 @@ void j1Player::OnCollision(Collider * c1, Collider * c2)
 			velocity.x = 0.0f;
 			break;
 		case 3:
-			position.x = c2->rect.x + c2->rect.w;
+			position.x = c2->rect.x + c2->rect.w + 1;
 			velocity.x = 0.0f;
 			break;
 		}
