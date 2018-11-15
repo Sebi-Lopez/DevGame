@@ -27,7 +27,7 @@ j1Player::~j1Player()
 bool j1Player::Awake(pugi::xml_node& node)
 {
 	pugi::xml_node animations = node.child("animations");
-	SetAnimation(animations.child("idleanimation").child("anim"),idle);
+	SetAnimation(animations.child("idleanimation").child("anim"), idle);
 	idle.speed = animations.child("idleanimation").attribute("speed").as_float();
 	idle.loop = animations.child("idleanimation").attribute("loop").as_bool();
 
@@ -79,10 +79,10 @@ bool j1Player::Awake(pugi::xml_node& node)
 	double_jump.speed = animations.child("doublejanimation").attribute("speed").as_float();
 	double_jump.loop = animations.child("doublejanimation").attribute("loop").as_bool();
 
-	//condicio de si es primer mapa o segon i carregar la posicio corresponents
-	
-	velocity.x = node.child("initial_attributes").attribute("velx").as_float();
-	velocity.y = node.child("initial_attributes").attribute("vely").as_float();
+	velocity.x = 0.0f;
+	velocity.y = 0.0f;
+	max_velocity = 300;
+
 	acceleration.x = node.child("initial_attributes").attribute("accx").as_float();
 	gravity = node.child("initial_attributes").attribute("gravity").as_float();
 	acceleration.y = gravity;
@@ -91,7 +91,7 @@ bool j1Player::Awake(pugi::xml_node& node)
 	jump_speed = node.child("initial_attributes").attribute("jumpspeed").as_float();
 	god_speed = node.child("initial_attributes").attribute("godspeed").as_float();
 
-	
+
 	return true;
 }
 
@@ -106,6 +106,7 @@ bool j1Player::Start()
 	else
 	{
 		LOG("There was an error loading Player texture.");
+		ret = false;
 	}
 
 	App->audio->LoadFx(App->audio->fxjump.GetString());
@@ -119,13 +120,12 @@ bool j1Player::Start()
 
 
 	acceleration.y = gravity;
-	velocity.y = 1; 
 
 	current_animation = &fall;
 	State = STATE::FALLING;
 
 	player_collider = App->collision->AddCollider({ (int)position.x, (int)position.y,19,29 }, COLLIDER_PLAYER, this);
-	return true;
+	return ret;
 }
 
 bool j1Player::PreUpdate()
@@ -152,9 +152,9 @@ bool j1Player::PreUpdate()
 	}
 	else {
 		player_collider->type = COLLIDER_TYPE::COLLIDER_NONE;
-		acceleration.y = 0;
-		velocity.y = 0;
-		velocity.x = 0;
+		acceleration.y = 0.0F;
+		velocity.y = 0.0F;
+		velocity.x = 0.0F;
 		current_animation = &idle;
 		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
 			position.x -= god_speed;
@@ -169,21 +169,19 @@ bool j1Player::PreUpdate()
 			position.y += god_speed;
 	}
 
-	isGrounded = false; 
+	isGrounded = false;
 
-	CalculateTime();	
+	CalculateTime();
 	CalculatePosition();
 
 	return true;
 }
 
 bool j1Player::Update(float dt)
-
 {
 	if (!isGrounded) {
 		acceleration.y = gravity;
 	}
-
 	App->render->Blit(player_texture, (int)position.x, (int)position.y, &(current_animation->GetCurrentFrame()), 1.0F, flip);
 
 	return true;
@@ -196,9 +194,9 @@ bool j1Player::PostUpdate()
 
 bool j1Player::CleanUp()
 {
-	App->tex->UnLoad(player_texture);	
+	App->tex->UnLoad(player_texture);
 	player_texture = nullptr;
-	current_animation = nullptr; 
+	current_animation = nullptr;
 	if (player_collider != nullptr)
 	{
 		player_collider->to_delete = true;
@@ -209,9 +207,11 @@ bool j1Player::CleanUp()
 
 void j1Player::CalculatePosition()
 {
-	if(velocity.y < gravity)
-		velocity = velocity + acceleration * time;
-	position = position + velocity * time + acceleration*time*time * 0.5F;
+	velocity = velocity + acceleration * time;
+	if (velocity.y > max_velocity) {
+		velocity.y = max_velocity;
+	}
+	position = position + velocity * time;
 	player_collider->SetPos(position.x, position.y);
 }
 
@@ -219,7 +219,7 @@ void j1Player::CalculateTime()
 {
 	actual_time = SDL_GetTicks();
 	time = actual_time - last_time;
-	time /= 1000;			
+	time /= 1000;
 	last_time = actual_time;
 }
 
@@ -235,12 +235,12 @@ void j1Player::SetPlayerState()
 	bool pressed_space = (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN);
 
 	if (pressed_right && !pressed_left)
-		flip = false; 
+		flip = false;
 
 	if (pressed_left && !pressed_right)
-		flip = true; 
+		flip = true;
 
- 	// Peak point of the parabol
+	// Peak point of the parabol
 	bool going_down = (velocity.y >= 0);
 
 	switch (State)
@@ -296,7 +296,7 @@ void j1Player::SetPlayerState()
 		// JUMPING CASES
 
 	case STATE::JUMPING:
-	
+
 		if (pressed_right && !pressed_left)
 		{
 			State = STATE::JUMPING_FORWARD;
@@ -344,7 +344,7 @@ void j1Player::SetPlayerState()
 		{
 			State = STATE::DOUBLE_JUMP;
 		}
-		break;	
+		break;
 
 
 		// FALLING CASES
@@ -377,7 +377,7 @@ void j1Player::SetPlayerState()
 		{
 			State = STATE::IDLE;
 		}
-		
+
 		if (pressed_space && !hasDoubleJumped)
 		{
 			State = STATE::DOUBLE_JUMP;
@@ -436,7 +436,7 @@ void j1Player::SetPlayerState()
 		{
 			State = STATE::FALLING;
 		}
-		break; 
+		break;
 
 	case STATE::DOUBLE_JUMP_BACKWARD:
 		if (released_left || pressed_right)
@@ -460,31 +460,31 @@ void j1Player::SetPlayerActions()
 	switch (State)
 	{
 	case STATE::IDLE:
-		velocity.x = 0; 
+		velocity.x = 0;
 		current_animation = &idle;
-		hasJumped = false; 
+		hasJumped = false;
 		hasDoubleJumped = false;
 		break;
 
 	case STATE::RUNNING_FORWARD:
-		velocity.x = run_speed; 
+		velocity.x = run_speed;
 		current_animation = &run;
-		break; 
+		break;
 
 	case STATE::RUNNING_BACKWARD:
 		velocity.x = -run_speed;
 		current_animation = &run;
 		break;
 
-	case STATE::JUMPING:		
+	case STATE::JUMPING:
 		velocity.x = 0;
 		current_animation = &jump;
-		if (!hasJumped) 
+		if (!hasJumped)
 		{
 			App->audio->PlayFx(1);
-			velocity.y = -jump_speed;			
-			acceleration.y = gravity;		
-			hasJumped = true;		
+			velocity.y = -jump_speed;
+			acceleration.y = gravity;
+			hasJumped = true;
 			isGrounded = false;
 		}
 		break;
@@ -498,7 +498,7 @@ void j1Player::SetPlayerActions()
 		break;
 
 
-	case STATE::FALLING:		
+	case STATE::FALLING:
 		velocity.x = 0;
 		acceleration.y = gravity;
 		current_animation = &fall;
@@ -538,7 +538,7 @@ void j1Player::SetPlayerActions()
 		if (isSecondMap)
 			App->fade->FadeToBlack((j1Module*)App->scene_2, (j1Module*)App->scene_2);
 		else
-			App->fade->FadeToBlack((j1Module*)App->scene, (j1Module*)App->scene); 
+			App->fade->FadeToBlack((j1Module*)App->scene, (j1Module*)App->scene);
 		break;
 
 	case STATE::WIN:
@@ -552,60 +552,61 @@ void j1Player::SetPlayerActions()
 
 void j1Player::OnCollision(Collider * c1, Collider * c2)
 {
-	if (c1->type == COLLIDER_PLAYER && c2->type == COLLIDER_FLOOR)
+	if (c2->type == COLLIDER_FLOOR)
 	{
-		uint distance_up = c2->rect.y - (position.y + player_collider->rect.h / 2);
-		uint distance_down = (position.y + player_collider->rect.h / 2) - (c2->rect.y + c2->rect.h);
-		uint distance_left = (c2->rect.x) - (position.x + player_collider->rect.w / 2);
-		uint distance_right = (position.x + player_collider->rect.w / 2) - (c2->rect.x + c2->rect.w);
+		uint distance_up = (position.y + player_collider->rect.h) - c2->rect.y;
+		uint distance_down = (c2->rect.y + c2->rect.h) - position.y;
+		uint distance_left = (position.x + player_collider->rect.w) - (c2->rect.x);
+		uint distance_right = (c2->rect.x + c2->rect.w) - position.x;
 
 		uint distance[4];
 		distance[0] = distance_up;
-		distance[1] = distance_down; 
+		distance[1] = distance_down;
 		distance[2] = distance_left;
-		distance[3] = distance_right; 
+		distance[3] = distance_right;
 
 		uint shortest = UINT_MAX;
+		int shortestDir = -1;
 
-		for (uint i = 0; i < 4; ++i){
-		
-			if (distance[i] < shortest)
-					shortest = distance[i];
+		for (uint i = 0; i < 4; ++i) {
+			if (distance[i] < shortest) {
+				shortest = distance[i];
+				shortestDir = i;
+			}
 		}
 
-	/*	if (distance_up < shortest)
-			shortest = distance_up;
-		if (distance_down < shortest)
-			shortest = distance_down;
-		if (distance_left < shortest)
-			shortest = distance_left;
-		if (distance_right < shortest)
-			shortest = distance_right;*/
-
-
-		if (shortest == distance_up)
-		{
+		switch (shortestDir) {
+		case -1:
+			LOG("Collision not detected properly");
+			break;
+		case 0:
 			position.y = c2->rect.y - player_collider->rect.h;
-			acceleration.y = 0;
+			velocity.y = 0.0f;
+			acceleration.y = 0.0f;
 			isGrounded = true;
-		}
-		else if (shortest == distance_left)
-		{
+			break;
+		case 1:
+			position.y = c2->rect.y + c2->rect.h;
+			velocity.y = 0.0f;
+			acceleration.y = gravity;
+			break;
+		case 2:
 			position.x = c2->rect.x - player_collider->rect.w;
-			velocity.x = 0;
-		}
-		else if (shortest == distance_right)
-		{
+			velocity.x = 0.0f;
+			break;
+		case 3:
 			position.x = c2->rect.x + c2->rect.w;
-			velocity.x = 0;
+			velocity.x = 0.0f;
+			break;
 		}
 
 		player_collider->SetPos(position.x, position.y);
+
 	}
 
 	if (c2->type == COLLIDER_DEAD)
 		State = STATE::DEAD;
-	 
+
 	if (c2->type == COLLIDER_END)
 		State = STATE::WIN;
 
@@ -627,43 +628,43 @@ bool j1Player::Load(pugi::xml_node& node)
 	pugi::xml_node load = node.child("playerattributes");
 	loadpos = true;
 	bool wasSecondMap = load.child("map").attribute("value").as_bool();
-	
+
 
 	if (wasSecondMap == true)
 	{
-		
-		if(isSecondMap == true){
-			App->fade->FadeToBlack((j1Module*)App->scene_2, (j1Module*)App->scene_2); 
+
+		if (isSecondMap == true) {
+			App->fade->FadeToBlack((j1Module*)App->scene_2, (j1Module*)App->scene_2);
 			position.x = load.attribute("x").as_float();
 			position.y = load.attribute("y").as_float();
-			
+
 		}
 		else {
 			App->fade->FadeToBlack((j1Module*)App->scene, (j1Module*)App->scene_2);
 			position.x = load.attribute("x").as_float();
 			position.y = load.attribute("y").as_float();
-			
+
 		}
 	}
 
-	else 
+	else
 	{
-		
+
 		if (isSecondMap == true) {
 			App->fade->FadeToBlack((j1Module*)App->scene_2, (j1Module*)App->scene);
 			position.x = load.attribute("x").as_float();
 			position.y = load.attribute("y").as_float();
-			
+
 		}
 		else {
 			App->fade->FadeToBlack((j1Module*)App->scene, (j1Module*)App->scene);
 			position.x = load.attribute("x").as_float();
 			position.y = load.attribute("y").as_float();
-			
+
 		}
 	}
 
-	p2SString state=load.attribute("state").as_string();
+	p2SString state = load.attribute("state").as_string();
 	if (state == "IDLE") {
 		State = STATE::IDLE;
 	}
@@ -701,21 +702,21 @@ bool j1Player::Load(pugi::xml_node& node)
 		State = STATE::FALLING_BACKWARD;
 	}
 	return true;
-	
+
 }
 
-bool j1Player::Save(pugi::xml_node& node) const{
+bool j1Player::Save(pugi::xml_node& node) const {
 	pugi::xml_node save = node.append_child("playerattributes");
 
 	save.append_attribute("x") = position.x;
 	save.append_attribute("y") = position.y;
-	
-	
+
+
 	save.append_child("map").append_attribute("value") = isSecondMap;
-	
-	
-	
-	
+
+
+
+
 	p2SString state;
 	if (State == STATE::IDLE) {
 		state = "IDLE";
@@ -753,10 +754,12 @@ bool j1Player::Save(pugi::xml_node& node) const{
 	else if (State == STATE::FALLING_BACKWARD) {
 		state = "FALLING_BACKWARD";
 	}
-	
+
 
 	save.append_attribute("state") = state.GetString();
 
 	return true;
 }
+
+
 

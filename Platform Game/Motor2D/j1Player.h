@@ -99,6 +99,7 @@ private:
 	float jump_speed;
 	float god_speed; 
 	float gravity; 
+	float max_velocity; 
 	fPoint velocity;
 	fPoint acceleration;
 	bool isGrounded = false; 
