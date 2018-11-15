@@ -10,7 +10,10 @@
 #include "j1Scene.h"
 #include "j1Collision.h"
 #include "j1FadeToBlack.h"
-#include "j1Player.h"
+#include"Entity_Player.h"
+#include"j1Entities.h"
+#include"j1Entity.h"
+
 #include "SDL_mixer\include\SDL_mixer.h"
 
 
@@ -41,13 +44,13 @@ bool j1Scene::Start()
 
 	App->audio->PlayMusic(App->audio->music2.GetString());
 	App->audio->MusicVolume(App->audio->volume);
-	App->player->isSecondMap = false;
-
+	//App->entities->player->isSecondMap = false;
+	App->entities->CreateEntities(PLAYER, App->map->spawnpos.x, App->map->spawnpos.y);
 
 	App->collision->Activate();
 	App->map->Activate();
 	App->audio->Activate();
-	App->player->Activate();
+	//App->player->Activate();
 
 
 	App->render->camera.x = 0;
@@ -128,7 +131,7 @@ bool j1Scene::CleanUp()
 	
 
 
-	App->player->Deactivate();
+	
 	App->collision->Deactivate();
 	App->map->Reset();
 	App->audio->Deactivate();

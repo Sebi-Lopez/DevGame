@@ -12,9 +12,10 @@
 #include "j1Scene.h"
 #include "j1Scene_2.h"
 #include "j1Map.h"
-#include "j1Player.h"
+
 #include "j1Collision.h"
 #include "j1FadeToBlack.h"
+#include "j1Entities.h"
 #include "j1App.h"
 
 // Constructor
@@ -30,9 +31,10 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	scene = new j1Scene();
 	scene_2 = new j1Scene_2(); 
 	map = new j1Map();
-	player = new j1Player();
 	collision = new j1Collision(); 
-	fade = new j1FadeToBlack(); 
+	fade = new j1FadeToBlack();
+	entities = new j1Entities();
+
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
@@ -43,9 +45,10 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(map);
 	AddModule(scene);
 	AddModule(scene_2,false);
-	AddModule(player);
 	AddModule(collision); 
+	AddModule(entities);
 	AddModule(fade);
+
 
 	// render last to swap buffer
 	AddModule(render);
@@ -80,9 +83,7 @@ bool j1App::Awake()
 {
 	PERF_START(ptimer);
 
-	pugi::xml_document	config_file;
-	pugi::xml_node		config;
-	pugi::xml_node		app_config;
+	
 
 	bool ret = false;
 		

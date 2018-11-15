@@ -10,7 +10,10 @@
 #include "j1Scene_2.h"
 #include "j1Collision.h"
 #include "j1FadeToBlack.h"
-#include "j1Player.h"
+#include"Entity_Player.h"
+#include"j1Entities.h"
+#include"j1Entity.h"
+
 
 
 
@@ -39,13 +42,13 @@ bool j1Scene_2::Start()
 	App->map->Load("SecondMap.tmx");
 
 	
-	App->player->isSecondMap = true;
+	App->entities->player->isSecondMap = true;
 
 
 	App->map->Activate();
 	App->collision->Activate();
 	App->audio->Activate();
-	App->player->Activate();
+	//App->player->Activate();
 
 	App->render->camera.x = 0;
 	App->render->camera.y = -190;
@@ -112,7 +115,7 @@ bool j1Scene_2::CleanUp()
 {
 	LOG("Freeing scene");
 
-	App->player->Deactivate();
+	//App->player->Deactivate();
 	App->collision->Deactivate();
 	App->map->Reset();
 	App->audio->Deactivate();

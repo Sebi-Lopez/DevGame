@@ -16,9 +16,14 @@ class j1Audio;
 class j1Scene;
 class j1Scene_2;
 class j1Map;
-class j1Player;
 class j1Collision;
 class j1FadeToBlack;
+class j1Entities;
+
+enum Entities {
+	PLAYER_ENTITY,
+	NONE_ENTITY,
+};
 class j1App
 {
 public:
@@ -89,9 +94,10 @@ public:
 	j1Scene*			scene = nullptr;
 	j1Scene_2*			scene_2 = nullptr;
 	j1Map*				map = nullptr;
-	j1Player*			player = nullptr;
 	j1Collision*		collision = nullptr;
 	j1FadeToBlack*		fade = nullptr;
+	j1Entities*			entities = nullptr;
+
 private:
 
 	p2List<j1Module*>	modules;
@@ -116,6 +122,10 @@ private:
 	j1Timer				last_sec_frame_time;
 	uint32				last_sec_frame_count = 0;
 	uint32				prev_last_sec_frame_count = 0;
+
+	pugi::xml_document	config_file;
+	pugi::xml_node		config;
+	pugi::xml_node		app_config;
 };
 
 extern j1App* App; // No student is asking me about that ... odd :-S

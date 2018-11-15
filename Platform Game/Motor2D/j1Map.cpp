@@ -7,7 +7,7 @@
 #include "j1Collision.h"
 #include "j1Window.h"
 #include <math.h>
-#include "j1Player.h"
+
 
 
 #define OFFSET 50

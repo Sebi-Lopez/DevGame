@@ -4,7 +4,10 @@
 #include "j1Window.h"
 #include "j1Render.h"
 #include "j1Map.h"
-#include "j1Player.h"
+#include"Entity_Player.h"
+#include"j1Entities.h"
+#include"j1Entity.h"
+
 
 
 j1Render::j1Render() : j1Module()
@@ -73,8 +76,8 @@ bool j1Render::Update(float dt)
 	//camera following player
 	fPoint pos;
 
-	pos.x = App->player->position.x;
-	pos.y = App->player->position.y;
+	pos.x = App->entities->player->position.x;
+	pos.y = App->entities->player->position.y;
 
 
 	if (pos.x > App->win->width / (map_divisor *App->win->GetScale()) && pos.x < App->win->width*getrightmargin)
