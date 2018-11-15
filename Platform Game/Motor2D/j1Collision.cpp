@@ -36,7 +36,7 @@ j1Collision::j1Collision()
 j1Collision::~j1Collision()
 {}
 
-bool j1Collision::PreUpdate()
+bool j1Collision::Update(float dt)
 {
 	// Remove all colliders scheduled for deletion
 	for (uint i = 0; i < MAX_COLLIDERS; ++i)
@@ -82,10 +82,12 @@ bool j1Collision::PreUpdate()
 	return true;
 }
 
-// Called before render is available
-bool j1Collision::Update(float dt)
-{
 
+
+// Called before render is available
+
+bool j1Collision::PostUpdate()
+{
 	DebugDraw();
 	return true;
 }
