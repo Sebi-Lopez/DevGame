@@ -119,7 +119,7 @@ public:
 
 	//fPoint position;
 	bool isSecondMap = false;
-	bool flip = false;
+
 
 };
 

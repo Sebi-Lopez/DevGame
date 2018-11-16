@@ -13,6 +13,8 @@
 #include "j1Entity.h"
 #include "j1FadeToBlack.h"
 #include"Entity_Player.h"
+#include"Entity_Enemy.h"
+#include"Entity_FlyEnemy.h"
 
 
 j1Entities::j1Entities() : j1Module()
@@ -86,6 +88,18 @@ bool j1Entities::CreateEntities(EntityType type, int x, int y)
 		ret = true;
 		break;
 	}
+	case EntityType::ENEMY: {
+		enemy = new Entity_Enemy(x, y, entitynode);
+		entities.add(enemy);
+		ret = true;
+		break;
+	}
+	case EntityType::FLYENEMY: {
+		flyenemy = new Entity_FlyEnemy(x, y, entitynode);
+		entities.add(flyenemy);
+		ret = true;
+		break;
+	}
 	}
 
 	return ret;
@@ -117,6 +131,16 @@ bool j1Entities::Load(pugi::xml_node& data)
 			pugi::xml_node player_stats = data.child("player");
 			entities.At(i)->data->Load(player_stats);
 		}
+		if (entities.At(i)->data->entitytype == ENEMY)
+		{
+			pugi::xml_node enemy_stats = data.child("enemy");
+			entities.At(i)->data->Load(enemy_stats);
+		}
+		if (entities.At(i)->data->entitytype == FLYENEMY)
+		{
+			pugi::xml_node flyenemy_stats = data.child("flyenemy");
+			entities.At(i)->data->Load(flyenemy_stats);
+		}
 
 	}
 
@@ -135,6 +159,16 @@ bool j1Entities::Save(pugi::xml_node& data)const
 		{
 			pugi::xml_node player_stats = data.append_child("player");
 			entities.At(i)->data->Save(player_stats);
+		}
+		if (entities.At(i)->data->entitytype == ENEMY)
+		{
+			pugi::xml_node enemy_stats = data.append_child("enemy");
+			entities.At(i)->data->Save(enemy_stats);
+		}
+		if (entities.At(i)->data->entitytype == FLYENEMY)
+		{
+			pugi::xml_node flyenemy_stats = data.append_child("flyenemy");
+			entities.At(i)->data->Save(flyenemy_stats);
 		}
 	}
 

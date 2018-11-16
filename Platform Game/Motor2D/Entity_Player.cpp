@@ -18,7 +18,7 @@
 
 Entity_Player::Entity_Player(int x, int y, pugi::xml_node& node): j1Entity(x, y)
 {
-	//name.create("player");
+	
 	animation = &fall;
 	State = STATE::FALLING;
 
@@ -60,9 +60,9 @@ Entity_Player::Entity_Player(int x, int y, pugi::xml_node& node): j1Entity(x, y)
 	hurt.speed = animations.child("hurtanimation").attribute("speed").as_float();
 	hurt.loop = animations.child("hurtanimation").attribute("loop").as_bool();
 
-	SetAnimation(animations.child("dieanimation").child("anim"), die);
-	die.speed = animations.child("dieanimation").attribute("speed").as_float();
-	die.loop = animations.child("dieanimation").attribute("loop").as_bool();
+	SetAnimation(animations.child("deadanimation").child("anim"), die);
+	die.speed = animations.child("deadanimation").attribute("speed").as_float();
+	die.loop = animations.child("deadanimation").attribute("loop").as_bool();
 
 	SetAnimation(animations.child("slideanimation").child("anim"), slide);
 	slide.speed = animations.child("slideanimation").attribute("speed").as_float();
