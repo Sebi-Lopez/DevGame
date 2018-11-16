@@ -47,19 +47,10 @@ public:
 	Entity_Player(int x, int y, pugi::xml_node& node);
 	~Entity_Player();
 
-	// Called before render is available
-	bool Awake(pugi::xml_node&);
-
-	// Called before the first frame
-	bool Start();
-
 	// Called before all Updates
-	bool PreUpdate();
-
+	
 	void Update(float dt);
 
-	bool PostUpdate();
-	// Called before quitting
 	bool CleanUp();
 
 	void CalculatePosition();

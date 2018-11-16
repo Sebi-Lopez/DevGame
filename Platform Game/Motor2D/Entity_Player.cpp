@@ -119,115 +119,6 @@ Entity_Player::~Entity_Player()
 {
 }
 
-bool Entity_Player::Awake(pugi::xml_node& node)
-{
-	pugi::xml_node animations = node.child("animations");
-	SetAnimation(animations.child("idleanimation").child("anim"), idle);
-	idle.speed = animations.child("idleanimation").attribute("speed").as_float();
-	idle.loop = animations.child("idleanimation").attribute("loop").as_bool();
-
-	SetAnimation(animations.child("runanimation").child("anim"), run);
-	run.speed = animations.child("runanimation").attribute("speed").as_float();
-	run.loop = animations.child("runanimation").attribute("loop").as_bool();
-
-	SetAnimation(animations.child("jumpanimation").child("anim"), jump);
-	jump.speed = animations.child("jumpanimation").attribute("speed").as_float();
-	jump.loop = animations.child("jumpanimation").attribute("loop").as_bool();
-
-	SetAnimation(animations.child("fallanimation").child("anim"), fall);
-	fall.speed = animations.child("fallanimation").attribute("speed").as_float();
-	fall.loop = animations.child("fallanimation").attribute("loop").as_bool();
-
-	SetAnimation(animations.child("attackanimation").child("anim"), attack);
-	attack.speed = animations.child("attackanimation").attribute("speed").as_float();
-	attack.loop = animations.child("attackanimation").attribute("loop").as_bool();
-
-	SetAnimation(animations.child("climbanimation").child("anim"), climb);
-	climb.speed = animations.child("climbanimation").attribute("speed").as_float();
-	climb.loop = animations.child("climbanimation").attribute("loop").as_bool();
-
-	SetAnimation(animations.child("grabanimation").child("anim"), grab);
-	grab.speed = animations.child("grabanimation").attribute("speed").as_float();
-	grab.loop = animations.child("grabanimation").attribute("loop").as_bool();
-
-	SetAnimation(animations.child("idlesword").child("anim"), idlesword);
-	idlesword.speed = animations.child("idlesword").attribute("speed").as_float();
-	idlesword.loop = animations.child("idlesword").attribute("loop").as_bool();
-
-	SetAnimation(animations.child("hurtanimation").child("anim"), hurt);
-	hurt.speed = animations.child("hurtanimation").attribute("speed").as_float();
-	hurt.loop = animations.child("hurtanimation").attribute("loop").as_bool();
-
-	SetAnimation(animations.child("dieanimation").child("anim"), die);
-	die.speed = animations.child("dieanimation").attribute("speed").as_float();
-	die.loop = animations.child("dieanimation").attribute("loop").as_bool();
-
-	SetAnimation(animations.child("slideanimation").child("anim"), slide);
-	slide.speed = animations.child("slideanimation").attribute("speed").as_float();
-	slide.loop = animations.child("slideanimation").attribute("loop").as_bool();
-
-	SetAnimation(animations.child("crouchanimation").child("anim"), crouch);
-	crouch.speed = animations.child("crouchanimation").attribute("speed").as_float();
-	crouch.loop = animations.child("crouchanimation").attribute("loop").as_bool();
-
-	SetAnimation(animations.child("doublejanimation").child("anim"), double_jump);
-	double_jump.speed = animations.child("doublejanimation").attribute("speed").as_float();
-	double_jump.loop = animations.child("doublejanimation").attribute("loop").as_bool();
-
-	velocity.x = 0.0f;
-	velocity.y = 0.0f;
-	max_velocity = 300;
-
-	acceleration.x = node.child("initial_attributes").attribute("accx").as_float();
-	gravity = node.child("initial_attributes").attribute("gravity").as_float();
-	acceleration.y = gravity;
-	run_speed = node.child("initial_attributes").attribute("runspeed").as_float();
-	fly_speed = node.child("initial_attributes").attribute("flyspeed").as_float();
-	jump_speed = node.child("initial_attributes").attribute("jumpspeed").as_float();
-	god_speed = node.child("initial_attributes").attribute("godspeed").as_float();
-
-	
-	return true;
-}
-
-bool Entity_Player::Start()
-{
-	bool ret = true;
-	sprites = App->tex->Load("textures/character.png");
-	if (sprites != nullptr)
-	{
-		LOG("Player Texture Loaded Succesfully");
-	}
-	else
-	{
-		LOG("There was an error loading Player texture.");
-		ret = false;
-	}
-
-	App->audio->LoadFx(App->audio->fxjump.GetString());
-	last_time = actual_time = SDL_GetTicks();
-
-	if (loadpos != true) {
-		position.x = App->map->spawnpos.x;
-		position.y = App->map->spawnpos.y;
-	}
-	loadpos = false;
-
-
-	acceleration.y = gravity;
-
-	
-
-	collider = App->collision->AddCollider({ (int)position.x, (int)position.y,19,29 }, COLLIDER_PLAYER, App->entities);
-	return ret;
-}
-
-bool Entity_Player::PreUpdate()
-{
-	
-
-	return true;
-}
 
 void Entity_Player::Update(float dt)
 {
@@ -255,11 +146,6 @@ void Entity_Player::Update(float dt)
 	CalculatePosition();
 }
 
-bool Entity_Player::PostUpdate()
-{
-
-	return true;
-}
 
 bool Entity_Player::CleanUp()
 {

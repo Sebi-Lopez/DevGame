@@ -120,6 +120,26 @@
         <anim x="14" y="124" w="23" h="17"/>
       </doublejanimation>
     </animations>
+    <animationsenemy>
+      <idleanimation>
+        <anim x="9" y="42" w="15" h="22"/>
+      </idleanimation>
+      <runanimation speed="0.2" loop="false">
+        <anim x="41" y="41" w="15" h="22"/>
+        <anim x="73" y="42" w="15" h="22"/>
+        <anim x="104" y="41" w="15" h="22"/>
+        <anim x="9" y="42" w="15" h="22"/>
+      </runanimation>
+      <fallanimation speed="0.2" loop="false">
+        <anim x="201" y="41" w="15" h="22"/>
+        <anim x="233" y="43" w="16" h="21"/>
+      </fallanimation>
+    </animationsenemy>
+    <animationsflyenemy>
+      <idleanimation speed="0.2" loop="true">
+        <anim x="9" y="42" w="15" h="22"/>
+      </idleanimation>
+    </animationsflyenemy>
     <initial_attributes velx="0.f" vely="0.f" accx="0.f" gravity="300.f" runspeed="120" flyspeed="110" jumpspeed="180" godspeed="5"/>
   </entities> 
   <audio>

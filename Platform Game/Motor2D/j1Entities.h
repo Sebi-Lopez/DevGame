@@ -5,15 +5,21 @@
 #include "p2DynArray.h"
 
 class Entity_Player;
+class Entity_Enemy;
+class ENtity_FlyEnemy;
 
 
 enum EntityType {
 	PLAYER,
+	ENEMY,
+	FLYENEMY,
 	NONE,
 };
 
 class j1Entity;
 class Player;
+class Enemy;
+class FlyEnemy;
 
 class j1Entities : public j1Module
 {
