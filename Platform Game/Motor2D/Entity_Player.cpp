@@ -236,6 +236,7 @@ void Entity_Player::Update(float dt)
 	{
 		if (State != STATE::GOD)
 		{
+			collider->type = COLLIDER_TYPE::COLLIDER_GOD;
 			State = STATE::GOD;
 		}
 		else
@@ -604,7 +605,6 @@ void Entity_Player::SetPlayerActions()
 
 
 	case STATE::GOD:
-		collider->type = COLLIDER_TYPE::COLLIDER_NONE;
 		acceleration.y = 0.0F;
 		velocity.y = 0.0F;
 		velocity.x = 0.0F;
@@ -669,22 +669,22 @@ void Entity_Player::OnCollision(Collider * c2)
 			break;
 		case 0:
 			position.y = c2->rect.y - collider->rect.h;
-			velocity.y = 0.0f;
-			acceleration.y = 0.0f;
+			velocity.y = 0.0F;
+			acceleration.y = 0.0F;
 			isGrounded = true;
 			break;
 		case 1:
 			position.y = c2->rect.y + c2->rect.h + 1;
-			velocity.y = 0.0f;
+			velocity.y = 0.0F;
 			acceleration.y = gravity;
 			break;
 		case 2:
 			position.x = c2->rect.x - collider->rect.w;
-			velocity.x = 0.0f;
+			velocity.x = 0.0F;
 			break;
 		case 3:
 			position.x = c2->rect.x + c2->rect.w + 1;
-			velocity.x = 0.0f;
+			velocity.x = 0.0F;
 			break;
 		}
 
