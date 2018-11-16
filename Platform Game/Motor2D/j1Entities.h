@@ -42,8 +42,6 @@ public:
 
 	p2List<j1Entity*> entities;
 	Entity_Player* player;
-	Entity_Enemy* enemy;
-	Entity_FlyEnemy* flyenemy;
 	pugi::xml_node entitynode;
 
 

@@ -40,13 +40,6 @@ j1Collision::j1Collision()
 	matrix[COLLIDER_GOD][COLLIDER_PLAYER] = false;
 	matrix[COLLIDER_GOD][COLLIDER_GOD] = false;
 
-	matrix[COLLIDER_ENEMY][COLLIDER_FLOOR] = true;
-	matrix[COLLIDER_ENEMY][COLLIDER_DEAD] = true;
-	matrix[COLLIDER_ENEMY][COLLIDER_END] = true;
-	matrix[COLLIDER_ENEMY][COLLIDER_PLAYER] = false;
-	matrix[COLLIDER_ENEMY][COLLIDER_GOD] = false;
-	matrix[COLLIDER_ENEMY][COLLIDER_ENEMY] = false;
-
 }
 
 // Destructor

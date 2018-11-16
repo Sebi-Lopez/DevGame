@@ -25,7 +25,7 @@ bool j1Entity::Draw()
 {
 	bool ret = true; 
 	SDL_Rect r = animation->GetCurrentFrame();
-	ret =  App->render->Blit(sprites, (int)position.x, (int)position.y, &r, 1.0F,flip);
+	ret =  App->render->Blit(sprites, (int)position.x, (int)position.y, &r, 1.0F, App->entities->player->flip);
 	if(collider!=nullptr)
 		collider->SetPos(position.x, position.y);
 

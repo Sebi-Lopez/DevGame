@@ -17,7 +17,7 @@ public:
 	fPoint position;
 	int entitytype = 0;
 	SDL_Texture* sprites;
-	bool flip = false;
+	
 
 public:
 	j1Entity(int x, int y);
