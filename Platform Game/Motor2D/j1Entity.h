@@ -26,7 +26,7 @@ public:
 	const Collider* GetCollider() const;
 
 	virtual void Update(float dt) {};
-	virtual void Draw();
+	bool Draw();
 	virtual void OnCollision(Collider* collider);
 
 	virtual void SetAnimation(pugi::xml_node& node, Animation* animation) {};

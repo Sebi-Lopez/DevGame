@@ -21,14 +21,15 @@ const Collider* j1Entity::GetCollider() const
 	return collider;
 }
 
-void j1Entity::Draw()
+bool j1Entity::Draw()
 {
+	bool ret = true; 
 	SDL_Rect r = animation->GetCurrentFrame();
-	App->render->Blit(sprites, (int)position.x, (int)position.y, &r, 1.0F, App->entities->player->flip);
+	ret =  App->render->Blit(sprites, (int)position.x, (int)position.y, &r, 1.0F, App->entities->player->flip);
 	if(collider!=nullptr)
 		collider->SetPos(position.x, position.y);
-	
-	
+
+	return ret; 
 }
 
 void j1Entity::OnCollision(Collider* collider)
