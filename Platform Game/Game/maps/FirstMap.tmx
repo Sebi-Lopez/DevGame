@@ -11,6 +11,9 @@
   <image source="Background.png" width="2000" height="2000"/>
  </tileset>
  <layer name="Navigation" width="200" height="30">
+  <properties>
+   <property name="Navigation" type="int" value="1"/>
+  </properties>
   <data>
    <tile gid="0"/>
    <tile gid="0"/>
