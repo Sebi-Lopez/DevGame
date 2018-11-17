@@ -10,6 +10,7 @@
 #include "j1Collision.h"
 #include "j1FadeToBlack.h"
 #include "j1App.h"
+#include"j1Scene.h"
 #include "p2Log.h"
 #include"j1Audio.h"
 #include"j1Window.h"
@@ -514,17 +515,32 @@ void Entity_Player::SetPlayerActions()
 		break;
 
 	case STATE::DEAD:
-		if (isSecondMap)
-			App->fade->FadeToBlack((j1Module*)App->scene_2, (j1Module*)App->scene_2);
-		else
-			App->fade->FadeToBlack((j1Module*)App->scene, (j1Module*)App->scene);
+		if (isSecondMap) {
+			
+			App->scene->map = 1;
+			App->scene->SceneChange(App->scene->map);
+		}
+		else {
+			
+			App->scene->map = 2;
+			App->scene->SceneChange(App->scene->map);
+		}
 		break;
 
 	case STATE::WIN:
-		if (isSecondMap)
-			App->fade->FadeToBlack((j1Module*)App->scene_2, (j1Module*)App->scene);
-		else
-			App->fade->FadeToBlack((j1Module*)App->scene, (j1Module*)App->scene_2);
+		if (isSecondMap) {
+			
+			App->scene->map = 1;
+			App->scene->SceneChange(App->scene->map);
+			isSecondMap = false;
+		}
+		else {
+			
+			App->scene->map = 2;
+			App->scene->SceneChange(App->scene->map);
+			isSecondMap = true;
+
+		}
 		break;
 	}
 }
@@ -603,13 +619,13 @@ bool Entity_Player::Load(pugi::xml_node& node)
 	{
 
 		if (isSecondMap == true) {
-			App->fade->FadeToBlack((j1Module*)App->scene_2, (j1Module*)App->scene_2);
+			//App->fade->FadeToBlack((j1Module*)App->scene_2, (j1Module*)App->scene_2);
 			position.x = load.attribute("x").as_float();
 			position.y = load.attribute("y").as_float();
 
 		}
 		else {
-			App->fade->FadeToBlack((j1Module*)App->scene, (j1Module*)App->scene_2);
+			//App->fade->FadeToBlack((j1Module*)App->scene, (j1Module*)App->scene_2);
 			position.x = load.attribute("x").as_float();
 			position.y = load.attribute("y").as_float();
 
@@ -620,13 +636,13 @@ bool Entity_Player::Load(pugi::xml_node& node)
 	{
 
 		if (isSecondMap == true) {
-			App->fade->FadeToBlack((j1Module*)App->scene_2, (j1Module*)App->scene);
+			//App->fade->FadeToBlack((j1Module*)App->scene_2, (j1Module*)App->scene);
 			position.x = load.attribute("x").as_float();
 			position.y = load.attribute("y").as_float();
 
 		}
 		else {
-			App->fade->FadeToBlack((j1Module*)App->scene, (j1Module*)App->scene);
+			//App->fade->FadeToBlack((j1Module*)App->scene, (j1Module*)App->scene);
 			position.x = load.attribute("x").as_float();
 			position.y = load.attribute("y").as_float();
 
