@@ -7,6 +7,7 @@
 #include "j1Render.h"
 #include "j1Window.h"
 #include "j1Map.h"
+#include "j1PathFinding.h"
 #include "j1Scene.h"
 #include "j1Collision.h"
 #include "j1FadeToBlack.h"
@@ -40,7 +41,16 @@ bool j1Scene::Awake()
 bool j1Scene::Start()
 {
 
-	App->map->Load("FirstMap.tmx");
+	if (App->map->Load("FirstMap.tmx") == true)
+	{
+		int w, h;
+		uchar* data = NULL;
+		if (App->map->CreateWalkabilityMap(w, h, &data))
+			App->pathfinding->SetMap(w, h, data);
+
+		RELEASE_ARRAY(data);
+		
+	}
 
 	App->audio->PlayMusic(App->audio->music2.GetString());
 	App->audio->MusicVolume(App->audio->volume);
@@ -61,6 +71,27 @@ bool j1Scene::Start()
 // Called each loop iteration
 bool j1Scene::PreUpdate()
 {
+	static iPoint origin;
+	static bool origin_selected = false;
+
+	int x, y;
+	App->input->GetMousePosition(x, y);
+	iPoint p = App->map->WorldToMap(x, y);
+
+	if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN)
+	{
+		if (origin_selected == true)
+		{
+			App->pathfinding->CreatePath(origin, p);
+			LOG("Origin-> x: %i y: %i ||| Destination-> x: %i y: %i", origin.x, origin.y, p.x, p.y);
+			origin_selected = false;
+		}
+		else
+		{
+			origin = p;
+			origin_selected = true;
+		}
+	}
 	return true;
 }
 
@@ -108,7 +139,16 @@ bool j1Scene::Update(float dt)
 
 
 	App->map->Draw();
+
 	
+	const p2DynArray<iPoint>* path = App->pathfinding->GetLastPath();
+
+	for (uint i = 0; i < path->Count(); ++i)
+	{
+		iPoint pos = App->map->MapToWorld(path->At(i)->x, path->At(i)->y);
+		LOG("Resultant path ----- X: %i Y: %i", pos.x, pos.y);
+	}
+
 	return true;
 }
 

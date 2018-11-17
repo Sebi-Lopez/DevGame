@@ -42,9 +42,9 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(win);
 	AddModule(tex);
 	AddModule(audio);
-	AddModule(pathfinding);
 	AddModule(map);
-	AddModule(scene);
+	AddModule(scene);	
+	AddModule(pathfinding);
 	AddModule(scene_2,false);
 	AddModule(entities);
 	AddModule(collision); 

@@ -217,7 +217,6 @@ int j1PathFinding::CreatePath(const iPoint& origin, const iPoint& destination)
 		for (; adj_iterator != NULL; adj_iterator = adj_iterator->next)
 		{
 			if (closed.Find(adj_iterator->data.pos))						// Ignores nodes in the closed list
-
 			{
 				continue;
 			}
