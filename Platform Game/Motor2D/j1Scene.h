@@ -36,7 +36,7 @@ public:
 
 public:
 	bool volumechange = false;
-	int map = 1;
+	int map = 0;
 };
 
 #endif // __j1SCENE_H__

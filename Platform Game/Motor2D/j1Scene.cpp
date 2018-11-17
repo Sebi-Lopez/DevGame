@@ -43,7 +43,7 @@ bool j1Scene::Awake()
 bool j1Scene::Start()
 {
 
-	if (map == 1) {
+	if (map == 0) {
 		map = 1;
 
 		App->entities->SpawnEntities1();
