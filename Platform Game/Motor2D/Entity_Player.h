@@ -53,7 +53,7 @@ public:
 
 	bool CleanUp();
 
-	void CalculatePosition();
+	void CalculatePosition(float dt);
 
 	void CalculateTime();
 

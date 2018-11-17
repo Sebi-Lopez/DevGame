@@ -143,7 +143,7 @@ void Entity_Player::Update(float dt)
 	isGrounded = false;
 
 	CalculateTime();
-	CalculatePosition();
+	CalculatePosition(dt);
 }
 
 
@@ -161,14 +161,18 @@ bool Entity_Player::CleanUp()
 	return true;
 }
 
-void Entity_Player::CalculatePosition()
+void Entity_Player::CalculatePosition(float dt)
 {
-	velocity = velocity + acceleration * time;
+	velocity = velocity + acceleration * dt;
 	if (velocity.y > max_velocity) {
 		velocity.y = max_velocity;
 	}
-	position = position + velocity * time;
+
 	
+
+	position = position + velocity * dt;
+	//collider->SetPos(position.x, position.y);
+
 }
 
 void Entity_Player::CalculateTime()
@@ -497,16 +501,16 @@ void Entity_Player::SetPlayerActions()
 		velocity.x = 0.0F;
 		animation = &idle;
 		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
-			position.x -= god_speed;
+			velocity.x -= god_speed;
 
 		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
-			position.x += god_speed;
+			velocity.x += god_speed;
 
 		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
-			position.y -= god_speed;
+			velocity.y -= god_speed;
 
 		if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)
-			position.y += god_speed;
+			velocity.y += god_speed;
 		break;
 
 	case STATE::DEAD:
