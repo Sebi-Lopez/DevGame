@@ -182,7 +182,7 @@
         <anim x="64" y="65" w="15" h="5"/>
       </deadanimation>
     </animationsflyenemy>
-    <initial_attributes velx="0.f" vely="0.f" accx="0.f" gravity="190.f" runspeed="120" flyspeed="110" jumpspeed="155" godspeed="100"/>
+    <initial_attributes velx="0.f" vely="0.f" accx="0.f" gravity="100.f" runspeed="120" flyspeed="110" jumpspeed="145" godspeed="100"/>
   </entities> 
   <audio>
     <music path1="audio/music/FirstMap.ogg" path2="audio/music/SecondMap.ogg"/>
