@@ -11,10 +11,11 @@
 #include "j1Scene.h"
 #include "j1Collision.h"
 #include "j1FadeToBlack.h"
-#include"Entity_Player.h"
-#include"j1Entities.h"
-#include"j1Entity.h"
-#include"Entity_Enemy.h"
+#include "Entity_Player.h"
+#include "j1Entities.h"
+#include "j1Entity.h"
+#include "Entity_Enemy.h"
+#include "Brofiler/Brofiler.h"
 
 #include "SDL_mixer\include\SDL_mixer.h"
 
@@ -150,6 +151,8 @@ bool j1Scene::Update(float dt)
 		SceneChange(map);
 	}
 
+
+	BROFILER_CATEGORY("Drawing the map", Profiler::Color::DeepPink);
 
 	App->map->Draw();
 

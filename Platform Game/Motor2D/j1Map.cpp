@@ -78,6 +78,22 @@ void j1Map::Draw()
 	}
 }
 
+
+int Properties::Get(const char* value, int default_value) const
+{
+	p2List_item<Property*>* item = list.start;
+
+	while (item)
+	{
+		if (item->data->name == value)
+			return item->data->value;
+		item = item->next;
+	}
+
+	return default_value;
+}
+
+
 TileSet* j1Map::GetTilesetFromTileId(int id) const
 {
 	p2List_item<TileSet*>* tile_item = data.tilesets.start;
@@ -149,8 +165,8 @@ bool j1Map::CreateWalkabilityMap(int & width, int & height, uchar ** buffer) con
 	{
 		MapLayer* layer = item->data;
 
-		/*if (layer->properties.Get("Navigation", 0) == 0)
-			continue;*/
+		if (layer->properties.Get("Navigation", 0) == 0)
+			continue;
 
 		uchar* map = new uchar[layer->width*layer->height];
 		memset(map, 1, layer->width*layer->height);
@@ -495,6 +511,8 @@ bool j1Map::LoadLayer(pugi::xml_node& node, MapLayer* layer)
 	layer->width = node.attribute("width").as_int();
 	layer->height = node.attribute("height").as_int();
 	layer->parallax = node.child("properties").child("property").attribute("value").as_float();
+	LoadProperties(node, layer->properties);
+
 	pugi::xml_node layer_data = node.child("data");
 	
 
@@ -513,6 +531,33 @@ bool j1Map::LoadLayer(pugi::xml_node& node, MapLayer* layer)
 		for(pugi::xml_node tile = layer_data.child("tile"); tile; tile = tile.next_sibling("tile"))
 		{
 			layer->data[i++] = tile.attribute("gid").as_int(0);
+		}
+	}
+
+	return ret;
+}
+
+
+// Load a group of properties from a node and fill a list with it
+
+bool j1Map::LoadProperties(pugi::xml_node& node, Properties& properties)
+{
+	bool ret = false;
+
+	pugi::xml_node data = node.child("properties");
+
+	if (data != NULL)
+	{
+		pugi::xml_node prop;
+
+		for (prop = data.child("property"); prop; prop = prop.next_sibling("property"))
+		{
+			Properties::Property* p = new Properties::Property();
+
+			p->name = prop.attribute("name").as_string();
+			p->value = prop.attribute("value").as_int();
+
+			properties.list.add(p);
 		}
 	}
 
