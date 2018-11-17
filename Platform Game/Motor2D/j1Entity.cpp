@@ -34,5 +34,17 @@ bool j1Entity::Draw()
 
 void j1Entity::OnCollision(Collider* collider)
 {
+	
+}
 
+void j1Entity::SetAnimation(pugi::xml_node& node, Animation& anim)
+{
+	SDL_Rect components;
+	for (; node; node = node.next_sibling("anim")) {
+		components.x = node.attribute("x").as_uint();
+		components.y = node.attribute("y").as_uint();
+		components.w = node.attribute("w").as_uint();
+		components.h = node.attribute("h").as_uint();
+		anim.PushBack(components);
+	}
 }

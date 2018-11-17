@@ -117,7 +117,7 @@ bool j1Scene_2::CleanUp()
 
 	//App->player->Deactivate();
 	App->collision->Deactivate();
-	App->map->Reset();
+
 	App->audio->Deactivate();
 
 	return true;

@@ -152,6 +152,7 @@ bool Entity_Player::CleanUp()
 	App->tex->UnLoad(sprites);
 	sprites = nullptr;
 	animation = nullptr;
+	App->audio->fxjump.Clear();
 	if (collider != nullptr)
 	{
 		collider->to_delete = true;
@@ -167,7 +168,7 @@ void Entity_Player::CalculatePosition()
 		velocity.y = max_velocity;
 	}
 	position = position + velocity * time;
-	//collider->SetPos(position.x, position.y);
+	
 }
 
 void Entity_Player::CalculateTime()
@@ -586,16 +587,6 @@ void Entity_Player::OnCollision(Collider * c2)
 
 }
 
-void Entity_Player::SetAnimation(pugi::xml_node& node, Animation& anim) {
-	SDL_Rect components;
-	for (; node; node = node.next_sibling("anim")) {
-		components.x = node.attribute("x").as_uint();
-		components.y = node.attribute("y").as_uint();
-		components.w = node.attribute("w").as_uint();
-		components.h = node.attribute("h").as_uint();
-		anim.PushBack(components);
-	}
-}
 
 bool Entity_Player::Load(pugi::xml_node& node)
 {

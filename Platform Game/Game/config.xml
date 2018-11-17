@@ -121,8 +121,18 @@
       </doublejanimation>
     </animations>
     <animationsenemy>
-      <idleanimation>
-        <anim x="9" y="42" w="15" h="22"/>
+      <enemypos1>
+        <value x="765" y="145"/>
+      </enemypos1>
+      <enemypos2>
+        <value x="1550" y="400"/>
+      </enemypos2>
+      <enemypos3>
+        <value x="2525" y="246"/>
+      </enemypos3>
+      <idleanimation speed="0.1" loop="true">
+        <anim x="140" y="105" w="15" h="22"/>
+        <anim x="160" y="105" w="16" h="22"/>
       </idleanimation>
       <runanimation speed="0.2" loop="false">
         <anim x="41" y="41" w="15" h="22"/>
@@ -134,11 +144,43 @@
         <anim x="201" y="41" w="15" h="22"/>
         <anim x="233" y="43" w="16" h="21"/>
       </fallanimation>
+      <deadanimation speed="0.2" loop="false">
+        <anim x="9" y="42" w="15" h="22"/>
+        <anim x="29" y="43" w="4" h="4"/>
+        <anim x="9" y="42" w="15" h="22"/>
+        <anim x="29" y="43" w="4" h="4"/>
+        <anim x="9" y="42" w="15" h="22"/>
+        <anim x="29" y="43" w="4" h="4"/>
+      </deadanimation>
     </animationsenemy>
     <animationsflyenemy>
-      <idleanimation speed="0.2" loop="true">
-        <anim x="9" y="42" w="15" h="22"/>
-      </idleanimation>
+      <flyenemypos1>
+        <value x="2800" y="350"/>
+      </flyenemypos1>
+      <flyenemypos2>
+        <value x="2000" y="400"/>
+      </flyenemypos2>
+      <flyanimation speed="0.3" loop="true">
+        <anim x="1" y="26" w="13" h="21"/>
+        <anim x="18" y="26" w="12" h="21"/>
+        <anim x="34" y="27" w="11" h="20"/>
+        <anim x="50" y="26" w="11" h="21"/>
+        <anim x="64" y="27" w="16" h="20"/>
+      </flyanimation>
+      <flyinpathanimation speed="0.3" loop="true">
+        <anim x="1" y="2" w="13" h="21"/>
+        <anim x="18" y="2" w="12" h="21"/>
+        <anim x="35" y="3" w="10" h="20"/>
+        <anim x="51" y="2" w="10" h="21"/>
+        <anim x="64" y="3" w="16" h="20"/>
+      </flyinpathanimation>
+      <deadanimation speed="0.2" loop="false">
+        <anim x="0" y="51" w="16" h="20"/>
+        <anim x="18" y="51" w="10" h="20"/>
+        <anim x="35" y="55" w="8" h="16"/>
+        <anim x="50" y="60" w="9" h="11"/>
+        <anim x="64" y="65" w="15" h="5"/>
+      </deadanimation>
     </animationsflyenemy>
     <initial_attributes velx="0.f" vely="0.f" accx="0.f" gravity="300.f" runspeed="120" flyspeed="110" jumpspeed="180" godspeed="5"/>
   </entities> 

@@ -9,7 +9,7 @@
 #include"PugiXml/src/pugiconfig.hpp"
 
 
-struct SDL_Texture;
+
 struct Collider;
 
 
@@ -67,7 +67,6 @@ public:
 
 	bool Load(pugi::xml_node&);
 	bool Save(pugi::xml_node&) const;
-	void SetAnimation(pugi::xml_node& node, Animation& anim);
 private:
 
 	STATE State = STATE::FALLING;

@@ -32,10 +32,11 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
-	
+	bool SceneChange(int map);
 
-private:
+public:
 	bool volumechange = false;
+	int map = 1;
 };
 
 #endif // __j1SCENE_H__

@@ -271,9 +271,11 @@ bool j1Map::Load(const char* file_name)
 
 	LoadCollisions(cnode);
 
-	pugi::xml_node positionode = map_file.child("map").child("properties").child("property");
-	spawnpos.x = positionode.attribute("value").as_float();
-	spawnpos.y = positionode.next_sibling("property").attribute("value").as_float();
+	pugi::xml_node positionode=map_file.child("map").child("properties").child("property");
+
+		spawnpos.x = positionode.attribute("value").as_float();
+		spawnpos.y = positionode.next_sibling("property").attribute("value").as_float();
+
 
 
 	if(ret == true)
@@ -309,16 +311,6 @@ bool j1Map::Load(const char* file_name)
 	return ret;
 }
 
-bool j1Map::Reset() 
-{
-	
-	if (CleanUp())
-	{
-		return true;
-	}
-
-	return false; 
-}
 
 // Load map general properties
 bool j1Map::LoadMap()

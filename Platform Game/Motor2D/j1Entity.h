@@ -29,7 +29,7 @@ public:
 	bool Draw();
 	virtual void OnCollision(Collider* collider);
 
-	virtual void SetAnimation(pugi::xml_node& node, Animation* animation) {};
+	virtual void SetAnimation(pugi::xml_node& node, Animation& animation);
 
 	virtual bool Load(pugi::xml_node&)
 	{

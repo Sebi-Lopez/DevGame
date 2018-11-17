@@ -13,6 +13,7 @@
 #include"Entity_Player.h"
 #include"j1Entities.h"
 #include"j1Entity.h"
+#include"Entity_Enemy.h"
 
 #include "SDL_mixer\include\SDL_mixer.h"
 
@@ -33,20 +34,23 @@ bool j1Scene::Awake()
 	LOG("Loading Scene");
 	bool ret = true;
 
+
 	return ret;
 }
 
 // Called before the first frame
 bool j1Scene::Start()
 {
-
-	App->map->Load("FirstMap.tmx");
-
+	if (map == 1) {
+		map = 1;
+		App->map->Load("FirstMap.tmx");
+		App->entities->SpawnEntities1();
+	}
 	App->audio->PlayMusic(App->audio->music2.GetString());
 	App->audio->MusicVolume(App->audio->volume);
-	//App->entities->player->isSecondMap = false;
 	App->entities->CreateEntities(PLAYER, App->map->spawnpos.x, App->map->spawnpos.y);
-
+	
+	//App->entities->player->isSecondMap = false;
 	App->collision->Activate();
 	App->map->Activate();
 	App->audio->Activate();
@@ -97,14 +101,19 @@ bool j1Scene::Update(float dt)
 		App->audio->VolumeChange(volumechange);
 	}
 	
-	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
-		App->fade->FadeToBlack((j1Module*)this, (j1Module*)this);
+	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN) {
+		map = 1;
+		SceneChange(map);
+	}
 
-	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
-		App->fade->FadeToBlack((j1Module*) this, (j1Module*)this);
+	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN) {
+		SceneChange(map);
+	}
 
-	if (App->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN)
-		App->fade->FadeToBlack((j1Module*)this, (j1Module*)App->scene_2);
+	if (App->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN) {
+		map = 2;
+		SceneChange(map);
+	}
 
 
 	App->map->Draw();
@@ -128,15 +137,30 @@ bool j1Scene::CleanUp()
 {
 	LOG("Freeing scene");
 
-	
 
+	return true;
+}
 
-	
-	App->collision->Deactivate();
-	App->map->Reset();
-	App->audio->Deactivate();
+bool j1Scene::SceneChange(int map)
+{
+	if (map == 1) 
+	{
+		App->map->CleanUp();
+		//App->entities->player->;
+		//App->collision->Deactivate();
+		App->fade->FadeToBlack(this, this, 2.0f);
+		App->map->Load("FirstMap.tmx");
+		App->entities->SpawnEntities1();
+	}
+	if (map == 2)
+	{
+		App->map->CleanUp();
+		//App->entities->ClearEntities();
+		App->fade->FadeToBlack(this, this, 2.0f);
+		App->map->Load("SecondMap.tmx");
+		App->entities->SpawnEntities2();
 
-
+	}
 
 	return true;
 }

@@ -3,11 +3,15 @@
 
 #include "j1Module.h"
 #include "p2DynArray.h"
+#define MAX_ENTITIES 200
 
+class j1Entity;
 class Entity_Player;
 class Entity_Enemy;
-class ENtity_FlyEnemy;
-
+class Entity_FlyEnemy;
+class Player;
+class Enemy;
+class FlyEnemy;
 
 enum EntityType {
 	PLAYER,
@@ -16,10 +20,7 @@ enum EntityType {
 	NONE,
 };
 
-class j1Entity;
-class Player;
-class Enemy;
-class FlyEnemy;
+
 
 class j1Entities : public j1Module
 {
@@ -35,14 +36,25 @@ public:
 	bool CleanUp();
 	void OnCollision(Collider* c1, Collider* c2);
 	bool CreateEntities(EntityType type, int x, int y);
+	void ClearEntities();
+	bool SpawnEntities1();
+	bool SpawnEntities2();
 
 	bool Save(pugi::xml_node&) const;
 	bool Load(pugi::xml_node&);
 
 
-	p2List<j1Entity*> entities;
+	p2DynArray<j1Entity*> entities;
 	Entity_Player* player;
+	Entity_Enemy* enemy;
+	Entity_FlyEnemy* flyenemy;
 	pugi::xml_node entitynode;
+
+	fPoint enemypos1;
+	fPoint enemypos2;
+	fPoint enemypos3;
+	fPoint flyenemypos1;
+	fPoint flyenemypos2;
 
 
 };
