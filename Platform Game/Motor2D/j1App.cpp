@@ -16,6 +16,7 @@
 #include "j1FadeToBlack.h"
 #include "j1Entities.h"
 #include "j1App.h"
+#include "Brofiler/Brofiler.h"
 
 // Constructor
 j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
@@ -145,15 +146,24 @@ bool j1App::Update()
 	if(input->GetWindowEvent(WE_QUIT) == true)
 		ret = false;
 
-	if(ret == true)
+	if (ret == true)
+	{
+		BROFILER_CATEGORY("PreUpdateLogic", Profiler::Color::Sienna);
 		ret = PreUpdate();
+	}
 
-	if(ret == true)
+	if (ret == true)
+	{
+		BROFILER_CATEGORY("UpdateLogic", Profiler::Color::LimeGreen);
+
 		ret = DoUpdate();
+	}
 
-	if(ret == true)
+	if (ret == true)
+	{
+		BROFILER_CATEGORY("PostUpdateLogic", Profiler::Color::Purple);
 		ret = PostUpdate();
-
+	}
 	FinishUpdate();
 	return ret;
 }
