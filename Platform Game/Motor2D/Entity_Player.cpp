@@ -133,7 +133,7 @@ void Entity_Player::Update(float dt)
 		}
 		else
 		{
-			State = STATE::FALLING;
+ 			State = STATE::FALLING;
 			collider->type = COLLIDER_TYPE::COLLIDER_PLAYER;
 		}
 	}
