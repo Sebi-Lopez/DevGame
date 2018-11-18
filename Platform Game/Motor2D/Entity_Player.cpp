@@ -508,7 +508,7 @@ void Entity_Player::SetPlayerActions()
 		break;
 
 	case STATE::DEAD:
-		if (isSecondMap) {
+		if (App->scene->isSecondMap) {
 			
 			App->scene->map = 2;
 			App->scene->SceneChange(App->scene->map);
@@ -521,7 +521,7 @@ void Entity_Player::SetPlayerActions()
 		break;
 
 	case STATE::WIN:
-		if (isSecondMap) {
+		if (App->scene->isSecondMap) {
 			
 			App->scene->map = 1;
 			App->scene->SceneChange(App->scene->map);
@@ -602,20 +602,22 @@ bool Entity_Player::Load(pugi::xml_node& node)
 {
 	pugi::xml_node load = node.child("playerattributes");
 	loadpos = true;
-	isSecondMap = load.child("map").attribute("value").as_bool();
+	App->scene->isSecondMap = load.child("map").attribute("value").as_bool();
 
-
-	if (isSecondMap == true)
-	{
-			position.x = load.attribute("x").as_float();
-			position.y = load.attribute("y").as_float();
+	if (App->scene->isSecondMap == true) {
+		App->map->CleanUp();
+		App->fade->FadeToBlack(App->scene, App->scene, 0.5f);
+		App->map->Load("SecondMap.tmx");
 	}
-
-	else
-	{
-			position.x = load.attribute("x").as_float();
-			position.y = load.attribute("y").as_float();
+	else {
+		App->map->CleanUp();
+		App->fade->FadeToBlack(App->scene, App->scene, 0.5f);
+		App->map->Load("FirstMap.tmx");
 	}
+	
+	position.x = load.attribute("x").as_float();
+	position.y = load.attribute("y").as_float();
+	
 
 	p2SString state = load.attribute("state").as_string();
 	if (state == "IDLE") {
@@ -665,7 +667,7 @@ bool Entity_Player::Save(pugi::xml_node& node) const {
 	save.append_attribute("y") = position.y;
 
 
-	save.append_child("map").append_attribute("value") = isSecondMap;
+	save.append_child("map").append_attribute("value") = App->scene->isSecondMap;
 
 
 

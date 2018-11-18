@@ -43,8 +43,8 @@ bool j1Scene::Awake()
 // Called before the first frame
 bool j1Scene::Start()
 {
-
-	if (map == 0) {
+	firstUpdate = true;
+	if (!isFading && map == 0) {
 		map = 1;
 
 		App->entities->SpawnEntities1();
@@ -65,8 +65,7 @@ bool j1Scene::Start()
 	App->audio->MusicVolume(App->audio->volume);
 	
 
-	App->render->camera.x = 0;
-	App->render->camera.y = -190;
+	
 	return true;
 }
 
@@ -100,6 +99,23 @@ bool j1Scene::PreUpdate()
 // Called each loop iteration
 bool j1Scene::Update(float dt)
 {
+	if (firstUpdate == true && isFading == true) {
+		App->render->camera.x = 0;
+		App->render->camera.y = -190;
+	}
+	if (firstUpdate == true && isFading==true && !App->fade->IsFading()) {
+		if (isSecondMap == true) {
+			App->entities->SpawnEntities2();
+		}
+		else {
+			App->entities->SpawnEntities1();
+		}
+		firstUpdate = false;
+		isFading = false;
+	
+		
+	}
+	
 	
 	if(App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
 		App->LoadGame("save_game.xml");
@@ -133,6 +149,7 @@ bool j1Scene::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN) {
 		map = 1;
 		SceneChange(map);
+		
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN) {
@@ -183,26 +200,30 @@ bool j1Scene::CleanUp()
 
 bool j1Scene::SceneChange(int map)
 {
+	
+	isFading = true;
 	if (map == 1) 
 	{
-		App->entities->player->isSecondMap = false;
+		
 		App->map->CleanUp();
 		App->entities->ClearEntities();
-		App->fade->FadeToBlack(this, this, 3.0f);
+		App->fade->FadeToBlack(this, this, 0.5f);
 		App->map->Load("FirstMap.tmx");
-		App->entities->SpawnEntities1();
+		isSecondMap = false;
+		
 	}
 	if (map == 2)
 	{
-		App->entities->player->isSecondMap = true;
+		
 		App->map->CleanUp();
 		App->entities->ClearEntities();
-		App->fade->FadeToBlack(this, this, 3.0f);
+		App->fade->FadeToBlack(this, this, 0.5f);
 		App->map->Load("SecondMap.tmx");
-		App->entities->SpawnEntities2();
-
+		isSecondMap = true;
 	}
 
 	return true;
 }
+
+
 

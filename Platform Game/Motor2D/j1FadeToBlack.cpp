@@ -92,3 +92,8 @@ bool j1FadeToBlack::FadeToBlack(j1Module* module_off, j1Module* module_on, float
 
 	return ret;
 }
+
+bool j1FadeToBlack::IsFading() const
+{
+	return current_step != fade_step::none;
+}

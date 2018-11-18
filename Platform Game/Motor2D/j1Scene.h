@@ -34,9 +34,14 @@ public:
 
 	bool SceneChange(int map);
 
+
+
 public:
 	bool volumechange = false;
 	int map = 0;
+	bool isFading=false;
+	bool firstUpdate = true;
+	bool isSecondMap = false;
 };
 
 #endif // __j1SCENE_H__
