@@ -607,15 +607,15 @@ bool Entity_Player::Load(pugi::xml_node& node)
 
 
 	if (App->scene->isSecondMap == true) {
-		App->map->CleanUp();
-		App->fade->FadeToBlack(App->scene, App->scene, 0.5f);
-		App->map->Load("SecondMap.tmx");
+	
+		App->scene->map = 2;
+		App->scene->SceneChange(App->scene->map);
 		
 	}
 	else {
-		App->map->CleanUp();
-		App->fade->FadeToBlack(App->scene, App->scene, 0.5f);
-		App->map->Load("FirstMap.tmx");
+		
+		App->scene->map = 1;
+		App->scene->SceneChange(App->scene->map);
 		
 	}
 	
