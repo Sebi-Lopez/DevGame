@@ -97,7 +97,22 @@ bool j1App::Awake()
 		title.create(app_config.child("title").child_value());
 		organization.create(app_config.child("organization").child_value());
 		framerate_cap = app_config.child("framerate_cap").attribute("frame_rate").as_int();
-		if (framerate_cap == 30) capped = true; 
+		if (framerate_cap == 30)
+		{
+			capped = true;
+			frame_capstr = "On";
+		}
+		else
+		{
+			frame_capstr = "Off";
+			capped = false; 
+		}
+
+		if (vsync_on)
+		{
+			vsyncstr = "On";
+		}
+		else vsyncstr = "Off";
 	}
 
 	if(ret == true)
@@ -203,6 +218,7 @@ void j1App::PrepareUpdate()
 // ---------------------------------------------
 void j1App::FinishUpdate()
 {
+
 	if(want_to_save == true)
 		SavegameNow();
 
@@ -213,33 +229,22 @@ void j1App::FinishUpdate()
 	{
 		if (capped)
 		{
-			capped = false; 
+			capped = false; 		
+			frame_capstr = "Off";
+
 		}
 		else
 		{
 			capped = true; 
-			framerate_cap = 30; 
+			framerate_cap = 30; 		
+			frame_capstr = "On";
 		}
 		LOG("Framerate_cap: %i", framerate_cap);
 	}
 
-	if (vsync_on)
-	{
-		vsyncstr = "On";
-	}
-	else
-	{
-		vsyncstr = "Off";
-	}
 
-	if (capped) 
-	{
-		frame_capstr = "On";
-	}
-	else
-	{
-		frame_capstr = "Off";
-	}
+	
+
 	//  Frame Rate Calculations
 	
 

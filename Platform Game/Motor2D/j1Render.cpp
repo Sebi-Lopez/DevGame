@@ -7,6 +7,7 @@
 #include"Entity_Player.h"
 #include"j1Entities.h"
 #include"j1Entity.h"
+#include "Brofiler/Brofiler.h"
 
 
 
@@ -91,6 +92,8 @@ bool j1Render::Update(float dt)
 
 bool j1Render::PostUpdate()
 {
+	BROFILER_CATEGORY("Swap Buffers", Profiler::Color::Yellow);
+
 	SDL_SetRenderDrawColor(renderer, background.r, background.g, background.g, background.a);
 	SDL_RenderPresent(renderer);
 	return true;

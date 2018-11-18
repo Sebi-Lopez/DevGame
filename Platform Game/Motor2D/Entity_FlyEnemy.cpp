@@ -123,7 +123,7 @@ void Entity_FlyEnemy::CreatePath()
 
 void Entity_FlyEnemy::SetDirection()
 {
-	if (steps_to > 0) {
+	if (steps_to > 0 && centered != go_to) {
 		const p2DynArray<iPoint>* path = App->pathfinding->GetLastPath();
 		go_to = iPoint(path->At(0)->x, path->At(0)->y);
 

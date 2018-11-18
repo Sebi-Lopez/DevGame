@@ -197,8 +197,6 @@ int PathNode::CalculateF(const iPoint& destination)
 // ----------------------------------------------------------------------------------
 int j1PathFinding::CreatePath(const iPoint& origin, const iPoint& destination)
 {
-	BROFILER_CATEGORY("Pathfinding Logic", Profiler::Color::DeepSkyBlue);
-
 	if (last_path.Count() > 0) last_path.Clear();
 
 	if (!IsWalkable(origin) || !IsWalkable(destination))
@@ -271,8 +269,6 @@ int j1PathFinding::CreatePath(const iPoint& origin, const iPoint& destination)
 
 int j1PathFinding::CreateFloorPath(const iPoint& origin, const iPoint& destination)
 {
-	BROFILER_CATEGORY("PathFinding Logic", Profiler::Color::DeepSkyBlue);
-
 	if (last_path.Count() > 0) last_path.Clear();
 
 	if (!IsWalkable(origin) || !IsWalkable(destination))
