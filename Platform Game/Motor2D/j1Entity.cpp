@@ -4,8 +4,11 @@
 #include "j1Entities.h"
 #include "j1Render.h"
 #include "j1Scene.h"
+#include"j1Textures.h"
 
 #include "Entity_Player.h"
+#include"Entity_Enemy.h"
+#include"Entity_FlyEnemy.h"
 
 j1Entity::j1Entity( int x, int y) : position(x, y)
 {
@@ -20,6 +23,8 @@ const Collider* j1Entity::GetCollider() const
 {
 	return collider;
 }
+
+
 
 bool j1Entity::Draw()
 {

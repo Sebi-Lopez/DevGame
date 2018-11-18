@@ -79,13 +79,14 @@ bool j1FadeToBlack::Update(float dt)
 bool j1FadeToBlack::FadeToBlack(j1Module* module_off, j1Module* module_on, float time)
 {
 	bool ret = false;
-	ModuleOff = module_off;
-	ModuleOn = module_on;
+	
 	if (current_step == fade_step::none)
 	{
 		current_step = fade_step::fade_to_black;
 		start_time = SDL_GetTicks();
 		total_time = (Uint32)(time * 0.5f * 1000.0f);
+		ModuleOn = module_on;
+		ModuleOff = module_off;
 		ret = true;
 	}
 

@@ -214,26 +214,26 @@ SDL_Rect TileSet::GetTileRect(int id) const
 	return rect;
 }
 
-void j1Map::LoadCollisions(pugi::xml_node& cnode) 
+bool j1Map::LoadCollisions(pugi::xml_node& cnode, Collisions* datacollision) 
 {
+	bool ret = true;
 	for (pugi::xml_node collisionode = cnode.child("object"); collisionode; collisionode = collisionode.next_sibling("object")) {
-		SDL_Rect collisionrect;
-		p2SString name;
-		name = collisionode.attribute("name").as_string();
-		collisionrect.x = collisionode.attribute("x").as_uint();
-		collisionrect.y = collisionode.attribute("y").as_uint();
-		collisionrect.w = collisionode.attribute("width").as_uint();
-		collisionrect.h = collisionode.attribute("height").as_uint();
-		if (name == "floor") {
-			App->collision->AddCollider(collisionrect, COLLIDER_FLOOR);
+		datacollision->name = collisionode.attribute("name").as_string();
+		datacollision->rect.x = collisionode.attribute("x").as_uint();
+		datacollision->rect.y = collisionode.attribute("y").as_uint();
+		datacollision->rect.w = collisionode.attribute("width").as_uint();
+		datacollision->rect.h = collisionode.attribute("height").as_uint();
+		if (datacollision->name == "floor") {
+			App->collision->AddCollider(datacollision->rect, COLLIDER_FLOOR);
 		}
-		if (name == "dead") {
-			App->collision->AddCollider(collisionrect, COLLIDER_DEAD);
+		if (datacollision->name == "dead") {
+			App->collision->AddCollider(datacollision->rect, COLLIDER_DEAD);
 		}
-		if (name == "end") {
-			App->collision->AddCollider(collisionrect, COLLIDER_END);
+		if (datacollision->name == "end") {
+			App->collision->AddCollider(datacollision->rect, COLLIDER_END);
 		}
 	}
+	return ret;
 }
 		
 
@@ -271,6 +271,16 @@ bool j1Map::CleanUp()
 	}
 	data.layers.clear();
 
+	p2List_item<Collisions*>* collitem;
+	collitem = data.collisions.start;
+
+	while (collitem != NULL)
+	{
+		RELEASE(collitem->data);
+		collitem = collitem->next;
+	}
+	data.collisions.clear();
+	App->collision->CleanUp();
 	
 	// Clean up the pugui tree
 	map_file.reset();
@@ -331,9 +341,13 @@ bool j1Map::Load(const char* file_name)
 		
 	}
 	
-	pugi::xml_node cnode = map_file.child("map").child("objectgroup");
-
-	LoadCollisions(cnode);
+	pugi::xml_node cnode;
+	for (cnode = map_file.child("map").child("objectgroup"); cnode; cnode = cnode.next_sibling("objectgroup")) {
+		Collisions* datacollision = new Collisions();
+		ret=LoadCollisions(cnode, datacollision);
+		if (ret == true)
+			data.collisions.add(datacollision);
+	}
 
 	pugi::xml_node positionode=map_file.child("map").child("properties").child("property");
 

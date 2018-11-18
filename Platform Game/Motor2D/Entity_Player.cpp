@@ -79,7 +79,7 @@ Entity_Player::Entity_Player(int x, int y, pugi::xml_node& node): j1Entity(x, y)
 
 	velocity.x = 0.0f;
 	velocity.y = 0.0f;
-	max_velocity = 300;
+	max_velocity = node.child("initial_attributes").attribute("maxvelocity").as_float();
 
 	acceleration.x = node.child("initial_attributes").attribute("accx").as_float();
 	gravity = node.child("initial_attributes").attribute("gravity").as_float();
@@ -194,6 +194,7 @@ void Entity_Player::SetPlayerState()
 	bool released_right = (App->input->GetKey(SDL_SCANCODE_D) == KEY_UP);
 	bool released_left = (App->input->GetKey(SDL_SCANCODE_A) == KEY_UP);
 	bool pressed_space = (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN);
+	bool pressed_attack = (App->input->GetKey(SDL_SCANCODE_K) == KEY_DOWN);
 
 	if (pressed_right && !pressed_left)
 		flip = false;
@@ -236,6 +237,9 @@ void Entity_Player::SetPlayerState()
 		{
 			State = STATE::FALLING;
 		}
+		if (pressed_attack) {
+			State = STATE::ATTACK_FORWARD;
+		}
 		break;
 
 	case STATE::RUNNING_BACKWARD:
@@ -253,7 +257,27 @@ void Entity_Player::SetPlayerState()
 		}
 		break;
 
+	case STATE::ATTACK_BACKWARD:
+		if (released_right || pressed_left)
+		{
+			State = STATE::IDLE;
+		}
+		if (pressed_left && !pressed_right)
+		{
+			State = STATE::RUNNING_BACKWARD;
+		}
+		break;
 
+	case STATE::ATTACK_FORWARD:
+		if (released_left || pressed_right)
+		{
+			State = STATE::IDLE;
+		}
+		if (pressed_right && !pressed_left)
+		{
+			State = STATE::RUNNING_FORWARD;
+		}
+		break;
 		// JUMPING CASES
 
 	case STATE::JUMPING:
@@ -494,7 +518,15 @@ void Entity_Player::SetPlayerActions()
 	case STATE::DOUBLE_JUMP_BACKWARD:
 		velocity.x = -fly_speed;
 		break;
+	case STATE::ATTACK_BACKWARD:
+		velocity.x = 0;
+		animation = &attack;
+		break;
 
+	case STATE::ATTACK_FORWARD:
+		velocity.x = 0;
+		animation = &attack;
+		break;
 
 	case STATE::GOD:
 		acceleration.y = 0.0F;
@@ -517,12 +549,12 @@ void Entity_Player::SetPlayerActions()
 	case STATE::DEAD:
 		if (isSecondMap) {
 			
-			App->scene->map = 1;
+			App->scene->map = 2;
 			App->scene->SceneChange(App->scene->map);
 		}
 		else {
 			
-			App->scene->map = 2;
+			App->scene->map = 1;
 			App->scene->SceneChange(App->scene->map);
 		}
 		break;
@@ -532,13 +564,13 @@ void Entity_Player::SetPlayerActions()
 			
 			App->scene->map = 1;
 			App->scene->SceneChange(App->scene->map);
-			isSecondMap = false;
+			
 		}
 		else {
 			
 			App->scene->map = 2;
 			App->scene->SceneChange(App->scene->map);
-			isSecondMap = true;
+			
 
 		}
 		break;
@@ -612,41 +644,19 @@ bool Entity_Player::Load(pugi::xml_node& node)
 {
 	pugi::xml_node load = node.child("playerattributes");
 	loadpos = true;
-	bool wasSecondMap = load.child("map").attribute("value").as_bool();
+	isSecondMap = load.child("map").attribute("value").as_bool();
 
 
-	if (wasSecondMap == true)
+	if (isSecondMap == true)
 	{
-
-		if (isSecondMap == true) {
-			//App->fade->FadeToBlack((j1Module*)App->scene_2, (j1Module*)App->scene_2);
 			position.x = load.attribute("x").as_float();
 			position.y = load.attribute("y").as_float();
-
-		}
-		else {
-			//App->fade->FadeToBlack((j1Module*)App->scene, (j1Module*)App->scene_2);
-			position.x = load.attribute("x").as_float();
-			position.y = load.attribute("y").as_float();
-
-		}
 	}
 
 	else
 	{
-
-		if (isSecondMap == true) {
-			//App->fade->FadeToBlack((j1Module*)App->scene_2, (j1Module*)App->scene);
 			position.x = load.attribute("x").as_float();
 			position.y = load.attribute("y").as_float();
-
-		}
-		else {
-			//App->fade->FadeToBlack((j1Module*)App->scene, (j1Module*)App->scene);
-			position.x = load.attribute("x").as_float();
-			position.y = load.attribute("y").as_float();
-
-		}
 	}
 
 	p2SString state = load.attribute("state").as_string();
@@ -698,7 +708,6 @@ bool Entity_Player::Save(pugi::xml_node& node) const {
 
 
 	save.append_child("map").append_attribute("value") = isSecondMap;
-
 
 
 

@@ -6,6 +6,11 @@
 #include "p2Point.h"
 #include "j1Module.h"
 
+struct Collisions {
+	SDL_Rect rect;
+	p2SString name;
+};
+
 struct Properties
 {
 	struct Property
@@ -96,6 +101,7 @@ struct MapData
 	MapTypes			type;
 	p2List<TileSet*>	tilesets;
 	p2List<MapLayer*>	layers;
+	p2List<Collisions*>	collisions;
 };
 
 // ----------------------------------------------------
@@ -126,7 +132,7 @@ public:
 	bool CreateWalkabilityMap(int& width, int& height, uchar** buffer) const;
 
 
-	void LoadCollisions(pugi::xml_node &node);
+	bool LoadCollisions(pugi::xml_node &node, Collisions* datacollision);
 
 private:
 
@@ -142,7 +148,7 @@ private:
 public:
 
 	MapData data;
-
+	
 	fPoint spawnpos;
 
 private:

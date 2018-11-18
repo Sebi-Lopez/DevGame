@@ -121,31 +121,33 @@ bool j1Entities::CreateEntities(EntityType type, int x, int y)
 }
 
 bool j1Entities::SpawnEntities1() {
-	
-	App->entities->CreateEntities(ENEMY, App->entities->enemypos1.x, App->entities->enemypos1.y);
-	App->entities->CreateEntities(ENEMY, App->entities->enemypos2.x, App->entities->enemypos2.y);
-	App->entities->CreateEntities(ENEMY, App->entities->enemypos3.x, App->entities->enemypos3.y);
-	App->entities->CreateEntities(FLYENEMY, App->entities->flyenemypos1.x, App->entities->flyenemypos1.y);
-	App->entities->CreateEntities(FLYENEMY, App->entities->flyenemypos2.x, App->entities->flyenemypos2.y);
+
+	CreateEntities(PLAYER, App->map->spawnpos.x, App->map->spawnpos.y);
+	CreateEntities(ENEMY, App->entities->enemypos1.x, App->entities->enemypos1.y);
+	CreateEntities(ENEMY, App->entities->enemypos2.x, App->entities->enemypos2.y);
+	CreateEntities(ENEMY, App->entities->enemypos3.x, App->entities->enemypos3.y);
+	CreateEntities(FLYENEMY, App->entities->flyenemypos1.x, App->entities->flyenemypos1.y);
+	CreateEntities(FLYENEMY, App->entities->flyenemypos2.x, App->entities->flyenemypos2.y);
 	
 	return true;
 }
 
 bool j1Entities::SpawnEntities2()
 {
-
+	CreateEntities(PLAYER, App->map->spawnpos.x, App->map->spawnpos.y);
 	return true;
 }
 
 void j1Entities::ClearEntities()
 {
-	for (int i = 0; i < entities.Count(); i++)
+	for (uint i = 0; i < entities.Count(); i++)
 	{
-		if (entities[i] != nullptr) {
+		if (entities[i] != nullptr)
+		{
+			
 			delete entities[i];
 			entities[i] = nullptr;
 		}
-			
 	}
 	entities.Clear();
 

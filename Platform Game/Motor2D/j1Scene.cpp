@@ -59,18 +59,11 @@ bool j1Scene::Start()
 
 		}
 	}
-
+	
 
 	App->audio->PlayMusic(App->audio->music2.GetString());
 	App->audio->MusicVolume(App->audio->volume);
-	App->entities->CreateEntities(PLAYER, App->map->spawnpos.x, App->map->spawnpos.y);
 	
-	//App->entities->player->isSecondMap = false;
-	App->collision->Activate();
-	App->map->Activate();
-	App->audio->Activate();
-	//App->player->Activate();
-
 
 	App->render->camera.x = 0;
 	App->render->camera.y = -190;
@@ -192,18 +185,19 @@ bool j1Scene::SceneChange(int map)
 {
 	if (map == 1) 
 	{
+		App->entities->player->isSecondMap = false;
 		App->map->CleanUp();
-		//App->entities->player->;
-		//App->collision->Deactivate();
-		App->fade->FadeToBlack(this, this, 2.0f);
+		App->entities->ClearEntities();
+		App->fade->FadeToBlack(this, this, 3.0f);
 		App->map->Load("FirstMap.tmx");
 		App->entities->SpawnEntities1();
 	}
 	if (map == 2)
 	{
+		App->entities->player->isSecondMap = true;
 		App->map->CleanUp();
-		//App->entities->ClearEntities();
-		App->fade->FadeToBlack(this, this, 2.0f);
+		App->entities->ClearEntities();
+		App->fade->FadeToBlack(this, this, 3.0f);
 		App->map->Load("SecondMap.tmx");
 		App->entities->SpawnEntities2();
 

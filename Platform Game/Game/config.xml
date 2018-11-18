@@ -40,7 +40,7 @@
         <anim x="58" y="238" w="25" h="20"/>
         <anim x="115" y="222" w="33" h="36"/>
         <anim x="165" y="222" w="27" h="36"/>
-        <anim x="215" y="226" w="19" h="32"/>
+        <!--<anim x="215" y="226" w="19" h="32"/>
         <anim x="265" y="232" w="18" h="26"/>
         <anim x="315" y="231" w="18" h="27"/>
         <anim x="13" y="268" w="20" h="27"/>
@@ -52,7 +52,7 @@
         <anim x="302" y="272" w="48" h="23"/>
         <anim x="3" y="313" w="31" h="19"/>
         <anim x="50" y="312" w="34" h="20"/>
-        <anim x="100" y="312" w="34" h="20"/>
+        <anim x="100" y="312" w="34" h="20"/>-->
       </attackanimation>
       <jumpanimation speed="0.2" loop="false">
         <anim x="317" y="340" w="23" h="29"/>
@@ -182,7 +182,7 @@
         <anim x="64" y="65" w="15" h="5"/>
       </deadanimation>
     </animationsflyenemy>
-    <initial_attributes velx="0.f" vely="0.f" accx="0.f" gravity="190.f" runspeed="120" flyspeed="110" jumpspeed="155" godspeed="100"/>
+    <initial_attributes velx="0.f" vely="0.f" accx="0.f" gravity="190.f" runspeed="120" flyspeed="110" jumpspeed="155" godspeed="100" maxvelocity="300"/>
   </entities> 
   <audio>
     <music path1="audio/music/FirstMap.ogg" path2="audio/music/SecondMap.ogg"/>
