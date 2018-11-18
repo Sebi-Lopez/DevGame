@@ -8,6 +8,16 @@
 #include"PugiXml/src/pugixml.hpp"
 #include"PugiXml/src/pugiconfig.hpp"
 
+#define RANGE 400
+
+enum class F_STATE
+{
+	NONE = -1,
+	IDLE,
+	LEFT,
+	RIGHT
+};
+
 class Entity_FlyEnemy : public j1Entity
 {
 public:
@@ -20,13 +30,15 @@ public:
 
 	bool CleanUp();
 
-	void CalculatePosition();
+	void CalculatePosition(float dt);
 
-	void CalculateTime();
+	void SetEnemyAnimation();
 
-	void SetEnemyState();
+	bool PlayerIsOnRange();
 
-	void SetEnemyActions();
+	void CreatePath();
+
+	void SetDirection();
 
 
 	// Collision Callback
@@ -36,12 +48,17 @@ public:
 	bool Save(pugi::xml_node&) const;
 
 public:
+	Animation idle;
 	Animation fly;
-	Animation flyinpath;
 	Animation dead;
 
+	fPoint velocity;
+	float run_speed = 50;
 
-
+	iPoint centered;
+	int steps_to = 0;
+	iPoint go_to;
+	F_STATE f_state = F_STATE::IDLE;
 };
 
 

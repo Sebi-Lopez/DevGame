@@ -84,7 +84,6 @@ bool j1Scene::PreUpdate()
 	{
 		if (origin_selected == true)
 		{
-			BROFILER_CATEGORY("Drawing the map", Profiler::Color::LightCyan);
 			App->pathfinding->CreatePath(origin, p);
 			LOG("Origin-> x: %i y: %i ||| Destination-> x: %i y: %i", origin.x, origin.y, p.x, p.y);
 			origin_selected = false;
@@ -153,11 +152,11 @@ bool j1Scene::Update(float dt)
 	
 	const p2DynArray<iPoint>* path = App->pathfinding->GetLastPath();
 
-	for (uint i = 0; i < path->Count(); ++i)
+	/*for (uint i = 0; i < path->Count(); ++i)
 	{
 		iPoint pos = App->map->MapToWorld(path->At(i)->x, path->At(i)->y);
 		LOG("Resultant path ----- X: %i Y: %i", pos.x, pos.y);
-	}
+	}*/
 
 	return true;
 }

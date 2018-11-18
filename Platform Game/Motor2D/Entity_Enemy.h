@@ -9,19 +9,14 @@
 #include"PugiXml/src/pugiconfig.hpp"
 
 
-#define RANGE 500
+#define RANGE 300
 
-enum class E_STATE 
+enum class E_STATE
 {
 	NONE = -1,
 	IDLE,
-	UP,
-	DOWN,
 	LEFT,
-	RIGHT,
-	
-
-	
+	RIGHT
 };
 
 class Entity_Enemy : public j1Entity
@@ -38,15 +33,14 @@ public:
 
 	void CalculatePosition(float dt);
 
-	void CalculateTime();
+	void SetEnemyAnimation();
 
-	void SetEnemyState();
+	bool PlayerIsOnRange(); 
 
-	void SetEnemyActions();
+	void CreatePath(); 
 
-	bool CheckPlayerOnRange(); 
-	E_STATE SetDirection(const iPoint& go_to);
-
+	void SetDirection();
+	 
 	// Collision Callback
 	void OnCollision(Collider* c2);
 
@@ -62,10 +56,10 @@ public:
 	fPoint velocity; 
 	fPoint acceleration; 
 	float gravity = 150;
-	float run_speed = 100;
+	float run_speed = 50;
 	float max_velocity = 300;
 
-
+	iPoint centered;
 	int steps_to = 0; 
 	bool to_move = false; 
 	iPoint go_to;

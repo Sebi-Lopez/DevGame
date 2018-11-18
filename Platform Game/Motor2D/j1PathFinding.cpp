@@ -178,7 +178,6 @@ int j1PathFinding::CreatePath(const iPoint& origin, const iPoint& destination)
 	PathList closed;
 	PathNode origin_node(0, origin.DistanceTo(destination), origin, NULL);
 	open.list.add(origin_node);
-	LOG("Origin.X: %i Origin.Y: %i - Destination.X: %i Destination.Y: %i", origin.x, origin.y, destination.x, destination.y);
 
 	while (open.list.count() > 0)
 	{
@@ -187,9 +186,7 @@ int j1PathFinding::CreatePath(const iPoint& origin, const iPoint& destination)
 		p2List_item<PathNode>*	lowest_node = open.GetNodeLowestScore();
 
 		PathNode* current_node = &closed.list.add(lowest_node->data)->data;
-		open.list.del(lowest_node);
-		LOG("Here is the next Node to value: X: %i, Y: %i", current_node->pos.x, current_node->pos.y);
-		
+		open.list.del(lowest_node);	
 
 		// Case destination is just added
 	
@@ -202,7 +199,6 @@ int j1PathFinding::CreatePath(const iPoint& origin, const iPoint& destination)
 				iterator = closed.Find(iterator->data.parent->pos);
 			}
 			last_path.Flip();			// Makes the path in the opposite order
-			LOG("Congrats, we made it to de end of the path: Nodes recorred- %i", last_path.GetCapacity());
 			return last_path.GetCapacity();
 		}
 

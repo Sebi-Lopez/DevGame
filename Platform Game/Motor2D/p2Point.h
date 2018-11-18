@@ -112,6 +112,14 @@ public:
 
 		return(*this);
 	}
+	
+	p2Point Normalize()
+	{
+		double module = sqrt(x * x + y * y);
+		x /= module;
+		y /= module;
+		return (*this);
+	}
 
 	// Distances ---------------------------------------------
 	TYPE DistanceTo(const p2Point& v) const
