@@ -16,6 +16,7 @@
 #include "j1Map.h"
 #include "Entity_Player.h"
 #include "j1PathFinding.h"
+#include "Brofiler/Brofiler.h"
 #include "SDL_mixer\include\SDL_mixer.h"
 
 Entity_FlyEnemy::Entity_FlyEnemy(int x, int y, pugi::xml_node& node) :j1Entity(x, y)
@@ -62,6 +63,8 @@ void Entity_FlyEnemy::Update(float dt)
 	centered = App->map->WorldToMap(position.x, position.y);
 	if (PlayerIsOnRange())
 	{
+		BROFILER_CATEGORY("PathFinding Flyer Enemy", Profiler::Color::Sienna);
+
 		CreatePath();
 		SetDirection();
 	}

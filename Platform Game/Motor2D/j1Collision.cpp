@@ -4,6 +4,7 @@
 #include "j1Input.h"
 #include "j1Module.h"
 #include "p2Log.h"
+#include "Brofiler/Brofiler.h"
 
 j1Collision::j1Collision()
 {
@@ -59,6 +60,8 @@ j1Collision::~j1Collision()
 
 bool j1Collision::Update(float dt)
 {
+	BROFILER_CATEGORY("Collision Logic", Profiler::Color::LightSeaGreen);
+
 	// Remove all colliders scheduled for deletion
 	for (uint i = 0; i < MAX_COLLIDERS; ++i)
 	{

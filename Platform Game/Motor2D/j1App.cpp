@@ -269,6 +269,8 @@ void j1App::FinishUpdate()
 
 	if (last_frame_ms < frame_rate_ms && frame_capstr == "On") 
 	{
+		BROFILER_CATEGORY("Delay for frame cap", Profiler::Color::MediumSlateBlue);
+
 		SDL_Delay(frame_rate_ms - last_frame_ms);
 	}
 

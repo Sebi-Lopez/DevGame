@@ -161,20 +161,7 @@ bool j1Scene::Update(float dt)
 		SceneChange(map);
 	}
 
-
-	BROFILER_CATEGORY("Drawing the map", Profiler::Color::DeepPink);
-
 	App->map->Draw();
-
-	
-	const p2DynArray<iPoint>* path = App->pathfinding->GetLastPath();
-
-	/*for (uint i = 0; i < path->Count(); ++i)
-	{
-		iPoint pos = App->map->MapToWorld(path->At(i)->x, path->At(i)->y);
-		LOG("Resultant path ----- X: %i Y: %i", pos.x, pos.y);
-	}*/
-
 	return true;
 }
 

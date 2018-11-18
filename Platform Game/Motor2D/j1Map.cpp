@@ -6,6 +6,7 @@
 #include "j1Map.h"
 #include "j1Collision.h"
 #include "j1Window.h"
+#include "Brofiler/Brofiler.h"
 #include <math.h>
 
 
@@ -37,6 +38,8 @@ bool j1Map::Awake(pugi::xml_node& config)
 
 void j1Map::Draw()
 {
+	BROFILER_CATEGORY("Drawing Map", Profiler::Color::Cyan);
+
 	if(map_loaded == false)
 		return;
 	uint camera_width;
@@ -157,6 +160,9 @@ iPoint j1Map::WorldToMap(int x, int y) const
 
 bool j1Map::CreateWalkabilityMap(int & width, int & height, uchar ** buffer) const
 {
+
+	BROFILER_CATEGORY("Create Walkability Map", Profiler::Color::DarkCyan);
+
 	bool ret = false;
 	p2List_item<MapLayer*>* item;
 	item = data.layers.start;
