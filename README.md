@@ -48,6 +48,22 @@ Jump: http://sonidosmp3gratis.com/
 
 Music: https://patrickdearteaga.com/audio/Intergalactic%20Odyssey.ogg
 
+## Tasks done by each of the developers
+
+Sebastian Lopez:
+
+-Pathfinding.
+-Frame cap.
+-Dt logic.
+-Fix Collisions.
+-Brofiler.
+
+Eric Navarro:
+
+-Implement entities.
+-UML.
+-Convert two scenes to one scene and implement method to change maps.
+-Load of the player.
 
 ## License
 

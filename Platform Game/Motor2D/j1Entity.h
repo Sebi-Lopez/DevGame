@@ -16,7 +16,7 @@ public:
 	Collider* collider = nullptr;
 	fPoint position;
 	int entitytype = 0;
-	SDL_Texture* sprites;
+	SDL_Texture* texture;
 	
 
 public:

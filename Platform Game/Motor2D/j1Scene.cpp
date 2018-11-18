@@ -112,8 +112,6 @@ bool j1Scene::Update(float dt)
 		}
 		firstUpdate = false;
 		isFading = false;
-	
-		
 	}
 	
 	
@@ -180,7 +178,7 @@ bool j1Scene::PostUpdate()
 bool j1Scene::CleanUp()
 {
 	LOG("Freeing scene");
-
+	
 
 	return true;
 }

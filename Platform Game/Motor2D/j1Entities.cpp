@@ -209,7 +209,7 @@ bool j1Entities::Load(pugi::xml_node& data)
 			pugi::xml_node player_stats = data.child("player");
 			entities[i]->Load(player_stats);
 		}
-		if (entities[i]->entitytype == ENEMY)
+		/*if (entities[i]->entitytype == ENEMY)
 		{
 			pugi::xml_node enemy_stats = data.child("enemy");
 			entities[i]->Load(enemy_stats);
@@ -218,7 +218,7 @@ bool j1Entities::Load(pugi::xml_node& data)
 		{
 			pugi::xml_node flyenemy_stats = data.child("flyenemy");
 			entities[i]->Load(flyenemy_stats);
-		}
+		}*/
 	}
 
 
