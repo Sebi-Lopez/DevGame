@@ -36,7 +36,7 @@ j1Collision::j1Collision()
 	matrix[COLLIDER_PLAYER][COLLIDER_END] = true;
 	matrix[COLLIDER_PLAYER][COLLIDER_PLAYER] = false;
 	matrix[COLLIDER_PLAYER][COLLIDER_GOD] = false;
-	matrix[COLLIDER_PLAYER][COLLIDER_ENEMY] = false;
+	matrix[COLLIDER_PLAYER][COLLIDER_ENEMY] = true;
 
 	matrix[COLLIDER_GOD][COLLIDER_FLOOR] = false;
 	matrix[COLLIDER_GOD][COLLIDER_DEAD] = false;
