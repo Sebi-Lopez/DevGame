@@ -64,6 +64,8 @@ public:
 	bool to_move = false; 
 	iPoint go_to;
 	E_STATE e_state = E_STATE::IDLE;
+
+	bool debug_draw = false;
 };
 
 

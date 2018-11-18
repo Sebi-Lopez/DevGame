@@ -61,8 +61,6 @@ private:
 
 	Collider * colliders[MAX_COLLIDERS];
 	bool matrix[COLLIDER_MAX][COLLIDER_MAX];
-
-public :
 	bool debug = false;
 
 };

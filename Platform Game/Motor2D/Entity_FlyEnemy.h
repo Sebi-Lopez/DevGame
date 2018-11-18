@@ -59,6 +59,8 @@ public:
 	int steps_to = 0;
 	iPoint go_to;
 	F_STATE f_state = F_STATE::IDLE;
+
+	bool debug_draw = false; 
 };
 
 

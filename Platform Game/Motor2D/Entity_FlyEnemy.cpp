@@ -125,16 +125,28 @@ void Entity_FlyEnemy::SetDirection()
 
 	else f_state = F_STATE::RIGHT;
 
-	for (uint i = 0; i < path->Count(); ++i)
+
+	if(App->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN)
 	{
-		iPoint pos = App->map->MapToWorld(path->At(i)->x, path->At(i)->y);
-		SDL_Rect r;
-		r.x = pos.x;
-		r.y = pos.y;
-		r.w = App->map->data.tile_width;
-		r.h = App->map->data.tile_height;
-		App->render->DrawQuad(r, 255, 0, 0, 100, true, true);
+		if (debug_draw == false) debug_draw = true;
+		else debug_draw = false;
 	}
+
+
+	if (debug_draw)
+	{
+		for (uint i = 0; i < path->Count(); ++i)
+		{
+			iPoint pos = App->map->MapToWorld(path->At(i)->x, path->At(i)->y);
+			SDL_Rect r;
+			r.x = pos.x;
+			r.y = pos.y;
+			r.w = App->map->data.tile_width;
+			r.h = App->map->data.tile_height;
+			App->render->DrawQuad(r, 255, 0, 0, 100, true, true);
+		}
+	}
+	
 }
 
 
