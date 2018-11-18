@@ -56,6 +56,7 @@ Sebastian Lopez:
 -Frame cap.
 -Dt logic.
 -Fix Collisions.
+-Brofiler.
 
 Eric Navarro:
 
