@@ -109,10 +109,16 @@ private:
 	p2SString			title;
 	p2SString			organization;
 
+
+	p2SString			vsyncstr;
+	p2SString			frame_capstr; 
+
 	mutable bool		want_to_save = false;
 	bool				want_to_load = false;
 	p2SString			load_game;
 	mutable p2SString	save_game;
+
+	bool				vsync_on = false; 
 
 	bool				first_frame = true; 
 	int					framerate_cap = 0; 

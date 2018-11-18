@@ -92,10 +92,12 @@ bool j1App::Awake()
 	{
 		// self-config
 		ret = true;
+		vsync_on = config.child("renderer").child("vsync").attribute("value").as_bool();
 		app_config = config.child("app");
 		title.create(app_config.child("title").child_value());
 		organization.create(app_config.child("organization").child_value());
 		framerate_cap = app_config.child("framerate_cap").attribute("frame_rate").as_int();
+		if (framerate_cap == 30) capped = true; 
 	}
 
 	if(ret == true)
@@ -208,22 +210,39 @@ void j1App::FinishUpdate()
 	if(want_to_load == true)
 		LoadGameNow();
 
-
-	//  Frame Rate Calculations
 	if (App->input->GetKey(SDL_SCANCODE_F11) == KEY_DOWN) 
 	{
-		if (capped == false)
+		if (capped)
 		{
-			capped = true;
-			framerate_cap = 30;
+			capped = false; 
 		}
 		else
 		{
-			framerate_cap = 15;
-			capped = false;
+			capped = true; 
+			framerate_cap = 30; 
 		}
 		LOG("Framerate_cap: %i", framerate_cap);
 	}
+
+	if (vsync_on)
+	{
+		vsyncstr = "On";
+	}
+	else
+	{
+		vsyncstr = "Off";
+	}
+
+	if (capped) 
+	{
+		frame_capstr = "On";
+	}
+	else
+	{
+		frame_capstr = "Off";
+	}
+	//  Frame Rate Calculations
+	
 
 	if (last_sec_frame_time.Read() > 1000)
 	{
@@ -237,15 +256,18 @@ void j1App::FinishUpdate()
 	uint32 last_frame_ms = frame_time.Read();
 	uint32 frames_on_last_update = prev_last_sec_frame_count;
 
+	
+
+
 
 	static char title[256];
 	sprintf_s(title, 256, "FPS: %i, Av.FPS: %.2f Last Frame Ms: %02u / Frame Cap: %s Vsync: %s /Time since startup: %.3f Frame Count: %lu / Frame Cap: %i",
-		frames_on_last_update, avg_fps, last_frame_ms, "On", "Off", seconds_since_startup, frame_count, framerate_cap);
+		frames_on_last_update, avg_fps, last_frame_ms, frame_capstr.GetString() , vsyncstr.GetString(), seconds_since_startup, frame_count, framerate_cap);
 	App->win->SetTitle(title);
 
 	float frame_rate_ms = 1 / (float)framerate_cap * 1000; 
 
-	if (last_frame_ms < frame_rate_ms /*&& capped*/) 
+	if (last_frame_ms < frame_rate_ms && frame_capstr == "On") 
 	{
 		SDL_Delay(frame_rate_ms - last_frame_ms);
 	}
