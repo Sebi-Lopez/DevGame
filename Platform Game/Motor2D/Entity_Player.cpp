@@ -189,7 +189,7 @@ void Entity_Player::SetPlayerState()
 	bool released_right = (App->input->GetKey(SDL_SCANCODE_D) == KEY_UP);
 	bool released_left = (App->input->GetKey(SDL_SCANCODE_A) == KEY_UP);
 	bool pressed_space = (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN);
-	bool pressed_attack = (App->input->GetKey(SDL_SCANCODE_K) == KEY_DOWN);
+
 
 	if (pressed_right && !pressed_left)
 		flip = false;
@@ -232,9 +232,6 @@ void Entity_Player::SetPlayerState()
 		{
 			State = STATE::FALLING;
 		}
-		if (pressed_attack) {
-			State = STATE::ATTACK_FORWARD;
-		}
 		break;
 
 	case STATE::RUNNING_BACKWARD:
@@ -252,27 +249,6 @@ void Entity_Player::SetPlayerState()
 		}
 		break;
 
-	case STATE::ATTACK_BACKWARD:
-		if (released_right || pressed_left)
-		{
-			State = STATE::IDLE;
-		}
-		if (pressed_left && !pressed_right)
-		{
-			State = STATE::RUNNING_BACKWARD;
-		}
-		break;
-
-	case STATE::ATTACK_FORWARD:
-		if (released_left || pressed_right)
-		{
-			State = STATE::IDLE;
-		}
-		if (pressed_right && !pressed_left)
-		{
-			State = STATE::RUNNING_FORWARD;
-		}
-		break;
 		// JUMPING CASES
 
 	case STATE::JUMPING:
@@ -513,16 +489,6 @@ void Entity_Player::SetPlayerActions()
 	case STATE::DOUBLE_JUMP_BACKWARD:
 		velocity.x = -fly_speed;
 		break;
-	case STATE::ATTACK_BACKWARD:
-		velocity.x = 0;
-		animation = &attack;
-		break;
-
-	case STATE::ATTACK_FORWARD:
-		velocity.x = 0;
-		animation = &attack;
-		break;
-
 	case STATE::GOD:
 		acceleration.y = 0.0F;
 		velocity.y = 0.0F;
