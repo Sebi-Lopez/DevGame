@@ -23,7 +23,7 @@ Entity_Player::Entity_Player(int x, int y, pugi::xml_node& node): j1Entity(x, y)
 	animation = &fall;
 	State = STATE::FALLING;
 
-	sprites = App->tex->Load("textures/character.png");
+	texture = App->tex->Load("textures/character.png");
 	pugi::xml_node animations = node.child("animations");
 	SetAnimation(animations.child("idleanimation").child("anim"), idle);
 	idle.speed = animations.child("idleanimation").attribute("speed").as_float();
@@ -89,7 +89,7 @@ Entity_Player::Entity_Player(int x, int y, pugi::xml_node& node): j1Entity(x, y)
 	jump_speed = node.child("initial_attributes").attribute("jumpspeed").as_float();
 	god_speed = node.child("initial_attributes").attribute("godspeed").as_float();
 
-	if (sprites != nullptr)
+	if (texture != nullptr)
 	{
 		LOG("Player Texture Loaded Succesfully");
 	}
@@ -150,8 +150,8 @@ void Entity_Player::Update(float dt)
 
 bool Entity_Player::CleanUp()
 {
-	App->tex->UnLoad(sprites);
-	sprites = nullptr;
+	App->tex->UnLoad(texture);
+	texture = nullptr;
 	animation = nullptr;
 	App->audio->fxjump.Clear();
 	if (collider != nullptr)

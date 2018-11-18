@@ -22,7 +22,7 @@ Entity_Enemy::Entity_Enemy(int x, int y, pugi::xml_node& node) :j1Entity( x, y)
 {
 	animation = &idle;
 
-	sprites = App->tex->Load("textures/enemies.png");
+	texture = App->tex->Load("textures/enemies.png");
 	pugi::xml_node animations = node.child("animationsenemy");
 
 	SetAnimation(animations.child("idleanimation").child("anim"), idle);
@@ -49,8 +49,8 @@ Entity_Enemy::~Entity_Enemy()
 
 bool Entity_Enemy::CleanUp() {
 
-	App->tex->UnLoad(sprites);
-	sprites = nullptr;
+	App->tex->UnLoad(texture);
+	texture = nullptr;
 	animation = nullptr;
 	if (collider != nullptr)
 	{

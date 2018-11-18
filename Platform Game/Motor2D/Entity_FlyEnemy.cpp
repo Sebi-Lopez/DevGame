@@ -22,7 +22,7 @@ Entity_FlyEnemy::Entity_FlyEnemy(int x, int y, pugi::xml_node& node) :j1Entity(x
 {
 	animation = &idle;
 
-	sprites = App->tex->Load("textures/flyenemy.png");
+	texture = App->tex->Load("textures/flyenemy.png");
 	pugi::xml_node animations = node.child("animationsflyenemy");
 
 	SetAnimation(animations.child("flyanimation").child("anim"), idle);
@@ -45,8 +45,8 @@ Entity_FlyEnemy::~Entity_FlyEnemy()
 
 bool Entity_FlyEnemy::CleanUp() {
 
-	App->tex->UnLoad(sprites);
-	sprites = nullptr;
+	App->tex->UnLoad(texture);
+	texture = nullptr;
 	animation = nullptr;
 	if (collider != nullptr)
 	{
