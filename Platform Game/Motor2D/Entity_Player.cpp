@@ -589,7 +589,7 @@ void Entity_Player::OnCollision(Collider * c2)
 		}
 	}
 
-	if (c2->type == COLLIDER_DEAD)
+	if (c2->type == COLLIDER_DEAD || c2->type == COLLIDER_ENEMY)
 		State = STATE::DEAD;
 
 	if (c2->type == COLLIDER_END)

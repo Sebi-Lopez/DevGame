@@ -8,7 +8,7 @@
 #include"PugiXml/src/pugixml.hpp"
 #include"PugiXml/src/pugiconfig.hpp"
 
-#define RANGE 400
+#define RANGE 300
 
 enum class F_STATE
 {

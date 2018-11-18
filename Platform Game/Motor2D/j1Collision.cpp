@@ -36,7 +36,7 @@ j1Collision::j1Collision()
 	matrix[COLLIDER_PLAYER][COLLIDER_END] = true;
 	matrix[COLLIDER_PLAYER][COLLIDER_PLAYER] = false;
 	matrix[COLLIDER_PLAYER][COLLIDER_GOD] = false;
-	matrix[COLLIDER_PLAYER][COLLIDER_ENEMY] = false;
+	matrix[COLLIDER_PLAYER][COLLIDER_ENEMY] = true;
 
 	matrix[COLLIDER_GOD][COLLIDER_FLOOR] = false;
 	matrix[COLLIDER_GOD][COLLIDER_DEAD] = false;
@@ -142,7 +142,7 @@ void j1Collision::DebugDraw()
 			App->render->DrawQuad(colliders[i]->rect, 0, 255, 0, alpha);
 			break;
 		case COLLIDER_ENEMY:
-			App->render->DrawQuad(colliders[i]->rect, 204, 0, 204, alpha);
+			App->render->DrawQuad(colliders[i]->rect, 255, 200, 0, alpha);
 			break;
 		case COLLIDER_END: // red
 			App->render->DrawQuad(colliders[i]->rect, 255, 0, 0, alpha);

@@ -38,9 +38,7 @@ bool j1Entity::Draw()
 }
 
 void j1Entity::OnCollision(Collider* collider)
-{
-	
-}
+{}
 
 void j1Entity::SetAnimation(pugi::xml_node& node, Animation& anim)
 {
