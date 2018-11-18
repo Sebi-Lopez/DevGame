@@ -11,14 +11,19 @@
 	<pathfinding />
 	<entities>
 		<player>
-			<playerattributes x="273.380096" y="342" state="IDLE">
-				<map value="true" />
+			<playerattributes x="3" y="368" state="IDLE">
+				<map value="false" />
 			</playerattributes>
 		</player>
+		<player />
+		<player />
+		<player />
+		<player />
+		<player />
 	</entities>
 	<:anonymous />
 	<:anonymous />
 	<renderer>
-		<camera x="-290" y="-190" />
+		<camera x="0" y="-190" />
 	</renderer>
 </game_state>

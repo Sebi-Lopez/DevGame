@@ -231,6 +231,7 @@ void j1App::FinishUpdate()
 	uint32 frames_on_last_update = prev_last_sec_frame_count;
 
 
+
 	static char title[256];
 	sprintf_s(title, 256, "FPS: %i, Av.FPS: %.2f Last Frame Ms: %02u / Frame Cap: %s Vsync: %s /Time since startup: %.3f Frame Count: %lu / Frame Cap: %i",
 		frames_on_last_update, avg_fps, last_frame_ms, "On", "Off", seconds_since_startup, frame_count, framerate_cap);

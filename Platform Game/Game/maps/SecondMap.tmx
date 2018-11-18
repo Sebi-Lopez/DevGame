@@ -48084,8 +48084,8 @@
   <object id="50" name="floor" x="2032" y="310" width="45" height="37"/>
   <object id="51" name="floor" x="2158" y="245" width="49" height="35"/>
   <object id="73" name="floor" x="2748" y="394" width="137.5" height="87"/>
-  <object id="74" name="floor" x="2879.5" y="322.5" width="87.5" height="27"/>
-  <object id="75" name="floor" x="2971.5" y="316.5" width="267" height="163"/>
+  <object id="74" name="floor" x="2879.5" y="320.167" width="87.5" height="29.3333"/>
+  <object id="75" name="floor" x="2971.5" y="319.833" width="267" height="159.667"/>
   <object id="78" name="floor" x="3088" y="-1" width="151" height="199"/>
   <object id="79" name="floor" x="3039" y="-1" width="48" height="111"/>
   <object id="80" name="floor" x="3007" y="-2" width="30" height="51"/>

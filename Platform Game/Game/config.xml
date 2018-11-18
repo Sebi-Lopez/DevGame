@@ -121,15 +121,31 @@
       </doublejanimation>
     </animations>
     <animationsenemy>
-      <enemypos1>
-        <value x="765" y="145"/>
-      </enemypos1>
-      <enemypos2>
-        <value x="1550" y="400"/>
-      </enemypos2>
-      <enemypos3>
-        <value x="2525" y="246"/>
-      </enemypos3>
+      <map1>
+        <enemypos1>
+          <value x="765" y="145"/>
+        </enemypos1>
+        <enemypos2>
+          <value x="1550" y="400"/>
+        </enemypos2>
+        <enemypos3>
+          <value x="2525" y="246"/>
+        </enemypos3>
+      </map1>
+      <map2>
+        <enemypos1>
+          <value x="526" y="117"/>
+        </enemypos1>
+        <enemypos2>
+          <value x="1510" y="450"/>
+        </enemypos2>
+        <enemypos3>
+          <value x="2460" y="450"/>
+        </enemypos3>
+        <enemypos4>
+          <value x="" y=""/>
+        </enemypos4>
+      </map2>
       <idleanimation speed="0.1" loop="true">
         <anim x="140" y="105" w="15" h="22"/>
         <anim x="160" y="105" w="16" h="22"/>
@@ -154,12 +170,40 @@
       </deadanimation>
     </animationsenemy>
     <animationsflyenemy>
+      <map1>
+        <flyenemypos1>
+          <value x="2800" y="350"/>
+        </flyenemypos1>
+        <flyenemypos2>
+          <value x="2000" y="400"/>
+        </flyenemypos2>
+        <flyenemypos3>
+          <value x="403" y="280"/>
+        </flyenemypos3>
+      </map1>
+      <map2>
+        <flyenemypos1>
+          <value x="330" y="320"/>
+        </flyenemypos1>
+        <flyenemypos2>
+          <value x="1060" y="270"/>
+        </flyenemypos2>
+        <flyenemypos3>
+          <value x="1860" y="330"/>
+        </flyenemypos3>
+      </map2>
       <flyenemypos1>
         <value x="2800" y="350"/>
       </flyenemypos1>
       <flyenemypos2>
         <value x="2000" y="400"/>
       </flyenemypos2>
+      <flyenemypos3>
+        <value x="403" y="280"/>
+      </flyenemypos3>
+      <flyenemypos4>
+        <value x="1212" y="335"/>
+      </flyenemypos4>
       <flyanimation speed="0.3" loop="true">
         <anim x="1" y="26" w="13" h="21"/>
         <anim x="18" y="26" w="12" h="21"/>
