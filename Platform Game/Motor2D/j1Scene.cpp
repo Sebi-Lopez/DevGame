@@ -84,6 +84,7 @@ bool j1Scene::PreUpdate()
 	{
 		if (origin_selected == true)
 		{
+			BROFILER_CATEGORY("Drawing the map", Profiler::Color::LightCyan);
 			App->pathfinding->CreatePath(origin, p);
 			LOG("Origin-> x: %i y: %i ||| Destination-> x: %i y: %i", origin.x, origin.y, p.x, p.y);
 			origin_selected = false;
@@ -120,12 +121,12 @@ bool j1Scene::Update(float dt)
 		App->render->camera.x -= 10;
 
 
-	else if (App->input->GetKey(SDL_SCANCODE_KP_PLUS) == KEY_DOWN) {
+	if (App->input->GetKey(SDL_SCANCODE_KP_PLUS) == KEY_DOWN) {
 		volumechange = true;
 		App->audio->VolumeChange(volumechange);
 	}
 
-	else if (App->input->GetKey(SDL_SCANCODE_KP_MINUS) == KEY_DOWN) {
+	if (App->input->GetKey(SDL_SCANCODE_KP_MINUS) == KEY_DOWN) {
 		volumechange = false;
 		App->audio->VolumeChange(volumechange);
 	}

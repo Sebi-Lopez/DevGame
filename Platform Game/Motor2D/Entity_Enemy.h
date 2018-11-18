@@ -8,6 +8,22 @@
 #include"PugiXml/src/pugixml.hpp"
 #include"PugiXml/src/pugiconfig.hpp"
 
+
+#define RANGE 500
+
+enum class E_STATE 
+{
+	NONE = -1,
+	IDLE,
+	UP,
+	DOWN,
+	LEFT,
+	RIGHT,
+	
+
+	
+};
+
 class Entity_Enemy : public j1Entity
 {
 public:
@@ -20,7 +36,7 @@ public:
 
 	bool CleanUp();
 
-	void CalculatePosition();
+	void CalculatePosition(float dt);
 
 	void CalculateTime();
 
@@ -28,6 +44,8 @@ public:
 
 	void SetEnemyActions();
 
+	bool CheckPlayerOnRange(); 
+	E_STATE SetDirection(const iPoint& go_to);
 
 	// Collision Callback
 	void OnCollision(Collider* c2);
@@ -41,8 +59,17 @@ public:
 	Animation fall;
 	Animation dead;
 
+	fPoint velocity; 
+	fPoint acceleration; 
+	float gravity = 150;
+	float run_speed = 100;
+	float max_velocity = 300;
 
 
+	int steps_to = 0; 
+	bool to_move = false; 
+	iPoint go_to;
+	E_STATE e_state = E_STATE::IDLE;
 };
 
 

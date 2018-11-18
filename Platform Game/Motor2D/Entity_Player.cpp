@@ -168,12 +168,7 @@ void Entity_Player::CalculatePosition(float dt)
 	if (velocity.y > max_velocity) {
 		velocity.y = max_velocity;
 	}
-
-	
-
 	position = position + velocity * dt;
-	//collider->SetPos(position.x, position.y);
-
 }
 
 void Entity_Player::CalculateTime()
@@ -626,9 +621,6 @@ void Entity_Player::OnCollision(Collider * c2)
 			velocity.x = 0.0F;
 			break;
 		}
-
-		
-
 	}
 
 	if (c2->type == COLLIDER_DEAD)
