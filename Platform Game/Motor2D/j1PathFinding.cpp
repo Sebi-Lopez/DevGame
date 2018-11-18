@@ -143,6 +143,35 @@ uint PathNode::FindWalkableAdjacents(PathList& list_to_fill) const
 	return list_to_fill.list.count();
 }
 
+uint PathNode::FindFloorWalkableAdjacents(PathList & list_to_fill) const
+{
+	iPoint cell;
+	uint before = list_to_fill.list.count();
+
+	// Tries to expand below 
+	cell.create(pos.x, pos.y + 1);
+	
+	
+	if (App->pathfinding->IsWalkable(cell))
+	{
+		list_to_fill.list.add(PathNode(-1, -1, cell, this));
+	}
+	// If it cant goes sideways
+	else 
+	{
+	cell.create(pos.x + 1, pos.y);
+	if (App->pathfinding->IsWalkable(cell))
+		list_to_fill.list.add(PathNode(-1, -1, cell, this));
+
+	// west
+	cell.create(pos.x - 1, pos.y);
+	if (App->pathfinding->IsWalkable(cell))
+		list_to_fill.list.add(PathNode(-1, -1, cell, this));
+	}
+	return list_to_fill.list.count();
+}
+
+
 // PathNode -------------------------------------------------------------------------
 // Calculates this tile score
 // ----------------------------------------------------------------------------------
@@ -237,3 +266,74 @@ int j1PathFinding::CreatePath(const iPoint& origin, const iPoint& destination)
 	return -1;
 }
 
+int j1PathFinding::CreateFloorPath(const iPoint& origin, const iPoint& destination)
+{
+	if (last_path.Count() > 0) last_path.Clear();
+
+	if (!IsWalkable(origin) || !IsWalkable(destination))
+	{
+		return -1;
+	}
+
+	PathList open;
+	PathList closed;
+	PathNode origin_node(0, origin.DistanceTo(destination), origin, NULL);
+	open.list.add(origin_node);
+
+	while (open.list.count() > 0)
+	{
+		// Its the same process as a push
+
+		p2List_item<PathNode>*	lowest_node = open.GetNodeLowestScore();
+
+		PathNode* current_node = &closed.list.add(lowest_node->data)->data;
+		open.list.del(lowest_node);
+
+		// Case destination is just added
+
+		if (current_node->pos == destination)
+		{
+			const p2List_item<PathNode>* iterator = closed.list.end;
+			while (iterator->data.parent != nullptr)
+			{
+				last_path.PushBack(iterator->data.pos);
+				iterator = closed.Find(iterator->data.parent->pos);
+			}
+			last_path.Flip();			// Makes the path in the opposite order
+			return last_path.GetCapacity();
+		}
+
+		// Calculates the neighbours nodes
+
+		PathList adjacent;
+		current_node->FindFloorWalkableAdjacents(adjacent);
+
+		// Iterates the neighbours nodes 
+
+		p2List_item<PathNode>* adj_iterator = adjacent.list.start;
+		for (; adj_iterator != NULL; adj_iterator = adj_iterator->next)
+		{
+			if (closed.Find(adj_iterator->data.pos))						// Ignores nodes in the closed list
+			{
+				continue;
+			}
+
+			if (open.Find(adj_iterator->data.pos) != NULL)					//If it is already in the open list, check if it is a better path(compare G)
+			{
+				PathNode check = open.Find(adj_iterator->data.pos)->data;
+				adj_iterator->data.CalculateF(destination);
+				if (adj_iterator->data.g < check.g)
+				{
+					check.parent = adj_iterator->data.parent;				// If it is a better path, Update the parent
+				}
+			}
+			else															// If it is NOT found, calculate its F and add it to the open list
+			{
+				adj_iterator->data.CalculateF(destination);
+				open.list.add(adj_iterator->data);
+			}
+		}
+	}
+
+	return -1;
+}

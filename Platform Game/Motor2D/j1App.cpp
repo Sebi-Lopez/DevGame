@@ -197,7 +197,6 @@ void j1App::PrepareUpdate()
 	}
 	else dt = frame_time.ReadSec(); 	
 
-	LOG("Dt: %f", dt);
 	frame_time.Start();
 }
 

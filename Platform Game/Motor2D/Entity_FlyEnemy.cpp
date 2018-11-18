@@ -67,6 +67,14 @@ void Entity_FlyEnemy::Update(float dt)
 	}
 	else f_state = F_STATE::IDLE;
 
+
+	if (App->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN)
+	{
+		if (debug_draw == false) debug_draw = true;
+		else debug_draw = false;
+	}
+
+
 	SetEnemyAnimation();
 	CalculatePosition(dt);
 
@@ -112,41 +120,34 @@ void Entity_FlyEnemy::CreatePath()
 
 void Entity_FlyEnemy::SetDirection()
 {
-	const p2DynArray<iPoint>* path = App->pathfinding->GetLastPath();
-	go_to = iPoint(path->At(0)->x, path->At(0)->y);
+	if (steps_to > 0) {
+		const p2DynArray<iPoint>* path = App->pathfinding->GetLastPath();
+		go_to = iPoint(path->At(0)->x, path->At(0)->y);
 
-	fPoint direction;
-	direction.x = go_to.x - centered.x;
-	direction.y = go_to.y - centered.y;
-	velocity = direction.Normalize() * run_speed;
+		fPoint direction;
+		direction.x = go_to.x - centered.x;
+		direction.y = go_to.y - centered.y;
+		velocity = direction.Normalize() * run_speed;
 
-	if (velocity.x < 0)
-		f_state = F_STATE::LEFT;
+		if (velocity.x < 0)
+			f_state = F_STATE::LEFT;
 
-	else f_state = F_STATE::RIGHT;
+		else f_state = F_STATE::RIGHT;
 
-
-	if(App->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN)
-	{
-		if (debug_draw == false) debug_draw = true;
-		else debug_draw = false;
-	}
-
-
-	if (debug_draw)
-	{
-		for (uint i = 0; i < path->Count(); ++i)
+		if (debug_draw)
 		{
-			iPoint pos = App->map->MapToWorld(path->At(i)->x, path->At(i)->y);
-			SDL_Rect r;
-			r.x = pos.x;
-			r.y = pos.y;
-			r.w = App->map->data.tile_width;
-			r.h = App->map->data.tile_height;
-			App->render->DrawQuad(r, 255, 0, 0, 100, true, true);
+			for (uint i = 0; i < path->Count(); ++i)
+			{
+				iPoint pos = App->map->MapToWorld(path->At(i)->x, path->At(i)->y);
+				SDL_Rect r;
+				r.x = pos.x;
+				r.y = pos.y;
+				r.w = App->map->data.tile_width;
+				r.h = App->map->data.tile_height;
+				App->render->DrawQuad(r, 255, 0, 0, 100, true, true);
+			}
 		}
 	}
-	
 }
 
 

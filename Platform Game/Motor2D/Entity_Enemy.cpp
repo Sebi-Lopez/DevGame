@@ -64,7 +64,7 @@ bool Entity_Enemy::CleanUp() {
 
 void Entity_Enemy::Update(float dt) 
 {
-	/*centered = App->map->WorldToMap(position.x, position.y);
+	centered = App->map->WorldToMap(position.x, position.y);
 	if (PlayerIsOnRange())
 	{		
 		CreatePath(); 
@@ -72,9 +72,14 @@ void Entity_Enemy::Update(float dt)
 	}	
 	else e_state = E_STATE::IDLE;		
 	
-	
+	if (App->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN)
+	{
+		if (debug_draw == false) debug_draw = true;
+		else debug_draw = false;
+	}
+
 	SetEnemyAnimation();
-	CalculatePosition(dt);*/
+	CalculatePosition(dt);
 }
 
 void Entity_Enemy::CreatePath()
@@ -82,7 +87,7 @@ void Entity_Enemy::CreatePath()
 	fPoint player = App->entities->player->position;
 	iPoint destination = App->map->WorldToMap(player.x, player.y);
 
-	steps_to = App->pathfinding->CreatePath(centered, destination);
+	steps_to = App->pathfinding->CreateFloorPath(centered, destination);
 }
 
 
@@ -103,42 +108,34 @@ void Entity_Enemy::CalculatePosition(float dt)
 void Entity_Enemy::SetDirection()
 {
 	
-	// Takes first node on the list and makes a vector pointing it
-	const p2DynArray<iPoint>* path = App->pathfinding->GetLastPath();
-	go_to = iPoint(path->At(0)->x, path->At(0)->y);
-
-	fPoint direction;
-	direction.x = go_to.x - centered.x;
-	direction.y = go_to.y - centered.y;
-	velocity = direction.Normalize() * run_speed;
-
-	if (velocity.x < 0)
-		e_state = E_STATE::LEFT;
-
-	else e_state = E_STATE::RIGHT;
-
-
-
-
-
-	if (App->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN)
+	if (steps_to > 0) 
 	{
-		if (debug_draw == false) debug_draw = true;
-		else debug_draw = false;
-	}
+		// Takes first node on the list and makes a vector pointing it
+		const p2DynArray<iPoint>* path = App->pathfinding->GetLastPath();
+		go_to = iPoint(path->At(0)->x, path->At(0)->y);
 
+		fPoint direction;
+		direction.x = go_to.x - centered.x;
+		direction.y = go_to.y - centered.y;
+		velocity = direction.Normalize() * run_speed;
 
-	if (debug_draw)
-	{
-		for (uint i = 0; i < path->Count(); ++i)
+		if (velocity.x < 0)
+			e_state = E_STATE::LEFT;
+
+		else e_state = E_STATE::RIGHT;
+
+		if (debug_draw)
 		{
-			iPoint pos = App->map->MapToWorld(path->At(i)->x, path->At(i)->y);
-			SDL_Rect r;
-			r.x = pos.x;
-			r.y = pos.y;
-			r.w = App->map->data.tile_width;
-			r.h = App->map->data.tile_height;
-			App->render->DrawQuad(r, 255, 0, 0, 100, true, true);
+			for (uint i = 0; i < path->Count(); ++i)
+			{
+				iPoint pos = App->map->MapToWorld(path->At(i)->x, path->At(i)->y);
+				SDL_Rect r;
+				r.x = pos.x;
+				r.y = pos.y;
+				r.w = App->map->data.tile_width;
+				r.h = App->map->data.tile_height;
+				App->render->DrawQuad(r, 255, 0, 0, 100, true, true);
+			}
 		}
 	}
 }
