@@ -31,20 +31,43 @@ bool j1Entities::Awake(pugi::xml_node& config)
 {
 	entitynode = config;
 	
-	enemypos1.x = config.child("animationsenemy").child("enemypos1").child("value").attribute("x").as_float();
-	enemypos1.y = config.child("animationsenemy").child("enemypos1").child("value").attribute("y").as_float();
+	//map 1 enemies
+	enemypos1.x = config.child("animationsenemy").child("map1").child("enemypos1").child("value").attribute("x").as_float();
+	enemypos1.y = config.child("animationsenemy").child("map1").child("enemypos1").child("value").attribute("y").as_float();
 
-	enemypos2.x = config.child("animationsenemy").child("enemypos2").child("value").attribute("x").as_float();
-	enemypos2.y = config.child("animationsenemy").child("enemypos2").child("value").attribute("y").as_float();
+	enemypos2.x = config.child("animationsenemy").child("map1").child("enemypos2").child("value").attribute("x").as_float();
+	enemypos2.y = config.child("animationsenemy").child("map1").child("enemypos2").child("value").attribute("y").as_float();
 
-	enemypos3.x = config.child("animationsenemy").child("enemypos3").child("value").attribute("x").as_float();
-	enemypos3.y = config.child("animationsenemy").child("enemypos3").child("value").attribute("y").as_float();
+	enemypos3.x = config.child("animationsenemy").child("map1").child("enemypos3").child("value").attribute("x").as_float();
+	enemypos3.y = config.child("animationsenemy").child("map1").child("enemypos3").child("value").attribute("y").as_float();
 
-	flyenemypos1.x = config.child("animationsflyenemy").child("flyenemypos1").child("value").attribute("x").as_float();
-	flyenemypos1.y = config.child("animationsflyenemy").child("flyenemypos1").child("value").attribute("y").as_float();
+	flyenemypos1.x = config.child("animationsflyenemy").child("map1").child("flyenemypos1").child("value").attribute("x").as_float();
+	flyenemypos1.y = config.child("animationsflyenemy").child("map1").child("flyenemypos1").child("value").attribute("y").as_float();
 
-	flyenemypos2.x = config.child("animationsflyenemy").child("flyenemypos2").child("value").attribute("x").as_float();
-	flyenemypos2.y = config.child("animationsflyenemy").child("flyenemypos2").child("value").attribute("y").as_float();
+	flyenemypos2.x = config.child("animationsflyenemy").child("map1").child("flyenemypos2").child("value").attribute("x").as_float();
+	flyenemypos2.y = config.child("animationsflyenemy").child("map1").child("flyenemypos2").child("value").attribute("y").as_float();
+
+	flyenemypos3.x = config.child("animationsflyenemy").child("map1").child("flyenemypos3").child("value").attribute("x").as_float();
+	flyenemypos3.y = config.child("animationsflyenemy").child("map1").child("flyenemypos3").child("value").attribute("y").as_float();
+
+	//map 2 enemies
+	enemypos1map2.x = config.child("animationsenemy").child("map2").child("enemypos1").child("value").attribute("x").as_float();
+	enemypos1map2.y = config.child("animationsenemy").child("map2").child("enemypos1").child("value").attribute("y").as_float();
+
+	enemypos2map2.x = config.child("animationsenemy").child("map2").child("enemypos2").child("value").attribute("x").as_float();
+	enemypos2map2.y = config.child("animationsenemy").child("map2").child("enemypos2").child("value").attribute("y").as_float();
+
+	enemypos3map2.x = config.child("animationsenemy").child("map2").child("enemypos3").child("value").attribute("x").as_float();
+	enemypos3map2.y = config.child("animationsenemy").child("map2").child("enemypos3").child("value").attribute("y").as_float();
+
+	flyenemypos1map2.x = config.child("animationsflyenemy").child("map2").child("flyenemypos1").child("value").attribute("x").as_float();
+	flyenemypos1map2.y = config.child("animationsflyenemy").child("map2").child("flyenemypos1").child("value").attribute("y").as_float();
+
+	flyenemypos2map2.x = config.child("animationsflyenemy").child("map2").child("flyenemypos2").child("value").attribute("x").as_float();
+	flyenemypos2map2.y = config.child("animationsflyenemy").child("map2").child("flyenemypos2").child("value").attribute("y").as_float();
+
+	flyenemypos3map2.x = config.child("animationsflyenemy").child("map2").child("flyenemypos3").child("value").attribute("x").as_float();
+	flyenemypos3map2.y = config.child("animationsflyenemy").child("map2").child("flyenemypos3").child("value").attribute("y").as_float();
 
 	return true;
 }
@@ -128,6 +151,8 @@ bool j1Entities::SpawnEntities1() {
 	CreateEntities(ENEMY, App->entities->enemypos3.x, App->entities->enemypos3.y);
 	CreateEntities(FLYENEMY, App->entities->flyenemypos1.x, App->entities->flyenemypos1.y);
 	CreateEntities(FLYENEMY, App->entities->flyenemypos2.x, App->entities->flyenemypos2.y);
+	CreateEntities(FLYENEMY, App->entities->flyenemypos3.x, App->entities->flyenemypos3.y);
+
 	
 	return true;
 }
@@ -135,6 +160,12 @@ bool j1Entities::SpawnEntities1() {
 bool j1Entities::SpawnEntities2()
 {
 	CreateEntities(PLAYER, App->map->spawnpos.x, App->map->spawnpos.y);
+	CreateEntities(ENEMY, App->entities->enemypos1map2.x, App->entities->enemypos1map2.y);
+	CreateEntities(ENEMY, App->entities->enemypos2map2.x, App->entities->enemypos2map2.y);
+	CreateEntities(ENEMY, App->entities->enemypos3map2.x, App->entities->enemypos3map2.y);
+	CreateEntities(FLYENEMY, App->entities->flyenemypos1map2.x, App->entities->flyenemypos1map2.y);
+	CreateEntities(FLYENEMY, App->entities->flyenemypos2map2.x, App->entities->flyenemypos2map2.y);
+	CreateEntities(FLYENEMY, App->entities->flyenemypos3map2.x, App->entities->flyenemypos3map2.y);
 	return true;
 }
 
@@ -220,3 +251,5 @@ bool j1Entities::Save(pugi::xml_node& data)const
 
 	return ret;
 }
+
+

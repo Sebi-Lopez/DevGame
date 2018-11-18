@@ -40,6 +40,7 @@ public:
 	bool SpawnEntities1();
 	bool SpawnEntities2();
 
+
 	bool Save(pugi::xml_node&) const;
 	bool Load(pugi::xml_node&);
 
@@ -50,11 +51,21 @@ public:
 	Entity_FlyEnemy* flyenemy;
 	pugi::xml_node entitynode;
 
+	//map1 enemies
 	fPoint enemypos1;
 	fPoint enemypos2;
 	fPoint enemypos3;
 	fPoint flyenemypos1;
 	fPoint flyenemypos2;
+	fPoint flyenemypos3;
+	//map2 enemies
+	fPoint flyenemypos1map2;
+	fPoint flyenemypos2map2;
+	fPoint flyenemypos3map2;
+	fPoint enemypos1map2;
+	fPoint enemypos2map2;
+	fPoint enemypos3map2;
+	fPoint enemypos4map2;
 
 
 };

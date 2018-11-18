@@ -19,7 +19,7 @@
 
 Entity_Player::Entity_Player(int x, int y, pugi::xml_node& node): j1Entity(x, y)
 {
-	//name.create("player");
+	
 	animation = &fall;
 	State = STATE::FALLING;
 
@@ -604,15 +604,19 @@ bool Entity_Player::Load(pugi::xml_node& node)
 	loadpos = true;
 	App->scene->isSecondMap = load.child("map").attribute("value").as_bool();
 
+
+
 	if (App->scene->isSecondMap == true) {
 		App->map->CleanUp();
 		App->fade->FadeToBlack(App->scene, App->scene, 0.5f);
 		App->map->Load("SecondMap.tmx");
+		
 	}
 	else {
 		App->map->CleanUp();
 		App->fade->FadeToBlack(App->scene, App->scene, 0.5f);
 		App->map->Load("FirstMap.tmx");
+		
 	}
 	
 	position.x = load.attribute("x").as_float();

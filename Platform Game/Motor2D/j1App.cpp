@@ -259,6 +259,7 @@ void j1App::FinishUpdate()
 
 
 
+
 	static char title[256];
 	sprintf_s(title, 256, "FPS: %i, Av.FPS: %.2f Last Frame Ms: %02u / Frame Cap: %s Vsync: %s /Time since startup: %.3f Frame Count: %lu / Frame Cap: %i",
 		frames_on_last_update, avg_fps, last_frame_ms, frame_capstr.GetString() , vsyncstr.GetString(), seconds_since_startup, frame_count, framerate_cap);
