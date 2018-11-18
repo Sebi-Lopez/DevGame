@@ -114,6 +114,7 @@ private:
 	p2SString			load_game;
 	mutable p2SString	save_game;
 
+	bool				first_frame = true; 
 	int					framerate_cap = 0; 
 	bool				capped = true; 
 	j1PerfTimer			ptimer;
