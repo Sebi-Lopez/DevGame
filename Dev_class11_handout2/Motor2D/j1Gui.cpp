@@ -55,6 +55,18 @@ bool j1Gui::CleanUp()
 	return true;
 }
 
+UI_Object * j1Gui::CreateUIObject(UI_Type type, int x, int y)
+{
+	switch (type) {
+	case UI_Type::LABEL:
+		break;
+	case UI_Type::LOGO:
+		break;
+
+	}
+	return nullptr;
+}
+
 // const getter for atlas
 const SDL_Texture* j1Gui::GetAtlas() const
 {
