@@ -2,17 +2,20 @@
 #define __j1GUI_H__
 
 #include "j1Module.h"
-#include "GUI_Object.h"
+#include"p2DynArray.h"
 #define CURSOR_WIDTH 2
 
-struct UI_Object;
-
+class GUI_Object;
+struct SDL_Texture;
+struct SDL_Rect;
 // TODO 1: Create your structure of classes
 
 enum class UI_Type {
 	LABEL,
 	LOGO,
 	BUTTON,
+	SLIDER,
+	NONE
 };
 
 // ---------------------------------------------------
@@ -32,7 +35,7 @@ public:
 	bool Start();
 
 	// Called before all Updates
-	bool PreUpdate();
+	bool Update();
 
 	// Called after all Updates
 	bool PostUpdate();
@@ -42,15 +45,20 @@ public:
 
 	// TODO 2: Create the factory methods
 	// Gui creation functions
-	UI_Object* CreateUIObject(UI_Type type, int x, int y);
+	
+	//GUI_Object* Logo(int x, int y, SDL_Rect* rect, Animation* animation, j1Gui* parent);
+	GUI_Object* Slider(int x, int y, GUI_Object* parent);
+	GUI_Object* Label(int x, int y, p2SString text, GUI_Object* parent);
+	GUI_Object* Button(int x, int y, SDL_Rect* firststep, SDL_Rect* secondstep, SDL_Rect* thirdstep, GUI_Object* parent);
 
 	const SDL_Texture* GetAtlas() const;
+	void DestroyUI();
 
 private:
 
 	SDL_Texture* atlas;
 	p2SString atlas_file_name;
-	p2List<UI_Object>* objects;
+	p2DynArray<GUI_Object*> objects;
 };
 
 #endif // __j1GUI_H__

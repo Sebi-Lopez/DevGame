@@ -3,19 +3,19 @@
 
 #include "GUI_Object.h"
 
-UI_Object::UI_Object(int x, int y)
+GUI_Object::GUI_Object(int x, int y,GUI_Object* parent)
 {
 }
 
-UI_Object::~UI_Object()
+GUI_Object::~GUI_Object()
 {
 }
 
-void UI_Object::Draw()
+void GUI_Object::Draw(SDL_Texture* atlas)
 {
 
 }
 
-void UI_Object::Drag()
+void GUI_Object::Update()
 {
 }

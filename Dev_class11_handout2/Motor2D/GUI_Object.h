@@ -3,19 +3,23 @@
 
 #include "j1Gui.h"
 #include "p2Point.h"
-
-class UI_Object 
+struct SDL_Texture;
+struct SDL_Rect;
+class GUI_Object 
 {
 public:
 	iPoint position;
+	UI_Type type;
+	SDL_Texture* texture;
+	GUI_Object* parent;
 
 
 public:
-	UI_Object(int x, int y);
-	~UI_Object(); 
+	GUI_Object(int x, int y, GUI_Object* parent);
+	virtual ~GUI_Object(); 
 
-	void Draw();	
-	void Drag(); 
+	void Draw(SDL_Texture* atlas);	
+	void Update(); 
 };
 
 
