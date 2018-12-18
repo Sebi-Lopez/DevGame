@@ -39,14 +39,14 @@ bool j1Gui::Start()
 }
 
 // Update all guis
-bool j1Gui::Update()
+bool j1Gui::Update(float dt)
 {
 	for (int i = 0; i < objects.Count(); i++) {
-		if (objects.At(i) != nullptr)
-			objects[i]->Update();
+		if (objects[i] != nullptr)
+			objects[i]->Update(dt);
 	}
 	for (int i = 0; i < objects.Count(); i++) {
-		if (objects.At(i) != nullptr)
+		if (objects[i] != nullptr)
 			objects[i]->Draw(atlas);
 	}
 	return true;

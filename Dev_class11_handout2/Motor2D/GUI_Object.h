@@ -19,7 +19,7 @@ public:
 	virtual ~GUI_Object(); 
 
 	void Draw(SDL_Texture* atlas);	
-	void Update(); 
+	void Update(float dt); 
 };
 
 

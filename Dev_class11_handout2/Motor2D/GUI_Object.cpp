@@ -16,6 +16,6 @@ void GUI_Object::Draw(SDL_Texture* atlas)
 
 }
 
-void GUI_Object::Update()
+void GUI_Object::Update(float dt)
 {
 }

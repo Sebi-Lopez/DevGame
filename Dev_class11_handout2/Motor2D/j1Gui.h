@@ -35,7 +35,7 @@ public:
 	bool Start();
 
 	// Called before all Updates
-	bool Update();
+	bool Update(float dt);
 
 	// Called after all Updates
 	bool PostUpdate();
