@@ -19,3 +19,22 @@ void UI_Button::SetText(UI_Label* text)
 	this->text = text;
 	//colocar on aniria el text dins del cuadre del boto
 }
+
+void UI_Button::SetAnimation(int clickstate) {
+
+	if (clickstate == 1) {
+		buttonstate = mouseout;
+	}
+	if (clickstate == 2) {
+		buttonstate = mousein;
+	}
+	if (clickstate == 3) {
+		buttonstate = mouseclick;
+	}
+}
+
+void UI_Button::ButtonState() {
+
+	UI_Button* click;
+	if(mousepos.x>position.x&&mousepos.x<position.x+buttonstate.w)
+}

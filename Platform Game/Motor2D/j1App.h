@@ -19,6 +19,8 @@ class j1Map;
 class j1Collision;
 class j1FadeToBlack;
 class j1Entities;
+class j1GUI;
+class j1Fonts;
 
 enum Entities {
 	PLAYER_ENTITY,
@@ -97,6 +99,9 @@ public:
 	j1Collision*		collision = nullptr;
 	j1FadeToBlack*		fade = nullptr;
 	j1Entities*			entities = nullptr;
+	j1GUI*				gui = nullptr; 
+	j1Fonts*			fonts = nullptr;
+	
 	
 
 private:

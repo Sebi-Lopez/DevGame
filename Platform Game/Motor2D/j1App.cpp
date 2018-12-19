@@ -17,6 +17,8 @@
 #include "j1Entities.h"
 #include "j1App.h"
 #include "Brofiler/Brofiler.h"
+#include "j1GUI.h"
+#include "j1Fonts.h"
 
 // Constructor
 j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
@@ -34,6 +36,9 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	collision = new j1Collision(); 
 	fade = new j1FadeToBlack();
 	entities = new j1Entities();
+	gui = new j1GUI();
+	fonts = new j1Fonts();
+
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
@@ -47,6 +52,9 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(entities);
 	AddModule(collision); 
 	AddModule(fade);
+	AddModule(gui);
+	AddModule(fonts);
+	
 
 
 	// render last to swap buffer

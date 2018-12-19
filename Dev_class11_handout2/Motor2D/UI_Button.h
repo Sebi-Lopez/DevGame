@@ -7,16 +7,17 @@ struct SDL_Rect;
 class UI_Button : public GUI_Object
 {
 private:
-	SDL_Rect* firststep;
-	SDL_Rect* secondstep;
-	SDL_Rect* thirstep;
+	SDL_Rect* mouseout;
+	SDL_Rect* mousein;
+	SDL_Rect* mouseclick;
 	UI_Label* text = nullptr;
 
 public:
-	UI_Button(int x, int y, SDL_Rect* rect, SDL_Rect* rect2, SDL_Rect* rect3, UI_Type type, GUI_Object* parent);
+	UI_Button(int x, int y, SDL_Rect* out, SDL_Rect* in, SDL_Rect* pressed, UI_Type type, GUI_Object* parent);
 	~UI_Button();
-	void setAnimation(int state);
+	void SetAnimation(int clickstate);
 	void SetText(UI_Label* text);
+	void ButtonState();
 };
 
 

@@ -12,14 +12,17 @@ public:
 	UI_Type type;
 	SDL_Texture* texture;
 	GUI_Object* parent;
+	SDL_Rect* buttonstate;
+	UI_Type ui_type = UI_Type::NONE;
+	iPoint mousepos;
 
 
 public:
 	GUI_Object(int x, int y, GUI_Object* parent);
 	virtual ~GUI_Object(); 
 
-	void Draw(SDL_Texture* atlas);	
-	void Update(float dt); 
+	virtual void Draw(SDL_Texture* atlas);	
+	virtual void Update();
 };
 
 

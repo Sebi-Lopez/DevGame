@@ -3,14 +3,15 @@
 
 #include "j1Module.h"
 #include"p2DynArray.h"
+#include"Animation.h"
 #define CURSOR_WIDTH 2
 
-class GUI_Object;
+class UI_Object;
 struct SDL_Texture;
 struct SDL_Rect;
 // TODO 1: Create your structure of classes
 
-enum UI_Type {
+enum class UI_Type {
 	LABEL,
 	LOGO,
 	BUTTON,
@@ -19,14 +20,14 @@ enum UI_Type {
 };
 
 // ---------------------------------------------------
-class j1Gui : public j1Module
+class j1GUI : public j1Module
 {
 public:
 
-	j1Gui();
+	j1GUI();
 
 	// Destructor
-	virtual ~j1Gui();
+	virtual ~j1GUI();
 
 	// Called when before render is available
 	bool Awake(pugi::xml_node&);
@@ -35,7 +36,7 @@ public:
 	bool Start();
 
 	// Called before all Updates
-	bool Update(float dt);
+	bool Update();
 
 	// Called after all Updates
 	bool PostUpdate();
@@ -45,11 +46,11 @@ public:
 
 	// TODO 2: Create the factory methods
 	// Gui creation functions
-	
-	//GUI_Object* Logo(int x, int y, SDL_Rect* rect, Animation* animation, j1Gui* parent);
-	//GUI_Object* Slider(int x, int y, GUI_Object* parent);
-	GUI_Object* Label(int x, int y, p2SString text, GUI_Object* parent);
-	//GUI_Object* Button(int x, int y, SDL_Rect* firststep, SDL_Rect* secondstep, SDL_Rect* thirdstep, GUI_Object* parent);
+
+	UI_Object* CreateLogo(int x, int y, SDL_Rect* rect, Animation* animation, UI_Object* parent);
+	UI_Object* CreateSlider(int x, int y, UI_Object* parent);
+	UI_Object* CreateLabel(int x, int y, p2SString text, UI_Object* parent);
+	UI_Object* CreateButton(int x, int y, SDL_Rect* firststep, SDL_Rect* secondstep, SDL_Rect* thirdstep, UI_Object* parent);
 
 	const SDL_Texture* GetAtlas() const;
 	void DestroyUI();
@@ -58,7 +59,7 @@ private:
 
 	SDL_Texture* atlas;
 	p2SString atlas_file_name;
-	p2DynArray<GUI_Object*> objects;
+	p2DynArray<UI_Object*> objects;
 };
 
 #endif // __j1GUI_H__
