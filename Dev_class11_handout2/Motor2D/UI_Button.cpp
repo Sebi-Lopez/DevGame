@@ -36,5 +36,5 @@ void UI_Button::SetAnimation(int clickstate) {
 void UI_Button::ButtonState() {
 
 	UI_Button* click;
-	if(mousepos.x>position.x&&mousepos.x<position.x+buttonstate.w)
+	//if(mousepos.x>position.x&&mousepos.x<position.x+buttonstate.w)
 }
