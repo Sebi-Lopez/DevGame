@@ -48,7 +48,7 @@ bool j1Gui::PostUpdate()
 	}
 	for (int i = 0; i < objects.Count(); i++) {
 		if (objects[i] != nullptr)
-			objects[i]->Draw(atlas);
+			objects[i]->Draw();
 	}
 	return true;
 }
@@ -87,7 +87,7 @@ GUI_Object* j1Gui::CreateLogo(int x, int y, SDL_Rect& rect, GUI_Object* parent) 
 }
 
 // const getter for atlas
-const SDL_Texture* j1Gui::GetAtlas() const
+SDL_Texture* j1Gui::GetAtlas() const
 {
 	return atlas;
 }

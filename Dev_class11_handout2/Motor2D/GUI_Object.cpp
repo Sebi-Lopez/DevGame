@@ -13,11 +13,10 @@ GUI_Object::~GUI_Object()
 {
 }
 
-void GUI_Object::Draw(SDL_Texture* atlas)
+void GUI_Object::Draw()
 {
 
-	App->render->Blit(atlas, position.x, position.y, &cut, 0.0F);
-	//App->render->Blit(texture, position.x, position.y);
+	App->render->Blit(texture, position.x, position.y, &cut, 0.0F);
 
 }
 

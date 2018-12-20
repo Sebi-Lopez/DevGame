@@ -51,7 +51,7 @@ public:
 	GUI_Object* Label(int x, int y, p2SString text, GUI_Object* parent);
 	//GUI_Object* Button(int x, int y, SDL_Rect* firststep, SDL_Rect* secondstep, SDL_Rect* thirdstep, GUI_Object* parent);
 
-	const SDL_Texture* GetAtlas() const;
+	SDL_Texture* GetAtlas() const;
 	void DestroyUI();
 
 private:
