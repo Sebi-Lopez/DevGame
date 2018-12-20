@@ -18,6 +18,8 @@ enum UI_Type {
 	NONE
 };
 
+
+
 // ---------------------------------------------------
 class j1Gui : public j1Module
 {

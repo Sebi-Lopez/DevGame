@@ -7,7 +7,13 @@
 
 struct SDL_Texture;
 struct SDL_Rect;
-class UI_Button;
+struct UI_Button;
+
+enum class MouseState {
+	MOUSE_OUT,
+	MOUSE_HOVER,
+	MOUSE_CLICKED
+};
 
 class GUI_Object 
 {
@@ -16,10 +22,11 @@ public:
 	UI_Type type;
 	SDL_Texture* texture = nullptr;
 	GUI_Object* parent;
-	SDL_Rect cut;
-	
+	SDL_Rect section;
+	MouseState mousestate = MouseState::MOUSE_OUT; 
+
 	SDL_Rect buttonstate;
-	UI_Type ui_type = UI_Type::NONE;
+	//UI_Type ui_type = UI_Type::NONE;
 	iPoint mousepos;
 
 
@@ -28,7 +35,7 @@ public:
 	virtual ~GUI_Object(); 
 
 	virtual void Draw();	
-	virtual void MouseInRect(GUI_Object* object);
+	virtual void MouseInRect();
 	virtual void Update();
 };
 

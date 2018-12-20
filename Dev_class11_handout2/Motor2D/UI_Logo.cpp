@@ -6,6 +6,6 @@ UI_Logo::UI_Logo(int x, int y, SDL_Rect& atlasrect, GUI_Object* parent) : GUI_Ob
 {
 	position.x = x;
 	position.y = y; 
-	cut = atlasrect; 
+	section = atlasrect; 
 	texture = App->gui->GetAtlas();
 }

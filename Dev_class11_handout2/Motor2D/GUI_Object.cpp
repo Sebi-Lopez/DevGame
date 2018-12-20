@@ -16,7 +16,7 @@ GUI_Object::~GUI_Object()
 void GUI_Object::Draw()
 {
 
-	App->render->Blit(texture, position.x, position.y, &cut, 0.0F);
+	App->render->Blit(texture, position.x, position.y, &section, 0.0F);
 	//App->render->Blit(texture, position.x, position.y);
 
 
@@ -25,17 +25,16 @@ void GUI_Object::Draw()
 void GUI_Object::Update()
 {
 	App->input->GetMousePosition(mousepos.x,mousepos.y);
+	MouseInRect();
 }
 
-void GUI_Object::MouseInRect(GUI_Object* object) {
+void GUI_Object::MouseInRect() 
+{
 
-	
-
-	if (mousepos.x > position.x && mousepos.x < position.x + buttonstate.w && mousepos.y > position.y && mousepos.y < position.y + buttonstate.h) {
-		
-		
+	if (mousepos.x > position.x && mousepos.x < position.x + section.w && mousepos.y > position.y && mousepos.y < position.y + section.h) {
+		mousestate = MouseState::MOUSE_HOVER;
+		if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_REPEAT)
+			mousestate = MouseState::MOUSE_CLICKED;
 	}
-	if (mousepos.x > position.x && mousepos.x < position.x + buttonstate.w && mousepos.y > position.y && mousepos.y < position.y + buttonstate.h && App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN) {
-		
-	}
+	else mousestate = MouseState::MOUSE_OUT;
 }
