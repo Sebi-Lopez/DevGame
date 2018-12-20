@@ -3,8 +3,11 @@
 
 #include "j1Gui.h"
 #include "p2Point.h"
+#include "SDL/include/SDL_rect.h"
+
 struct SDL_Texture;
 struct SDL_Rect;
+
 class GUI_Object 
 {
 public:
@@ -12,6 +15,8 @@ public:
 	UI_Type type;
 	SDL_Texture* texture;
 	GUI_Object* parent;
+	SDL_Rect cut;
+
 	SDL_Rect* buttonstate;
 	UI_Type ui_type = UI_Type::NONE;
 	iPoint mousepos;

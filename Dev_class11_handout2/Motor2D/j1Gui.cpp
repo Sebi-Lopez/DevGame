@@ -9,6 +9,7 @@
 #include "UI_Label.h"
 #include "UI_Button.h"
 #include "UI_Slider.h"
+#include "UI_Logo.h"
 
 j1Gui::j1Gui() : j1Module()
 {
@@ -83,11 +84,11 @@ GUI_Object* j1Gui::Label(int x, int y, p2SString text, GUI_Object* parent) {
 //	return slider;
 //}
 
-//GUI_Object* j1Gui::Logo(int x, int y, p2SString text, GUI_Object* parent) {
-//	GUI_Object* logo = new UI_Logo(x, y, text, UI_Type::LABEL, parent);
-//	objects.PushBack(logo);
-//	return logo;
-//}
+GUI_Object* j1Gui::CreateLogo(int x, int y, SDL_Rect& rect, GUI_Object* parent) {
+	GUI_Object* logo = new UI_Logo(x, y, rect, parent);
+	objects.PushBack(logo);
+	return logo;
+}
 
 // const getter for atlas
 const SDL_Texture* j1Gui::GetAtlas() const
