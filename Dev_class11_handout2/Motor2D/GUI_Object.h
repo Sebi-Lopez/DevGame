@@ -7,6 +7,7 @@
 
 struct SDL_Texture;
 struct SDL_Rect;
+class UI_Button;
 
 class GUI_Object 
 {
@@ -17,7 +18,7 @@ public:
 	GUI_Object* parent;
 	SDL_Rect cut;
 
-	SDL_Rect* buttonstate;
+	SDL_Rect buttonstate;
 	UI_Type ui_type = UI_Type::NONE;
 	iPoint mousepos;
 
@@ -25,7 +26,8 @@ public:
 public:
 	GUI_Object(int x, int y, GUI_Object* parent);
 	virtual ~GUI_Object(); 
-
+	
+	virtual void MouseInRect(GUI_Object* object);
 	virtual void Draw(SDL_Texture* atlas);	
 	virtual void Update();
 };

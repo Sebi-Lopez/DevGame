@@ -48,7 +48,7 @@ bool j1Scene::Start()
 	
 	SDL_Rect rect = { 485, 829, 328, 103 };
 	App->gui->CreateLogo(200, 100, rect, nullptr);
-	//text=(Ui_Label*)App->gui->Label(-100,-100,"HELLO",nullptr);
+	text = (Ui_Label*)App->gui->Label(-100, -100, "HELLO", nullptr);
 
 	return true;
 }
