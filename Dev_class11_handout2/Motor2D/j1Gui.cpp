@@ -40,7 +40,7 @@ bool j1Gui::Start()
 }
 
 // Update all guis
-bool j1Gui::Update(float dt)
+bool j1Gui::PostUpdate()
 {
 	for (int i = 0; i < objects.Count(); i++) {
 		if (objects[i] != nullptr)
@@ -54,10 +54,6 @@ bool j1Gui::Update(float dt)
 }
 
 // Called after all Updates
-bool j1Gui::PostUpdate()
-{
-	return true;
-}
 
 // Called before quitting
 bool j1Gui::CleanUp()
