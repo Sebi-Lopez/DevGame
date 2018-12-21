@@ -8,4 +8,8 @@ without wasting all your lifes. There are two types of enemies, flying enemy and
 
 ![](FOTOGIT.jpg) 
 
+Eric Navarro's github: https://github.com/lakaens
+
 ![](sebi.jpg)
+
+Sebastian Lopez's github: https://github.com/Sebi-Lopez
