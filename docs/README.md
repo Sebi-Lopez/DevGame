@@ -6,4 +6,5 @@ without wasting all your lifes. There are two types of enemies, flying enemy and
 
 ## Team Members
 
-https://github.com/Sebi-Lopez/DevGame/blob/master/docs/FOTOGIT.png
+![](FOTOGIT.png)
+
