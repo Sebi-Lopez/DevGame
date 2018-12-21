@@ -5,3 +5,5 @@ Jungle Jumper is a Platform game that contains two differents levels where you h
 without wasting all your lifes. There are two types of enemies, flying enemy and ground enemy.
 
 ## Team Members
+
+https://github.com/Sebi-Lopez/DevGame/blob/master/docs/FOTOGIT.png
