@@ -10,6 +10,15 @@ without wasting all your lifes. There are two types of enemies, flying enemy and
 
 Eric Navarro's github: https://github.com/lakaens
 
+Main Job:
+
+- Entities.
+
+- Part of the GUI.
+
+- Map Design.
+
+- 
 ![](sebi.jpg)
 
 Sebastian Lopez's github: https://github.com/Sebi-Lopez
