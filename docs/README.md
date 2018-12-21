@@ -6,4 +6,6 @@ without wasting all your lifes. There are two types of enemies, flying enemy and
 
 ## Team Members
 
-![](FOTOGIT.jpg) ![](IMG-20181221-WA0036.jpg)
+![](FOTOGIT.jpg) 
+
+![](sebi.jpg)
