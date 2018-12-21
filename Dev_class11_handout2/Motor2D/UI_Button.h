@@ -18,8 +18,6 @@ public:
 	~UI_Button();
 	void SetText(UI_Label* text);
 	void Update();
-	
-
 };
 
 

@@ -42,6 +42,8 @@ void UI_Button::Update() {
 		section = mouseclick;
 	}
 	
+	App->input->GetMousePosition(mousepos.x, mousepos.y);
+	MouseInRect();
 }
 
 
