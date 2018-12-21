@@ -45,3 +45,12 @@ Main Job:
 - Dt logic.
 
 - Pathfinding.
+
+## Structure Code
+
+Our code is structured by modules using j1App and j1Module to structure them all. Each module have his own functionality.
+For the structure of the GUI and Entities we have created modules for each them to manage them all. In the release you will find two documents that describe, in a schematic way, how they work.
+
+## [Github of the game here](https://github.com/Sebi-Lopez/DevGame)
+## [Last Version of the game](https://github.com/Sebi-Lopez/DevGame/releases)
+
