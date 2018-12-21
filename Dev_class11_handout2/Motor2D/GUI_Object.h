@@ -25,7 +25,7 @@ public:
 	SDL_Rect section;
 	MouseState mousestate = MouseState::MOUSE_OUT; 
 
-	SDL_Rect buttonstate;
+	
 	//UI_Type ui_type = UI_Type::NONE;
 	iPoint mousepos;
 
@@ -34,7 +34,7 @@ public:
 	GUI_Object(int x, int y, GUI_Object* parent);
 	virtual ~GUI_Object(); 
 
-	virtual void Draw();	
+	virtual void Draw(SDL_Texture* atlas);	
 	virtual void MouseInRect();
 	virtual void Update();
 };

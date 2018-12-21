@@ -10,6 +10,7 @@
 #include "j1PathFinding.h"
 #include "j1Gui.h"
 #include "j1Scene.h"
+#include"UI_Button.h"
 
 j1Scene::j1Scene() : j1Module()
 {
@@ -46,9 +47,11 @@ bool j1Scene::Start()
 	// TODO 3: Create the banner (rect {485, 829, 328, 103}) and the text "Hello World"	
 	
 	
-	SDL_Rect rect = { 485, 829, 328, 103 };
+	SDL_Rect rect = { 911, 11, 127, 81 };
 	App->gui->CreateLogo(200, 100, rect, nullptr);
 	text = (Ui_Label*)App->gui->Label(-100, -100, "HELLO", nullptr);
+	button = (Ui_Button*)App->gui->Button(200, 100, {1085,120,194,49}, {1086,25,193,49}, {1085,75,193,45},nullptr);
+	
 
 	return true;
 }

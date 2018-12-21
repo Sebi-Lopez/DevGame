@@ -10,7 +10,7 @@ UI_Button::UI_Button(int x, int y, SDL_Rect rect, SDL_Rect rect2, SDL_Rect rect3
 	mouseout = rect;
 	mousein = rect2;
 	mouseclick = rect3;
-	buttonstate = mouseout;
+	section = mouseout;
 
 }
 UI_Button::~UI_Button()
@@ -24,9 +24,24 @@ UI_Button::~UI_Button()
 
 void UI_Button::SetText(UI_Label* text)
 {
+	text->position.x = this->position.x + section.w / 2;
+	text->position.y = this->position.y + section.h / 2;
 	this->text = text;
-	//colocar on aniria el text dins del cuadre del boto
+	
+	
 }
 
+void UI_Button::Update() {
+	if (mousestate == MouseState::MOUSE_OUT) {
+		section = mouseout;
+	}
+	if (mousestate == MouseState::MOUSE_HOVER) {
+		section = mousein;
+	}
+	if (mousestate == MouseState::MOUSE_CLICKED) {
+		section = mouseclick;
+	}
+	
+}
 
 

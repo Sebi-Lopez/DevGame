@@ -48,7 +48,7 @@ bool j1Gui::PostUpdate()
 	}
 	for (int i = 0; i < objects.Count(); i++) {
 		if (objects[i] != nullptr)
-			objects[i]->Draw();
+			objects[i]->Draw(atlas);
 	}
 	return true;
 }
@@ -68,12 +68,12 @@ GUI_Object* j1Gui::Label(int x, int y, p2SString text, GUI_Object* parent) {
 	return label;
 }
 
-//GUI_Object* j1Gui::Button(int x, int y, SDL_Rect* firststep, SDL_Rect* secondstep, SDL_Rect* thirdstep, GUI_Object* parent) {
-//	GUI_Object* button = new UI_Button(x, y, firststep, secondstep, thirdstep, UI_Type::BUTTON, parent);
-//	objects.PushBack(button);
-//	return button;
-//}
-//
+GUI_Object* j1Gui::Button(int x, int y, SDL_Rect firststep, SDL_Rect secondstep, SDL_Rect thirdstep, GUI_Object* parent) {
+	GUI_Object* button = new UI_Button(x, y, firststep, secondstep, thirdstep, UI_Type::BUTTON, parent);
+	objects.PushBack(button);
+	return button;
+}
+
 //GUI_Object* j1Gui::Slider(int x, int y, GUI_Object* parent) {
 //	GUI_Object* slider = new UI_Slider(x, y, UI_Type::SLIDER, parent);
 //	objects.PushBack(slider);

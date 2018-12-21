@@ -22,3 +22,8 @@ UI_Label::~UI_Label() {
 	texture = nullptr;
 	delete texture;
 }
+
+void UI_Label::SetText()
+{
+
+}
