@@ -18,7 +18,30 @@ Main Job:
 
 - Map Design.
 
-- 
+- UML's.
+
+- Player improvements.
+
+- Switching scenes.
+
+- Art.
+
 ![](sebi.jpg)
 
 Sebastian Lopez's github: https://github.com/Sebi-Lopez
+
+Main Job:
+
+- Part of the GUI.
+
+- Colliders.
+
+- Player implementation.
+
+- Brofiler.
+
+- Frame cap.
+
+- Dt logic.
+
+- Pathfinding.
