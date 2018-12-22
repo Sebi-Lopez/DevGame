@@ -3,7 +3,7 @@
 #include"j1App.h"
 #include"j1Input.h"
 
-UI_Button::UI_Button(int x, int y, SDL_Rect rect, SDL_Rect rect2, SDL_Rect rect3, UI_Type type, GUI_Object* parent) :GUI_Object(x, y, parent) {
+UI_Button::UI_Button(int x, int y, SDL_Rect rect, SDL_Rect rect2, SDL_Rect rect3, GUI_Object* parent) :GUI_Object(x, y, parent) {
 
 	position.x = x;
 	position.y = y;
@@ -11,6 +11,7 @@ UI_Button::UI_Button(int x, int y, SDL_Rect rect, SDL_Rect rect2, SDL_Rect rect3
 	mousein = rect2;
 	mouseclick = rect3;
 	section = mouseout;
+	this->parent = parent;
 
 }
 UI_Button::~UI_Button()

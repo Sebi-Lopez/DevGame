@@ -4,7 +4,7 @@
 #include"j1Fonts.h"
 #include"j1Render.h"
 
-UI_Label::UI_Label(int x, int y, p2SString text, UI_Type type, GUI_Object* parent) :GUI_Object(x, y, parent) {
+UI_Label::UI_Label(int x, int y, p2SString text, GUI_Object* parent) :GUI_Object(x, y, parent) {
 	position.x = x;
 	position.y = y;
 	this->type = type;

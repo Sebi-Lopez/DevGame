@@ -63,22 +63,22 @@ bool j1Gui::CleanUp()
 	return true;
 }
 GUI_Object* j1Gui::Label(int x, int y, p2SString text, GUI_Object* parent) {
-	GUI_Object* label = new UI_Label(x, y, text, UI_Type::LABEL, parent);
+	GUI_Object* label = new UI_Label(x, y, text, parent);
 	objects.PushBack(label);
 	return label;
 }
 
 GUI_Object* j1Gui::Button(int x, int y, SDL_Rect firststep, SDL_Rect secondstep, SDL_Rect thirdstep, GUI_Object* parent) {
-	GUI_Object* button = new UI_Button(x, y, firststep, secondstep, thirdstep, UI_Type::BUTTON, parent);
+	GUI_Object* button = new UI_Button(x, y, firststep, secondstep, thirdstep, parent);
 	objects.PushBack(button);
 	return button;
 }
 
-//GUI_Object* j1Gui::Slider(int x, int y, GUI_Object* parent) {
-//	GUI_Object* slider = new UI_Slider(x, y, UI_Type::SLIDER, parent);
-//	objects.PushBack(slider);
-//	return slider;
-//}
+GUI_Object* j1Gui::Slider(int x, int y, GUI_Object* parent) {
+	GUI_Object* slider = new UI_Slider(x, y, parent);
+	objects.PushBack(slider);
+	return slider;
+}
 
 GUI_Object* j1Gui::CreateLogo(int x, int y, SDL_Rect& rect, GUI_Object* parent) {
 	GUI_Object* logo = new UI_Logo(x, y, rect, parent);

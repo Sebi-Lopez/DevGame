@@ -10,7 +10,9 @@
 #include "j1PathFinding.h"
 #include "j1Gui.h"
 #include "j1Scene.h"
-#include"UI_Button.h"
+#include "GUI_Object.h"
+#include "UI_Button.h"
+#include "UI_Label.h"
 
 j1Scene::j1Scene() : j1Module()
 {

@@ -25,7 +25,7 @@ void GUI_Object::Draw(SDL_Texture* atlas)
 void GUI_Object::Update()
 {
 	App->input->GetMousePosition(mousepos.x,mousepos.y);
-	MouseInRect();
+	
 }
 
 void GUI_Object::MouseInRect() 

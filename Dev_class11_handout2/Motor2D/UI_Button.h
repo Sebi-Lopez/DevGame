@@ -14,7 +14,7 @@ private:
 	UI_Label* text = nullptr;
 
 public:
-	UI_Button(int x, int y, SDL_Rect out, SDL_Rect in, SDL_Rect pressed, UI_Type type, GUI_Object* parent);
+	UI_Button(int x, int y, SDL_Rect out, SDL_Rect in, SDL_Rect pressed, GUI_Object* parent);
 	~UI_Button();
 	void SetText(UI_Label* text);
 	void Update();
