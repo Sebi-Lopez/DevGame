@@ -18,7 +18,7 @@ void GUI_Object::Draw(SDL_Texture* atlas)
 {
 
 	App->render->Blit(atlas, position.x, position.y, &section, 0.0F);
-	//App->render->Blit(texture, position.x, position.y);
+	App->render->Blit(texture, position.x, position.y);
 
 
 }

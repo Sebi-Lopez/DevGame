@@ -62,8 +62,8 @@ bool j1Scene::Start()
 		}
 	}
 	
-	App->gui->CreateButton(200, 400, { 1085,120,194,49 }, { 1086,25,193,49 }, { 1085,75,193,45 }, "Quit", nullptr);
-
+	button=(GUI_Button*)App->gui->CreateButton(100, 100, { 1085,130,190,48 }, { 1084,19,190,48 }, { 1084,72,190,45 }, "Quit", nullptr);
+	text = (GUI_Label*)App->gui->CreateLabel(100,200,"HELLO",nullptr);
 	App->audio->PlayMusic(App->audio->music2.GetString());
 	App->audio->MusicVolume(App->audio->volume);
 	

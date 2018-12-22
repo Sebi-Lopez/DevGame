@@ -2,7 +2,10 @@
 #define __j1SCENE_H__
 
 #include "j1Module.h"
-
+#include"GUI_Button.h"
+#include"GUI_Label.h"
+class GUI_Label;
+class GUI_Button;
 struct SDL_Texture;
 
 class j1Scene : public j1Module
@@ -42,6 +45,8 @@ public:
 	bool isFading=false;
 	bool firstUpdate = true;
 	bool isSecondMap = false;
+	GUI_Button* button;
+	GUI_Label* text;
 };
 
 #endif // __j1SCENE_H__
