@@ -15,6 +15,7 @@ enum UI_Type {
 	LOGO,
 	BUTTON,
 	SLIDER,
+	NON
 };
 
 

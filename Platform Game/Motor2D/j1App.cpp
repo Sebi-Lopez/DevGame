@@ -19,6 +19,9 @@
 #include "Brofiler/Brofiler.h"
 #include "j1GUI.h"
 #include "j1Fonts.h"
+#include "j1MainMenu.h"
+#include"j1Settings.h"
+#include"j1Credits.h"
 
 // Constructor
 j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
@@ -31,6 +34,9 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	tex = new j1Textures();
 	audio = new j1Audio();
 	scene = new j1Scene();
+	menu = new j1MainMenu();
+	settings = new j1Settings();
+	credits = new j1Credits();
 	pathfinding = new j1PathFinding();
 	map = new j1Map();
 	collision = new j1Collision(); 
@@ -46,11 +52,14 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(win);
 	AddModule(tex);
 	AddModule(audio);
-	AddModule(map);
-	AddModule(scene);	
-	AddModule(pathfinding);
-	AddModule(entities);
-	AddModule(collision); 
+	AddModule(map,false);
+	AddModule(scene,false);	
+	AddModule(menu);
+	AddModule(settings,false);
+	AddModule(credits,false);
+	AddModule(pathfinding,false);
+	AddModule(entities,false);
+	AddModule(collision,false); 
 	AddModule(fade);
 	AddModule(gui);
 	AddModule(fonts);

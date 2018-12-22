@@ -20,7 +20,7 @@ class GUI_Object
 {
 public:
 	iPoint position;
-	UI_Type type;
+	UI_Type type = UI_Type::NON;
 	SDL_Texture* texture = nullptr;
 	GUI_Object* parent;
 	SDL_Rect section;

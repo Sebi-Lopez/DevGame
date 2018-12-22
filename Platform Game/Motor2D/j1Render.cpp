@@ -76,14 +76,15 @@ bool j1Render::Update(float dt)
 {
 	//camera following player
 	fPoint pos;
-
+	if (App->entities->active == true) {
 	pos.x = App->entities->player->position.x;
 	pos.y = App->entities->player->position.y;
 
-
-	if (pos.x > App->win->width / (map_divisor *App->win->GetScale()) && pos.x < App->win->width*getrightmargin)
-	{
-		App->render->camera.x = (-pos.x * App->win->scale) + (App->win->width / map_divisor);
+	
+		if (pos.x > App->win->width / (map_divisor *App->win->GetScale()) && pos.x < App->win->width*getrightmargin)
+		{
+			App->render->camera.x = (-pos.x * App->win->scale) + (App->win->width / map_divisor);
+		}
 	}
 	
 	

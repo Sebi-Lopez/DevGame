@@ -88,7 +88,7 @@ GUI_Object* j1Gui::CreateLogo(int x, int y, SDL_Rect& rect, GUI_Object* parent) 
 
 bool j1Gui::ButtonAction(p2SString button_name)
 {
-	if (button_name == "Start")
+	if (button_name == "Play")
 	{
 		LOG("STARTTTTTTT");
 	}

@@ -26,14 +26,7 @@ GUI_Button::~GUI_Button()
 	}
 }
 
-void GUI_Button::SetText(GUI_Label* text)
-{
-	text->position.x = this->position.x + section.w / 2;
-	text->position.y = this->position.y + section.h / 2;
-	this->text = text;
 
-
-}
 
 void GUI_Button::Update() {
 	if (mousestate == MouseState::MOUSE_OUT)
