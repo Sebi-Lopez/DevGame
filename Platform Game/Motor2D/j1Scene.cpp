@@ -17,6 +17,8 @@
 #include "Entity_Enemy.h"
 #include "Brofiler/Brofiler.h"
 
+#include "j1GUI.h"
+
 #include "SDL_mixer\include\SDL_mixer.h"
 
 
@@ -60,11 +62,11 @@ bool j1Scene::Start()
 		}
 	}
 	
+	App->gui->CreateButton(200, 400, { 1085,120,194,49 }, { 1086,25,193,49 }, { 1085,75,193,45 }, "Quit", nullptr);
 
 	App->audio->PlayMusic(App->audio->music2.GetString());
 	App->audio->MusicVolume(App->audio->volume);
 	
-
 	
 	return true;
 }
