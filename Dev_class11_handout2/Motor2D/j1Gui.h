@@ -48,10 +48,12 @@ public:
 	// TODO 2: Create the factory methods
 	// Gui creation functions
 	
+	bool ButtonAction(p2SString button_name);
+
 	GUI_Object* CreateLogo(int x, int y, SDL_Rect& rect, GUI_Object* parent);
 	//GUI_Object* Slider(int x, int y, GUI_Object* parent);
 	GUI_Object* Label(int x, int y, p2SString text, GUI_Object* parent);
-	GUI_Object* Button(int x, int y, SDL_Rect firststep, SDL_Rect secondstep, SDL_Rect thirdstep, GUI_Object* parent);
+	GUI_Object* Button(int x, int y, SDL_Rect firststep, SDL_Rect secondstep, SDL_Rect thirdstep, char* name, GUI_Object* parent);
 
 	SDL_Texture* GetAtlas() const;
 	void DestroyUI();

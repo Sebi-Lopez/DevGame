@@ -5,6 +5,7 @@
 #include "j1Input.h"
 #include "SDL/include/SDL_rect.h"
 #include "p2Log.h"
+
 GUI_Object::GUI_Object(int x, int y,GUI_Object* parent)
 {
 }
@@ -34,11 +35,14 @@ void GUI_Object::MouseInRect()
 	if (mousepos.x > position.x && mousepos.x < position.x + section.w && mousepos.y > position.y && mousepos.y < position.y + section.h) 
 	{
 		mousestate = MouseState::MOUSE_HOVER;
-		LOG("Mouse Hovering");
+
 		if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_REPEAT)
 		{
 			mousestate = MouseState::MOUSE_CLICKED;
-			LOG("Mouse Clicking Over UI object");
+		}
+		if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_UP)
+		{
+			mousestate = MouseState::MOUSE_UP;
 		}
 	}
 	else mousestate = MouseState::MOUSE_OUT;

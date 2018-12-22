@@ -12,7 +12,8 @@ struct UI_Button;
 enum class MouseState {
 	MOUSE_OUT,
 	MOUSE_HOVER,
-	MOUSE_CLICKED
+	MOUSE_CLICKED,
+	MOUSE_UP
 };
 
 class GUI_Object 
