@@ -50,10 +50,10 @@ bool j1Scene::Start()
 	
 	
 	SDL_Rect rect = { 911, 11, 127, 81 };
-	App->gui->CreateLogo(200, 100, rect, nullptr);
+	//App->gui->CreateLogo(200, 100, rect, nullptr);
 	text = (Ui_Label*)App->gui->Label(-100, -100, "HELLO", nullptr);
-	button = (Ui_Button*)App->gui->Button(200, 100, {1085,120,194,49}, {1086,25,193,49}, {1085,75,193,45},nullptr);
-	
+	button = (Ui_Button*)App->gui->Button(200, 100, {1085,120,194,49}, {1086,25,193,49}, {1085,75,193,45}, "Start", nullptr);
+	App->gui->Button(200, 400, { 1085,120,194,49 }, { 1086,25,193,49 }, { 1085,75,193,45 }, "Quit", nullptr);
 
 	return true;
 }

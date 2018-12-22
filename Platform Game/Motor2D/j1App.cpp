@@ -36,7 +36,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	collision = new j1Collision(); 
 	fade = new j1FadeToBlack();
 	entities = new j1Entities();
-	gui = new j1GUI();
+	gui = new j1Gui();
 	fonts = new j1Fonts();
 
 

@@ -6,7 +6,7 @@
 #include "SDL/include/SDL_rect.h"
 #include "p2Log.h"
 
-GUI_Object::GUI_Object(int x, int y,GUI_Object* parent)
+GUI_Object::GUI_Object(int x, int y, GUI_Object* parent)
 {
 }
 
@@ -25,14 +25,14 @@ void GUI_Object::Draw(SDL_Texture* atlas)
 
 void GUI_Object::Update()
 {
-	App->input->GetMousePosition(mousepos.x,mousepos.y);
-	
+	App->input->GetMousePosition(mousepos.x, mousepos.y);
+	MouseInRect();
 }
 
-void GUI_Object::MouseInRect() 
+void GUI_Object::MouseInRect()
 {
 
-	if (mousepos.x > position.x && mousepos.x < position.x + section.w && mousepos.y > position.y && mousepos.y < position.y + section.h) 
+	if (mousepos.x > position.x && mousepos.x < position.x + section.w && mousepos.y > position.y && mousepos.y < position.y + section.h)
 	{
 		mousestate = MouseState::MOUSE_HOVER;
 
