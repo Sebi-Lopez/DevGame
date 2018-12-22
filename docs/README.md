@@ -8,7 +8,7 @@ without wasting all your lifes. There are two types of enemies, flying enemy and
 
 ![](eric.jpg) 
 
-Eric Navarro's github: https://github.com/lakaens
+[Eric Navarro de Santiago](https://github.com/lakaens)
 
 Main Job:
 
@@ -28,7 +28,7 @@ Main Job:
 
 ![](sebi.jpg)
 
-Sebastian Lopez's github: https://github.com/Sebi-Lopez
+[Sebastian Lopez's github](https://github.com/Sebi-Lopez)
 
 Main Job:
 
