@@ -35,7 +35,7 @@ void GUI_Object::Update()
 void GUI_Object::MouseInRect()
 {
 
-	if (mousepos.x > position.x && mousepos.x < position.x + section.w && mousepos.y > position.y && mousepos.y < position.y + section.h)
+	if (MouseInBorders())
 	{
 		mousestate = MouseState::MOUSE_HOVER;
 
@@ -50,4 +50,9 @@ void GUI_Object::MouseInRect()
 		}
 	}
 	else mousestate = MouseState::MOUSE_OUT;
+}
+
+bool GUI_Object::MouseInBorders()
+{
+	return (mousepos.x > position.x && mousepos.x < position.x + section.w && mousepos.y > position.y && mousepos.y < position.y + section.h);
 }

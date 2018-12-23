@@ -14,6 +14,7 @@ UI_Button::UI_Button(int x, int y, SDL_Rect rect, SDL_Rect rect2, SDL_Rect rect3
 	mousein = rect2;
 	mouseclick = rect3;
 	section = mouseout;
+	dragable = true; 
 
 	this->parent = parent;
 

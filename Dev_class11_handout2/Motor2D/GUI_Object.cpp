@@ -29,16 +29,30 @@ void GUI_Object::Update()
 	
 }
 
+bool GUI_Object::MouseInBorders()
+{
+	return (mousepos.x > position.x && mousepos.x < position.x + section.w && mousepos.y > position.y && mousepos.y < position.y + section.h);
+}
+
+void GUI_Object::Drag()
+{
+	iPoint mousemotion = { 0,0 };
+	App->input->GetMouseMotion(mousemotion.x, mousemotion.y);
+	position += mousemotion;
+}
+
 void GUI_Object::MouseInRect() 
 {
 
-	if (mousepos.x > position.x && mousepos.x < position.x + section.w && mousepos.y > position.y && mousepos.y < position.y + section.h) 
+	if (MouseInBorders()) 
 	{
 		mousestate = MouseState::MOUSE_HOVER;
 
 		if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_REPEAT)
 		{
-			mousestate = MouseState::MOUSE_CLICKED;
+			mousestate = MouseState::MOUSE_CLICKED;		
+			if (dragable) Drag();
+
 		}
 		if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_UP)
 		{

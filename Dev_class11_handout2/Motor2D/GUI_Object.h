@@ -25,8 +25,7 @@ public:
 	GUI_Object* parent;
 	SDL_Rect section;
 	MouseState mousestate = MouseState::MOUSE_OUT; 
-
-	
+	bool dragable = false; 
 	//UI_Type ui_type = UI_Type::NONE;
 	iPoint mousepos;
 
@@ -38,6 +37,9 @@ public:
 	virtual void Draw(SDL_Texture* atlas);	
 	virtual void MouseInRect();
 	virtual void Update();
+
+	bool MouseInBorders();
+	void Drag();
 };
 
 

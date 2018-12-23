@@ -26,8 +26,8 @@ void UI_Slider::Update()
 void UI_Slider::DragSlider()
 {
 
-	if (!App->input->GetMouseButtonDown(1) == KEY_UP && mousepos.x > position.x && mousepos.x < position.x + section.w && mousepos.y > position.y && mousepos.y < position.y + section.h)
+	/*if (!App->input->GetMouseButtonDown(1) == KEY_UP && mousepos.x > position.x && mousepos.x < position.x + section.w && mousepos.y > position.y && mousepos.y < position.y + section.h)
 	{
 		 
-	}
+	}*/
 }
