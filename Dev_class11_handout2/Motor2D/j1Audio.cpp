@@ -171,3 +171,21 @@ bool j1Audio::PlayFx(unsigned int id, int repeat)
 
 	return ret;
 }
+
+void j1Audio::MusicVolume(uint volume)
+{
+	Mix_VolumeMusic(volume);
+}
+
+void j1Audio::VolumeChange(bool volumechange) {
+	if (volumechange == true)
+	{
+		if (volume < 128)
+			Mix_VolumeMusic(volume += 10);
+	}
+	else
+	{
+		if (volume > 0)
+			Mix_VolumeMusic(volume -= 10);
+	}
+}

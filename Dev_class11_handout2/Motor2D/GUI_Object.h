@@ -41,7 +41,6 @@ public:
 	virtual void Update();
 
 	bool MouseInBorders();
-	void Drag();
 };
 
 

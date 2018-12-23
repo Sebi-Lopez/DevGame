@@ -33,13 +33,6 @@ bool GUI_Object::MouseInBorders()
 	return (mousepos.x > position.x && mousepos.x < position.x + section.w && mousepos.y > position.y && mousepos.y < position.y + section.h);
 }
 
-void GUI_Object::Drag()
-{
-	iPoint mousemotion = { 0,0 };
-	App->input->GetMouseMotion(mousemotion.x, mousemotion.y);
-	position += mousemotion;
-}
-
 void GUI_Object::MouseInRect() 
 {
 	if (MouseInBorders())
