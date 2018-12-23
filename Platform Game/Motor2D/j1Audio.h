@@ -44,6 +44,7 @@ public:
 	p2SString fxjump;
 	p2SString fxbuttonhover; 
 	p2SString fxbuttonclick; 
+	p2SString menu_music; 
 
 private:
 

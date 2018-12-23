@@ -71,7 +71,7 @@ bool j1Scene::Start()
 	
 	
 	App->audio->PlayMusic(App->audio->music2.GetString());
-	App->audio->MusicVolume(App->audio->volume);
+	App->audio->MusicVolume(App->audio->GetVolume());
 	game_time.Start(); 
 	score_text = App->gui->CreateLabel(390, 5, "Score: ", nullptr);
 	

@@ -27,6 +27,8 @@ bool j1Audio::Awake(pugi::xml_node& config)
 
 	
 	music2 = config.child("music").attribute("path2").as_string();
+	menu_music = config.child("menu_music").attribute("paths").as_string();
+
 	fxjump = config.child("fx").attribute("jump").as_string();
 	fxbuttonhover = config.child("fxhover").attribute("button_hover").as_string();
 	fxbuttonclick = config.child("fxclick").attribute("button_click").as_string();

@@ -255,6 +255,7 @@
   </entities> 
   <audio>
     <music path1="audio/music/FirstMap.ogg" path2="audio/music/SecondMap.ogg"/>
+    <menu_music paths="audio/music/MenuMusic.ogg"/>
     <fx jump="audio/fx/jump.wav" />
     <fxhover button_hover="audio/fx/hover.wav" />
     <fxclick button_click="audio/fx/click.wav" />

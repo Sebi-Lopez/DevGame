@@ -70,8 +70,8 @@ bool j1MainMenu::Start()
 	
 
 
-	App->audio->PlayMusic(App->audio->music2.GetString());
-	App->audio->MusicVolume(App->audio->volume);
+	App->audio->PlayMusic(App->audio->menu_music.GetString());
+	App->audio->MusicVolume(App->audio->GetVolume());
 
 
 	return true;
