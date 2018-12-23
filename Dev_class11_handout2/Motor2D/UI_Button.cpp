@@ -41,6 +41,10 @@ void UI_Button::SetText(UI_Label* text)
 }
 
 void UI_Button::Update() {
+
+	App->input->GetMousePosition(mousepos.x, mousepos.y);
+	MouseInRect();
+
 	if (mouseposition == MousePosition::MOUSE_OUT) 
 	{
 		section = mouseout;
@@ -61,10 +65,6 @@ void UI_Button::Update() {
 		selected = false; 
 		mouse_upped = false; 
 	}
-
-
-	App->input->GetMousePosition(mousepos.x, mousepos.y);
-	MouseInRect();
 }
 
 

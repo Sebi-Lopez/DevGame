@@ -38,18 +38,19 @@ void GUI_Object::MouseInRect()
 	if (MouseInBorders())
 	{
 		mousestate = MouseState::MOUSE_HOVER;
-
-
-		if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_REPEAT)
+		if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN)
 		{
-			mousestate = MouseState::MOUSE_CLICKED;
-		}
-		if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_UP)
-		{
-			mousestate = MouseState::MOUSE_UP;
+			clicked = true;
+			selected = true;
 		}
 	}
 	else mousestate = MouseState::MOUSE_OUT;
+
+	if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_UP)
+	{
+		if (clicked) clicked = false;
+		mouse_upped = true;
+	}
 }
 
 bool GUI_Object::MouseInBorders()

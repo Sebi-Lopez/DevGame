@@ -12,8 +12,6 @@ struct UI_Button;
 enum class MouseState {
 	MOUSE_OUT,
 	MOUSE_HOVER,
-	MOUSE_CLICKED,
-	MOUSE_UP
 };
 
 class GUI_Object
@@ -25,8 +23,11 @@ public:
 	GUI_Object* parent;
 	SDL_Rect section;
 	MouseState mousestate = MouseState::MOUSE_OUT;
-
-
+	bool clicked = false;
+	bool mouse_upped = false;
+	bool selected = false;
+	
+	bool dragable = false; 
 	//UI_Type ui_type = UI_Type::NONE;
 	iPoint mousepos;
 

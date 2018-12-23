@@ -28,7 +28,11 @@ GUI_Button::~GUI_Button()
 
 
 
-void GUI_Button::Update() {
+void GUI_Button::Update() 
+{
+	App->input->GetMousePosition(mousepos.x, mousepos.y);
+	MouseInRect();
+
 	if (mousestate == MouseState::MOUSE_OUT)
 	{
 		section = mouseout;
@@ -37,19 +41,16 @@ void GUI_Button::Update() {
 	{
 		section = mousein;
 	}
-	if (mousestate == MouseState::MOUSE_CLICKED) {
+	if (clicked) {
 		section = mouseclick;
-		to_interact = true;
-
 	}
-	if (mousestate == MouseState::MOUSE_UP && to_interact)
+	if (mouse_upped)
 	{
-		interacted = false;
-		to_interact = false;
-		App->gui->ButtonAction(button_name);
+		if (MouseInBorders() && selected)
+		{
+			App->gui->ButtonAction(button_name);
+		}
+		selected = false;
+		mouse_upped = false;
 	}
-
-
-	App->input->GetMousePosition(mousepos.x, mousepos.y);
-	MouseInRect();
 }
