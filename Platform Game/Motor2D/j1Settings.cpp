@@ -57,14 +57,14 @@ bool j1Settings::Start()
 	App->gui->CreateLogo(165, 100, window, nullptr);
 
 	//settings label
-	App->gui->CreateLabel(215, 100, "Settings", nullptr);
+	App->gui->CreateLabel(215, 105, "Settings", nullptr);
 
 	//Music label
-	App->gui->CreateLabel(175, 140, "Music Volume", nullptr);
+	App->gui->CreateLabel(175, 145, "Music Volume", nullptr);
 
 	//Back button
 	App->gui->CreateButton(175, 250, { 1257,216,61,28 }, { 1339,216,61,28 }, { 1424,216,61,28 }, "Backsettings", nullptr);
-	App->gui->CreateLabel(182, 248, "Back", nullptr);
+	App->gui->CreateLabel(182, 253, "Back", nullptr);
 
 	
 

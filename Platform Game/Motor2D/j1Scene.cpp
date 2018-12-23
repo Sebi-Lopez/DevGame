@@ -123,11 +123,11 @@ bool j1Scene::Update(float dt)
 			SDL_Rect window = { 1275,333,190,166 };
 			App->gui->CreateLogo(165, 100, window, nullptr);
 			//Resume button
-			App->gui->CreateButton(175, 110, { 1027,203,129,33 }, { 1027,128,128,33 }, { 1027,164,128,30 }, "Resume", nullptr);
-			App->gui->CreateLabel(200, 110, "Resume", nullptr);
+			App->gui->CreateButton(195, 110, { 1027,203,129,33 }, { 1027,128,128,33 }, { 1027,164,128,30 }, "Resume", nullptr);
+			App->gui->CreateLabel(220, 115, "Resume", nullptr);
 			//Exit Button
-			App->gui->CreateButton(175, 160, { 1027,203,129,33 }, { 1027,128,128,33 }, { 1027,164,128,30 }, "Menu", nullptr);
-			App->gui->CreateLabel(200, 160, "Menu", nullptr);
+			App->gui->CreateButton(195, 160, { 1027,203,129,33 }, { 1027,128,128,33 }, { 1027,164,128,30 }, "Menu", nullptr);
+			App->gui->CreateLabel(230, 165, "Menu", nullptr);
 		}
 		else
 		{

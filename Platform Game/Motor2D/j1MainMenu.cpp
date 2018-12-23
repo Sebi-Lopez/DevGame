@@ -52,19 +52,19 @@ bool j1MainMenu::Start()
 	//Jungle Jumper Title
 	SDL_Rect titlerect = { 1310,100,190,48 };
 	App->gui->CreateLogo(160, 80, titlerect,nullptr);
-	App->gui->CreateLabel(170,85,"Jungle Jumper",nullptr);
+	App->gui->CreateLabel(170,90,"Jungle Jumper",nullptr);
 	//Play button
 	App->gui->CreateButton(185, 150, { 1027,203,129,33 }, {1027,128,128,33}, {1027,164,128,30},"Play",nullptr);
-	App->gui->CreateLabel(220,150,"Play",nullptr);
+	App->gui->CreateLabel(220,155,"Play",nullptr);
 	//Continue Button
 	App->gui->CreateButton(185, 200, { 1027,203,129,33 }, { 1027,128,128,33 }, { 1027,164,128,30 }, "Continue", nullptr);
-	App->gui->CreateLabel(200,200,"Continue",nullptr);
+	App->gui->CreateLabel(200,205,"Continue",nullptr);
 	//Settings Button
 	App->gui->CreateButton(185, 250, { 1027,203,129,33 }, { 1027,128,128,33 }, { 1027,164,128,30 }, "Settings", nullptr);
-	App->gui->CreateLabel(200, 250, "Settings", nullptr);
+	App->gui->CreateLabel(200, 255, "Settings", nullptr);
 	//Credits Button
 	App->gui->CreateButton(30, 320, { 1027,203,129,33 }, { 1027,128,128,33 }, { 1027,164,128,30 }, "Credits", nullptr);
-	App->gui->CreateLabel(50, 320, "Credits", nullptr);
+	App->gui->CreateLabel(50, 325, "Credits", nullptr);
 	//Exit Button
 	App->gui->CreateButton(450, 320, { 1041,301,32,32 }, { 1080,301,32,32 }, { 1118,302,32,31 }, "Exit", nullptr);
 	
