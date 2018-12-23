@@ -35,6 +35,8 @@ public:
 	bool Save(pugi::xml_node& node)const;
 	void MusicVolume(uint volume);
 	void VolumeChange(bool volumechange);
+	int GetVolume(); 
+
 	uint volume=50;
 
 	p2SString music1;

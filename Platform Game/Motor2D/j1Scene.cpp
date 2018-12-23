@@ -128,6 +128,9 @@ bool j1Scene::Update(float dt)
 			//Exit Button
 			App->gui->CreateButton(195, 160, { 1027,203,129,33 }, { 1027,128,128,33 }, { 1027,164,128,30 }, "Menu", nullptr);
 			App->gui->CreateLabel(230, 165, "Menu", nullptr);
+
+			// Slider
+			App->gui->CreateSlider(165, 215, App->audio->GetVolume(), nullptr);			
 		}
 		else
 		{

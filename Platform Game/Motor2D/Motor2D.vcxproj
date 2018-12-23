@@ -77,6 +77,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Entity_Coin.cpp" />
+    <ClCompile Include="GUI_Slider.cpp" />
     <ClCompile Include="j1Credits.cpp" />
     <ClCompile Include="Entity_Enemy.cpp" />
     <ClCompile Include="Entity_FlyEnemy.cpp" />
@@ -111,6 +112,7 @@
   <ItemGroup>
     <ClInclude Include="Animation.h" />
     <ClInclude Include="Entity_Coin.h" />
+    <ClInclude Include="GUI_Slider.h" />
     <ClInclude Include="j1Credits.h" />
     <ClInclude Include="Entity_Enemy.h" />
     <ClInclude Include="Entity_FlyEnemy.h" />

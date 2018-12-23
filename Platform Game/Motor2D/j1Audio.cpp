@@ -209,3 +209,8 @@ void j1Audio::VolumeChange(bool volumechange) {
 			Mix_VolumeMusic(volume -= 10);
 	}
 }
+
+int j1Audio::GetVolume()
+{
+	return Mix_VolumeMusic(-1);
+}
