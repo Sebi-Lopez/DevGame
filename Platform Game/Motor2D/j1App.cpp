@@ -52,18 +52,17 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(win);
 	AddModule(tex);
 	AddModule(audio);
-	AddModule(map,false);
-	AddModule(scene,false);	
+	AddModule(map, false);
+	AddModule(scene, false);
 	AddModule(menu);
-	AddModule(settings,false);
-	AddModule(credits,false);
-	AddModule(pathfinding,false);
-	AddModule(entities,false);
-	AddModule(collision,false); 
+	AddModule(settings, false);
+	AddModule(credits, false);
+	AddModule(pathfinding, false);
+	AddModule(entities, false);
+	AddModule(collision, false);
 	AddModule(fade);
 	AddModule(gui);
 	AddModule(fonts);
-	
 
 
 	// render last to swap buffer
@@ -218,10 +217,16 @@ pugi::xml_node j1App::LoadConfig(pugi::xml_document& config_file) const
 
 // ---------------------------------------------
 void j1App::PrepareUpdate()
-{
+{	
 	frame_count++;
 	last_sec_frame_count++;
 
+	if (game_paused)
+	{
+		dt = 0; 
+	}
+	else 
+	{
 	if (first_frame)
 	{
 		first_frame = false;
@@ -229,7 +234,10 @@ void j1App::PrepareUpdate()
 	}
 	else dt = frame_time.ReadSec(); 	
 
+	}	
+
 	frame_time.Start();
+
 }
 
 // ---------------------------------------------
@@ -433,6 +441,11 @@ void j1App::SaveGame(const char* file) const
 void j1App::GetSaveGames(p2List<p2SString>& list_to_fill) const
 {
 	// need to add functionality to file_system module for this to work
+}
+
+float j1App::Getdt()
+{
+	return dt; 
 }
 
 bool j1App::LoadGameNow()

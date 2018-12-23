@@ -63,6 +63,7 @@ public:
 	void LoadGame(const char* file);
 	void SaveGame(const char* file) const;
 	void GetSaveGames(p2List<p2SString>& list_to_fill) const;
+	float Getdt(); 
 
 private:
 
@@ -108,7 +109,7 @@ public:
 	j1Gui*				gui = nullptr; 
 	j1Fonts*			fonts = nullptr;
 	
-	
+	bool game_paused = false; 
 
 private:
 
