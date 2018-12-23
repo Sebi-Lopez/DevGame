@@ -20,7 +20,6 @@ void GUI_Object::Draw(SDL_Texture* atlas)
 	App->render->Blit(atlas, position.x, position.y, &section, 0.0F);
 	//App->render->Blit(texture, position.x, position.y);
 
-
 }
 
 void GUI_Object::Update()
@@ -43,21 +42,21 @@ void GUI_Object::Drag()
 
 void GUI_Object::MouseInRect() 
 {
-
-	if (MouseInBorders()) 
+	if (MouseInBorders())
 	{
-		mousestate = MouseState::MOUSE_HOVER;
-
-		if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_REPEAT)
+		mouseposition = MousePosition::MOUSE_HOVER;
+		if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN)
 		{
-			mousestate = MouseState::MOUSE_CLICKED;		
-			if (dragable) Drag();
-
-		}
-		if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_UP)
-		{
-			mousestate = MouseState::MOUSE_UP;
+			clicked = true; 
+			selected = true;
 		}
 	}
-	else mousestate = MouseState::MOUSE_OUT;
+	else mouseposition = MousePosition::MOUSE_OUT;
+
+	if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_UP)
+	{
+		if (clicked) clicked = false; 
+		mouse_upped = true; 
+	}
+
 }

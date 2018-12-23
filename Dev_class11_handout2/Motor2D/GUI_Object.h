@@ -9,11 +9,9 @@ struct SDL_Texture;
 struct SDL_Rect;
 struct UI_Button;
 
-enum class MouseState {
+enum class MousePosition {
 	MOUSE_OUT,
-	MOUSE_HOVER,
-	MOUSE_CLICKED,
-	MOUSE_UP
+	MOUSE_HOVER,	
 };
 
 class GUI_Object 
@@ -24,11 +22,15 @@ public:
 	SDL_Texture* texture = nullptr;
 	GUI_Object* parent;
 	SDL_Rect section;
-	MouseState mousestate = MouseState::MOUSE_OUT; 
+	MousePosition mouseposition = MousePosition::MOUSE_OUT; 
+	bool clicked = false; 
+	bool mouse_upped = false; 
+	bool selected = false; 
+
 	bool dragable = false; 
 	//UI_Type ui_type = UI_Type::NONE;
 	iPoint mousepos;
-
+	
 
 public:
 	GUI_Object(int x, int y, GUI_Object* parent);

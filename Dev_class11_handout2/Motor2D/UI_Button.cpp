@@ -41,24 +41,25 @@ void UI_Button::SetText(UI_Label* text)
 }
 
 void UI_Button::Update() {
-	if (mousestate == MouseState::MOUSE_OUT) 
+	if (mouseposition == MousePosition::MOUSE_OUT) 
 	{
 		section = mouseout;
 	}
-	if (mousestate == MouseState::MOUSE_HOVER) 
+	if (mouseposition == MousePosition::MOUSE_HOVER) 
 	{
 		section = mousein;
 	}
-	if (mousestate == MouseState::MOUSE_CLICKED) {
+	if (clicked) {
 		section = mouseclick;
-		to_interact = true; 
-
 	}
-	if (mousestate == MouseState::MOUSE_UP && to_interact)
-	{
-		interacted = false; 
-		to_interact = false; 
-		App->gui->ButtonAction(button_name);
+	if (mouse_upped)
+	{		
+		if (MouseInBorders() && selected)
+		{
+			App->gui->ButtonAction(button_name);
+		}		
+		selected = false; 
+		mouse_upped = false; 
 	}
 
 
