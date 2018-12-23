@@ -21,13 +21,13 @@
   </window>
   <entities>
     <animations>
-      <idleanimation speed="0.2" loop="true">
+      <idleanimation speed="5.0" loop="true">
         <anim x="14" y="7" w="19" h="29"/>
         <anim x="66" y="6" w="17" h="30"/>
         <anim x="115" y="6" w="19" h="30"/>
         <anim x="163" y="7" w="20" h="29"/>
       </idleanimation>
-      <runanimation speed="0.35" loop="true">
+      <runanimation speed="7.0" loop="true">
         <anim x="67" y="45" w="20" h="28"/>
         <anim x="116" y="46" w="20" h="27"/>
         <anim x="166" y="48" w="20" h="25"/>
@@ -35,42 +35,42 @@
         <anim x="266" y="46" w="20" h="27"/>
         <anim x="316" y="48" w="20" h="25"/>
       </runanimation>
-      <attackanimation speed="0.2" loop="false">
+      <attackanimation speed="5.0" loop="false">
         <anim x="7" y="263" w="27" h="22"/>
         <anim x="58" y="238" w="25" h="20"/>
         <anim x="115" y="222" w="33" h="36"/>
         <anim x="165" y="222" w="27" h="36"/>
       </attackanimation>
-      <jumpanimation speed="0.2" loop="false">
+      <jumpanimation speed="5.0" loop="false">
         <anim x="317" y="340" w="23" h="29"/>
         <anim x="18" y="377" w="22" h="29"/>
         <anim x="68" y="377" w="22" h="29"/>
       </jumpanimation>
-      <grabanimation speed="0.2" loop="true">
+      <grabanimation speed="5.0" loop="true">
         <anim x="72" y="151" w="12" h="34"/>
         <anim x="122" y="151" w="13" h="34"/>
         <anim x="170" y="151" w="15" h="34"/>
         <anim x="221" y="151" w="14" h="24"/>      
       </grabanimation>
-      <climbanimation speed="0.2" loop="false">
+      <climbanimation speed="5.0" loop="false">
         <anim x="271" y="154" w="16" h="29"/>
         <anim x="321" y="155" w="15" h="26"/>
         <anim x="20" y="193" w="15" h="24"/>
         <anim x="71" y="191" w="14" h="24"/>
         <anim x="121" y="191" w="15" h="24"/>
       </climbanimation>
-      <idlesword speed="0.2" loop="true">
+      <idlesword speed="5.0" loop="true">
         <anim x="160" y="194" w="23" h="27"/>
         <anim x="210" y="194" w="23" h="27"/>
         <anim x="259" y="193" w="25" h="28"/>
         <anim x="309" y="193" w="25" h="28"/>
       </idlesword>
-      <hurtanimation speed="0.2" loop="false">
+      <hurtanimation speed="5.0" loop="false">
         <anim x="210" y="194" w="23" h="27"/>
         <anim x="259" y="193" w="25" h="28"/>
         <anim x="309" y="193" w="25" h="28"/>
       </hurtanimation>
-      <dieanimation speed="0.2" loop="false">
+      <dieanimation speed="5.0" loop="false">
         <anim x="316" y="308" w="21" h="24"/>
         <anim x="17" y="345" w="18" h="24"/>
         <anim x="65" y="345" w="18" h="24"/>
@@ -79,24 +79,24 @@
         <anim x="221" y="352" w="14" h="17"/>
         <anim x="269" y="351" w="17" h="18"/>
       </dieanimation>
-      <slideanimation speed="0.2" loop="false">
+      <slideanimation speed="5.0" loop="false">
         <anim x="155" y="132" w="34" h="15"/>
         <anim x="205" y="132" w="34" h="15"/>
         <anim x="255" y="131" w="34" h="16"/>
         <anim x="309" y="130" w="30" h="17"/>
         <anim x="14" y="167" w="23" h="17"/>
       </slideanimation>
-      <crouchanimation speed="0.2" loop="false">
+      <crouchanimation speed="5.0" loop="false">
         <anim x="216" y="15" w="19" h="21"/>
         <anim x="265" y="14" w="20" h="22"/>
         <anim x="315" y="15" w="19" h="21"/>
         <anim x="17" y="54" w="17" h="21"/>
       </crouchanimation>
-      <fallanimation speed="0.2" loop="false">
+      <fallanimation speed="5.0" loop="false">
         <anim x="68" y="112" w="17" h="31"/>
         <anim x="118" y="113" w="17" h="30"/>
       </fallanimation>
-      <doublejanimation speed="0.4" loop="false">
+      <doublejanimation speed="9.5" loop="false">
         <anim x="15" y="86" w="20" h="24"/>
         <anim x="65" y="88" w="20" h="24"/>
         <anim x="117" y="81" w="19" h="27"/>
@@ -133,21 +133,21 @@
           <value x="" y=""/>
         </enemypos4>
       </map2>
-      <idleanimation speed="0.1" loop="true">
+      <idleanimation speed="4.0" loop="true">
         <anim x="140" y="105" w="15" h="22"/>
         <anim x="160" y="105" w="16" h="22"/>
       </idleanimation>
-      <runanimation speed="0.2" loop="false">
+      <runanimation speed="5.0" loop="false">
         <anim x="41" y="41" w="15" h="22"/>
         <anim x="73" y="42" w="15" h="22"/>
         <anim x="104" y="41" w="15" h="22"/>
         <anim x="9" y="42" w="15" h="22"/>
       </runanimation>
-      <fallanimation speed="0.2" loop="false">
+      <fallanimation speed="5.0" loop="false">
         <anim x="201" y="41" w="15" h="22"/>
         <anim x="233" y="43" w="16" h="21"/>
       </fallanimation>
-      <deadanimation speed="0.2" loop="false">
+      <deadanimation speed="5.0" loop="false">
         <anim x="9" y="42" w="15" h="22"/>
         <anim x="29" y="43" w="4" h="4"/>
         <anim x="9" y="42" w="15" h="22"/>
@@ -191,21 +191,21 @@
       <flyenemypos4>
         <value x="1212" y="335"/>
       </flyenemypos4>
-      <flyanimation speed="0.3" loop="true">
+      <flyanimation speed="7.0" loop="true">
         <anim x="1" y="26" w="13" h="21"/>
         <anim x="18" y="26" w="12" h="21"/>
         <anim x="34" y="27" w="11" h="20"/>
         <anim x="50" y="26" w="11" h="21"/>
         <anim x="64" y="27" w="16" h="20"/>
       </flyanimation>
-      <flyinpathanimation speed="0.3" loop="true">
+      <flyinpathanimation speed="7.0" loop="true">
         <anim x="1" y="2" w="13" h="21"/>
         <anim x="18" y="2" w="12" h="21"/>
         <anim x="35" y="3" w="10" h="20"/>
         <anim x="51" y="2" w="10" h="21"/>
         <anim x="64" y="3" w="16" h="20"/>
       </flyinpathanimation>
-      <deadanimation speed="0.2" loop="false">
+      <deadanimation speed="5.0" loop="false">
         <anim x="0" y="51" w="16" h="20"/>
         <anim x="18" y="51" w="10" h="20"/>
         <anim x="35" y="55" w="8" h="16"/>

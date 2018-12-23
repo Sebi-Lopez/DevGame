@@ -169,8 +169,11 @@ bool j1Scene::PostUpdate()
 {
 	bool ret = true;
 
-	if(App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
-		ret = false;
+	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
+	{
+		if (App->game_paused == false) App->game_paused = true; 
+		else App->game_paused = false; 
+	}
 
 	return ret;
 }
