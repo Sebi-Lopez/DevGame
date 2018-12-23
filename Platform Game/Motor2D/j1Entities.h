@@ -9,14 +9,17 @@ class j1Entity;
 class Entity_Player;
 class Entity_Enemy;
 class Entity_FlyEnemy;
+class Entity_Coin;
 class Player;
 class Enemy;
 class FlyEnemy;
+class Coin;
 
 enum EntityType {
 	PLAYER,
 	ENEMY,
 	FLYENEMY,
+	COIN,
 	NONE,
 };
 
@@ -49,6 +52,7 @@ public:
 	Entity_Player* player;
 	Entity_Enemy* enemy;
 	Entity_FlyEnemy* flyenemy;
+	Entity_Coin* coin;
 	pugi::xml_node entitynode;
 
 	//map1 enemies
@@ -66,7 +70,16 @@ public:
 	fPoint enemypos2map2;
 	fPoint enemypos3map2;
 	fPoint enemypos4map2;
-
+	fPoint coin1;
+	fPoint coin2;
+	fPoint coin3;
+	fPoint coin4;
+	fPoint coin5;
+	fPoint coin1map2;
+	fPoint coin2map2;
+	fPoint coin3map2;
+	fPoint coin4map2;
+	fPoint coin5map2;
 
 };
 

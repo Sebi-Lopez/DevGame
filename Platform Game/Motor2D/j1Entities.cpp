@@ -15,6 +15,7 @@
 #include"Entity_Player.h"
 #include"Entity_Enemy.h"
 #include"Entity_FlyEnemy.h"
+#include"Entity_Coin.h"
 
 
 j1Entities::j1Entities() : j1Module()
@@ -50,6 +51,8 @@ bool j1Entities::Awake(pugi::xml_node& config)
 	flyenemypos3.x = config.child("animationsflyenemy").child("map1").child("flyenemypos3").child("value").attribute("x").as_float();
 	flyenemypos3.y = config.child("animationsflyenemy").child("map1").child("flyenemypos3").child("value").attribute("y").as_float();
 
+
+
 	//map 2 enemies
 	enemypos1map2.x = config.child("animationsenemy").child("map2").child("enemypos1").child("value").attribute("x").as_float();
 	enemypos1map2.y = config.child("animationsenemy").child("map2").child("enemypos1").child("value").attribute("y").as_float();
@@ -69,6 +72,20 @@ bool j1Entities::Awake(pugi::xml_node& config)
 	flyenemypos3map2.x = config.child("animationsflyenemy").child("map2").child("flyenemypos3").child("value").attribute("x").as_float();
 	flyenemypos3map2.y = config.child("animationsflyenemy").child("map2").child("flyenemypos3").child("value").attribute("y").as_float();
 
+	coin1.x = config.child("animationcoin").child("map1").child("coin1").child("value").attribute("x").as_float();
+	coin1.y = config.child("animationcoin").child("map1").child("coin1").child("value").attribute("y").as_float();
+
+	coin2.x = config.child("animationcoin").child("map1").child("coin2").child("value").attribute("x").as_float();
+	coin2.y = config.child("animationcoin").child("map1").child("coin2").child("value").attribute("y").as_float();
+
+	coin3.x = config.child("animationcoin").child("map1").child("coin3").child("value").attribute("x").as_float();
+	coin3.y = config.child("animationcoin").child("map1").child("coin3").child("value").attribute("y").as_float();
+
+	coin4.x = config.child("animationcoin").child("map1").child("coin4").child("value").attribute("x").as_float();
+	coin4.y = config.child("animationcoin").child("map1").child("coin4").child("value").attribute("y").as_float();
+
+	coin5.x = config.child("animationcoin").child("map1").child("coin5").child("value").attribute("x").as_float();
+	coin5.y = config.child("animationcoin").child("map1").child("coin5").child("value").attribute("y").as_float();
 	return true;
 }
 
@@ -138,6 +155,12 @@ bool j1Entities::CreateEntities(EntityType type, int x, int y)
 		ret = true;
 		break;
 	}
+	case EntityType::COIN: {
+		coin = new Entity_Coin(x, y, entitynode);
+		entities.PushBack(coin);
+		ret = true;
+		break;
+	}
 	}
 
 	return ret;
@@ -152,6 +175,7 @@ bool j1Entities::SpawnEntities1() {
 	CreateEntities(FLYENEMY, App->entities->flyenemypos1.x, App->entities->flyenemypos1.y);
 	CreateEntities(FLYENEMY, App->entities->flyenemypos2.x, App->entities->flyenemypos2.y);
 	CreateEntities(FLYENEMY, App->entities->flyenemypos3.x, App->entities->flyenemypos3.y);
+	CreateEntities(COIN, coin1.x, coin1.y);
 
 	
 	return true;
