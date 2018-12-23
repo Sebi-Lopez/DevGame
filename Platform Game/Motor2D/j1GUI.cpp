@@ -112,8 +112,9 @@ bool j1Gui::ButtonAction(p2SString button_name)
 		App->entities->active = true;
 		App->collision->active = true;
 		App->fade->FadeToBlack(App->menu, App->scene, 0.5f);
+		App->gui->DestroyUI();
 		App->LoadGame("save_game.xml");
-		//App->gui->DestroyUI();
+		
 	}
 	if (button_name == "Settings")
 	{
@@ -152,7 +153,6 @@ bool j1Gui::ButtonAction(p2SString button_name)
 		App->menu->active = true;
 		App->menu->Start();
 
-
 	}
 	if (button_name == "Web")
 	{
@@ -167,6 +167,18 @@ bool j1Gui::ButtonAction(p2SString button_name)
 	if (button_name == "Exit")
 	{
 		App->menu->exitgame = true;
+	}
+	if (button_name == "Resume")
+	{
+		App->gui->DestroyUI();
+		App->entities->active = true;
+	}
+	if (button_name == "Menu") {
+		App->fade->FadeToBlack(App->scene, App->menu, 0.5f);
+		App->gui->DestroyUI();
+		App->menu->active = true;
+		App->menu->Start();
+
 	}
 	return true;
 }
