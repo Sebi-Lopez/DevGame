@@ -512,7 +512,7 @@ void Entity_Player::SetPlayerActions()
 	case STATE::DEAD:
 		App->entities->player_lifes -= 1; 
 
-		if (App->entities->player_lifes == 0)
+		if (App->entities->player_lifes <= 0)
 		{
 			App->fade->FadeToBlack(App->scene, App->menu);
 			App->menu->active = true;

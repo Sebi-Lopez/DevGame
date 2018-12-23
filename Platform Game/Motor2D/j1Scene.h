@@ -48,9 +48,8 @@ public:
 	bool firstUpdate = true;
 	bool isSecondMap = false;
 	GUI_Button* button;
-	j1Timer game_time; 
-	GUI_Label* score_label; 
-	GUI_Label* score_text;
+	GUI_Label* score_label = nullptr; 
+	GUI_Label* score_text = nullptr;
 	p2DynArray<GUI_Object*> menu_objects; 
 	p2DynArray<GUI_Object*> hearts; 
 };

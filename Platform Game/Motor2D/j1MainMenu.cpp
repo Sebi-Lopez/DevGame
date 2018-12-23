@@ -46,6 +46,8 @@ bool j1MainMenu::Awake()
 
 bool j1MainMenu::Start()
 {
+	BROFILER_CATEGORY("Create Main Menu", Profiler::Color::Chartreuse);
+
 	//Main menu Background
 	SDL_Rect bg = {72,116,512,384};
 	App->gui->CreateLogo(0,0,bg,nullptr);

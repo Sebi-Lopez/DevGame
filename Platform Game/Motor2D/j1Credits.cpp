@@ -46,6 +46,8 @@ bool j1Credits::Awake()
 
 bool j1Credits::Start()
 {
+	BROFILER_CATEGORY("Create Credits", Profiler::Color::DarkGoldenRod);
+
 	//Background of credits
 	SDL_Rect bg = { 72,561,512,384 };
 	App->gui->CreateLogo(0, 0, bg, nullptr);

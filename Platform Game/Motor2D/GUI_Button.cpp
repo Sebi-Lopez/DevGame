@@ -6,7 +6,7 @@
 #include "p2SString.h"
 #include "j1GUI.h"
 #include "j1Audio.h"
-
+#include "Brofiler/Brofiler.h"
 GUI_Button::GUI_Button(int x, int y, SDL_Rect rect, SDL_Rect rect2, SDL_Rect rect3, char* name, UI_Type type, GUI_Object* parent) :GUI_Object(x, y, parent) {
 
 	position.x = x;
@@ -30,6 +30,8 @@ GUI_Button::~GUI_Button()
 
 void GUI_Button::Update() 
 {
+	BROFILER_CATEGORY("Update Button", Profiler::Color::Maroon);
+
 	App->input->GetMousePosition(mousepos.x, mousepos.y);
 	MouseInRect();
 

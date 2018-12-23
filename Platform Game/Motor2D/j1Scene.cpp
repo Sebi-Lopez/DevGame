@@ -72,7 +72,7 @@ bool j1Scene::Start()
 	
 	App->audio->PlayMusic(App->audio->music2.GetString());
 	App->audio->MusicVolume(App->audio->GetVolume());
-	game_time.Start(); 
+
 	score_text = App->gui->CreateLabel(390, 5, "Score: ", nullptr);
 	
 	char score_tx[sizeof App->entities->player->score];
@@ -179,8 +179,7 @@ bool j1Scene::Update(float dt)
 		map = 2;
 		SceneChange(map);
 	}
-
-	LOG("Game Time %f", game_time.ReadSec());
+		
 	App->map->Draw();
 	return true;
 }

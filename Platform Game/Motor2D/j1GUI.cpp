@@ -19,6 +19,7 @@
 #include "j1Settings.h"
 #include "j1Credits.h"
 #include "j1Audio.h"
+#include "Brofiler/Brofiler.h"
 
 j1Gui::j1Gui() : j1Module()
 {
@@ -52,6 +53,8 @@ bool j1Gui::Start()
 // Update all guis
 bool j1Gui::PostUpdate()
 {
+	BROFILER_CATEGORY("Update All UI Objects", Profiler::Color::LawnGreen);
+
 	for (int i = 0; i < objects.Count(); i++) {
 		if (objects[i] != nullptr)
 			objects[i]->Update();
@@ -73,24 +76,28 @@ bool j1Gui::CleanUp()
 	return true;
 }
 GUI_Label* j1Gui::CreateLabel(int x, int y, p2SString text, GUI_Object* parent) {
+
 	GUI_Label* label = new GUI_Label(x, y, text, UI_Type::LABEL, parent);
 	objects.PushBack(label);
 	return label;
 }
 
 GUI_Object* j1Gui::CreateButton(int x, int y, SDL_Rect firststep, SDL_Rect secondstep, SDL_Rect thirdstep, char* name, GUI_Object* parent) {
+
 	GUI_Object* button = new GUI_Button(x, y, firststep, secondstep, thirdstep, name, UI_Type::BUTTON, parent);
 	objects.PushBack(button);
 	return button;
 }
 
 GUI_Object* j1Gui::CreateLogo(int x, int y, SDL_Rect& rect, GUI_Object* parent) {
+
 	GUI_Object* logo = new GUI_Logo(x, y, rect, parent);
 	objects.PushBack(logo);
 	return logo;
 }
 
 GUI_Object* j1Gui::CreateSlider(int x, int y, uint initial_value, bool labeled, GUI_Object* parent) {
+
 	GUI_Object* slider = new GUI_Slider(x, y, initial_value, labeled, parent);
 	objects.PushBack(slider);
 	return slider;
@@ -103,6 +110,9 @@ void j1Gui::SliderAction(GUI_Slider* slider)
 
 bool j1Gui::ButtonAction(p2SString button_name)
 {
+
+	BROFILER_CATEGORY("Button Actions", Profiler::Color::Chocolate);
+
 	if (button_name == "Play")
 	{
 		LOG("PLAY");

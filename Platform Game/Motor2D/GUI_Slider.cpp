@@ -5,7 +5,7 @@
 #include "j1Render.h"
 #include "p2Log.h"
 #include "j1Scene.h"
-
+#include "Brofiler/Brofiler.h"
 GUI_Slider::GUI_Slider(int x, int y, uint initial_value, bool labeled, GUI_Object* parent) : GUI_Object(x, y, parent) {
 	position.x = x + initial_value;
 	position.y = y;
@@ -31,6 +31,8 @@ GUI_Slider::~GUI_Slider()
 
 void GUI_Slider::Update()
 {
+	BROFILER_CATEGORY("Update Slider", Profiler::Color::Maroon);
+
 	App->input->GetMousePosition(mousepos.x, mousepos.y);
 	MouseInRect();
 	if (mouse_upped)
