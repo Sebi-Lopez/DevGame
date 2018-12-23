@@ -104,19 +104,22 @@ bool j1Entities::PreUpdate()
 
 bool j1Entities::Update(float dt)
 {
-	
-	for (uint i = 0; i < entities.Count();i++)
+	if (App->game_paused == false)
 	{
-		if (entities.At(i) != nullptr)
-			entities[i]->Update(dt);
+		for (uint i = 0; i < entities.Count();i++)
+		{
+			if (entities.At(i) != nullptr)
+				entities[i]->Update(dt);
+		}
+	
 	}
-	
-	
+
 	for (uint i = 0; i < entities.Count(); i++)
 	{
 		if (entities[i] != nullptr)
 			entities[i]->Draw();
 	}
+	
 	return true;
 }
 
