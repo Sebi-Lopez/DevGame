@@ -82,6 +82,11 @@ bool j1Scene::Start()
 	score_label->SetText(score_tx);	
 	score_text->SetText("Score: ");
 
+	SDL_Rect heart = { 929,499, 16, 13 };
+	for (uint i = 0; i < App->entities->player_lifes; i++)
+	{
+		hearts.PushBack(App->gui->CreateLogo(18*i, 10, heart, nullptr));
+	}
 
 	return true;
 }
@@ -115,22 +120,7 @@ bool j1Scene::PreUpdate()
 
 // Called each loop iteration
 bool j1Scene::Update(float dt)
-{
-	//if (firstUpdate == true /*&& isFading == true*/) {
-	//	App->render->camera.x = 0;
-	//	App->render->camera.y = -190;
-	///*}
-	//if (firstUpdate == true && isFading==true && !App->fade->IsFading()) {*/
-	//	if (isSecondMap == true) {
-	//		App->entities->SpawnEntities2();
-	//	}
-	//	else {
-	//		App->entities->SpawnEntities1();
-	//	}
-	//	firstUpdate = false;
-	//	isFading = false;
-	//}
-	
+{	
 	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN) {
 		if (App->game_paused == false)
 		{
@@ -208,7 +198,13 @@ bool j1Scene::CleanUp()
 {
 	LOG("Freeing scene");
 	
+	for (uint i = 0; i < hearts.Count(); i++)
+	{
+		App->gui->DestroyElement(*hearts.At(i));
+	}
 	App->gui->DestroyElement(score_label);
+	App->gui->DestroyElement(score_text);
+
 	return true;
 }
 

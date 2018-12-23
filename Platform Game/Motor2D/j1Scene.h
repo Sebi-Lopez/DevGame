@@ -52,6 +52,7 @@ public:
 	GUI_Label* score_label; 
 	GUI_Label* score_text;
 	p2DynArray<GUI_Object*> menu_objects; 
+	p2DynArray<GUI_Object*> hearts; 
 };
 
 #endif // __j1SCENE_H__

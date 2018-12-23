@@ -111,6 +111,7 @@ bool j1Gui::ButtonAction(p2SString button_name)
 		App->entities->active = true;
 		App->collision->active = true;
 		App->fade->FadeToBlack(App->menu, App->scene, 0.5f);
+		App->entities->player_lifes = 3; 
 
 		App->gui->DestroyUI();
 		

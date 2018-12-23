@@ -47,6 +47,11 @@ public:
 	bool Save(pugi::xml_node&) const;
 	bool Load(pugi::xml_node&);
 
+public:
+	uint player_lifes = 3; 
+
+
+public: 
 
 	p2DynArray<j1Entity*> entities;
 	Entity_Player* player;

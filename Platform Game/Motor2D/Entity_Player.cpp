@@ -2,7 +2,7 @@
 #include "j1Textures.h"
 #include "Entity_Player.h"
 #include "j1Entity.h"
-#include"j1Entities.h"
+#include "j1Entities.h"
 #include "j1Module.h"
 #include "j1Input.h"
 #include "j1Render.h"
@@ -10,11 +10,12 @@
 #include "j1Collision.h"
 #include "j1FadeToBlack.h"
 #include "j1App.h"
-#include"j1Scene.h"
+#include "j1Scene.h"
 #include "p2Log.h"
-#include"j1Audio.h"
-#include"j1Window.h"
-#include"j1Map.h"
+#include "j1Audio.h"
+#include "j1Window.h"
+#include "j1Map.h"
+#include "j1MainMenu.h"
 #include "SDL_mixer\include\SDL_mixer.h"
 
 Entity_Player::Entity_Player(int x, int y, pugi::xml_node& node): j1Entity(x, y)
@@ -509,16 +510,27 @@ void Entity_Player::SetPlayerActions()
 		break;
 
 	case STATE::DEAD:
-		if (App->scene->isSecondMap) {
-			
-			App->scene->map = 2;
-			App->scene->SceneChange(App->scene->map);
+		App->entities->player_lifes -= 1; 
+
+		if (App->entities->player_lifes == 0)
+		{
+			App->fade->FadeToBlack(App->scene, App->menu);
+			App->menu->active = true;
 		}
-		else {
+		else
+		{
+			if (App->scene->isSecondMap) {
+				App->scene->map = 2;
+				App->scene->SceneChange(App->scene->map);
+			}
+			else {
 			
-			App->scene->map = 1;
-			App->scene->SceneChange(App->scene->map);
+				App->scene->map = 1;
+				App->scene->SceneChange(App->scene->map);
+			}
 		}
+		
+
 		break;
 
 	case STATE::WIN:
