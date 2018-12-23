@@ -438,7 +438,7 @@ void Entity_Player::SetPlayerActions()
 		animation = &jump;
 		if (!hasJumped)
 		{
-			App->audio->PlayFx(1);
+			App->audio->PlayFx(3);
 			velocity.y = -jump_speed;
 			acceleration.y = gravity;
 			hasJumped = true;
@@ -475,7 +475,7 @@ void Entity_Player::SetPlayerActions()
 		animation = &double_jump;
 		if (!hasDoubleJumped)
 		{
-			App->audio->PlayFx(1);
+			App->audio->PlayFx(3);
 			velocity.y = -jump_speed;
 			acceleration.y = gravity;
 			hasDoubleJumped = true;

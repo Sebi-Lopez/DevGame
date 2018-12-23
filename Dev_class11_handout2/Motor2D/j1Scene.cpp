@@ -54,7 +54,9 @@ bool j1Scene::Start()
 	text = (Ui_Label*)App->gui->Label(-100, -100, "HELLO", nullptr);
 	button = (Ui_Button*)App->gui->Button(200, 100, {1085,120,194,49}, {1086,25,193,49}, {1085,75,193,45}, "Start", nullptr);
 	App->gui->Button(200, 400, { 1085,120,194,49 }, { 1086,25,193,49 }, { 1085,75,193,45 }, "Quit", nullptr);
+	App->gui->Slider(200, 200, App->audio->volume, { 1311, 99, 189,50 },  nullptr);
 
+	App->audio->PlayMusic("audio/music/music_sadpiano.ogg");
 	return true;
 }
 

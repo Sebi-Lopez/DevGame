@@ -5,19 +5,20 @@
 #include "j1Textures.h"
 #include "j1Fonts.h"
 #include "j1Input.h"
-#include "j1Gui.h"
+#include "j1GUI.h"
 #include "GUI_Label.h"
 #include "GUI_Button.h"
-//#include "GUI_Slider.h"
+#include "GUI_Slider.h"
 #include "GUI_Logo.h"
-#include"j1FadeToBlack.h"
+#include "j1FadeToBlack.h"
 #include "j1Scene.h"
-#include"j1Map.h"
-#include"j1Entities.h"
-#include"j1MainMenu.h"
-#include"j1Collision.h"
-#include"j1Settings.h"
-#include"j1Credits.h"
+#include "j1Map.h"
+#include "j1Entities.h"
+#include "j1MainMenu.h"
+#include "j1Collision.h"
+#include "j1Settings.h"
+#include "j1Credits.h"
+#include "j1Audio.h"
 
 j1Gui::j1Gui() : j1Module()
 {
@@ -35,7 +36,6 @@ bool j1Gui::Awake(pugi::xml_node& conf)
 	bool ret = true;
 
 	atlas_file_name = conf.child("atlas").attribute("file").as_string("");
-
 	return ret;
 }
 
@@ -43,6 +43,8 @@ bool j1Gui::Awake(pugi::xml_node& conf)
 bool j1Gui::Start()
 {
 	atlas = App->tex->Load(atlas_file_name.GetString());
+	App->audio->LoadFx(App->audio->fxbuttonhover.GetString());
+	App->audio->LoadFx(App->audio->fxbuttonclick.GetString());
 
 	return true;
 }
@@ -88,11 +90,16 @@ GUI_Object* j1Gui::CreateLogo(int x, int y, SDL_Rect& rect, GUI_Object* parent) 
 	return logo;
 }
 
-//GUI_Object* j1Gui::Slider(int x, int y, GUI_Object* parent) {
-//	GUI_Object* slider = new UI_Slider(x, y, UI_Type::SLIDER, parent);
-//	objects.PushBack(slider);
-//	return slider;
-//}
+GUI_Object* j1Gui::CreateSlider(int x, int y, uint initial_value, bool labeled, GUI_Object* parent) {
+	GUI_Object* slider = new GUI_Slider(x, y, initial_value, labeled, parent);
+	objects.PushBack(slider);
+	return slider;
+}
+
+void j1Gui::SliderAction(GUI_Slider* slider)
+{
+	App->audio->MusicVolume(slider->value);
+}
 
 bool j1Gui::ButtonAction(p2SString button_name)
 {
@@ -136,8 +143,6 @@ bool j1Gui::ButtonAction(p2SString button_name)
 		App->gui->DestroyUI();
 		App->menu->active = true;
 		App->menu->Start();
-		
-		
 	}
 	if (button_name == "Credits")
 	{

@@ -10,7 +10,7 @@
 #include "UI_Button.h"
 #include "UI_Slider.h"
 #include "UI_Logo.h"
-
+#include "j1Audio.h"
 j1Gui::j1Gui() : j1Module()
 {
 	name.create("gui");
@@ -75,8 +75,8 @@ GUI_Object* j1Gui::Button(int x, int y, SDL_Rect firststep, SDL_Rect secondstep,
 	return button;
 }
 
-GUI_Object* j1Gui::Slider(int x, int y, GUI_Object* parent) {
-	GUI_Object* slider = new UI_Slider(x, y, parent);
+GUI_Object* j1Gui::Slider(int x, int y, uint initial_value, SDL_Rect slidersection, GUI_Object* parent) {
+	GUI_Object* slider = new UI_Slider(x, y, initial_value, slidersection, parent);
 	objects.PushBack(slider);
 	return slider;
 }
@@ -92,6 +92,11 @@ bool j1Gui::ButtonAction(p2SString button_name)
 		LOG("EEEEEEEND");
 	}
 	return true;
+}
+
+void j1Gui::SliderAction(UI_Slider* slider)
+{
+	App->audio->MusicVolume(slider->value);
 }
 
 GUI_Object* j1Gui::CreateLogo(int x, int y, SDL_Rect& rect, GUI_Object* parent) {

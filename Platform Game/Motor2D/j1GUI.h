@@ -5,9 +5,11 @@
 #include"p2DynArray.h"
 #define CURSOR_WIDTH 2
 
-class GUI_Object;
+struct GUI_Object;
+struct GUI_Slider; 
 struct SDL_Texture;
 struct SDL_Rect;
+
 // TODO 1: Create your structure of classes
 
 enum UI_Type {
@@ -48,10 +50,11 @@ public:
 	// TODO 2: Create the factory methods
 	// Gui creation functions
 
+	void SliderAction(GUI_Slider* slider);
 	bool ButtonAction(p2SString button_name);
 
 	GUI_Object* CreateLogo(int x, int y, SDL_Rect& rect, GUI_Object* parent);
-	//GUI_Object* Slider(int x, int y, GUI_Object* parent);
+	GUI_Object* CreateSlider(int x, int y, uint initial_value, bool labeled, GUI_Object* parent);
 	GUI_Object* CreateLabel(int x, int y, p2SString text, GUI_Object* parent);
 	GUI_Object* CreateButton(int x, int y, SDL_Rect firststep, SDL_Rect secondstep, SDL_Rect thirdstep, char* name, GUI_Object* parent);
 

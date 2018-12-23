@@ -6,6 +6,7 @@
 #define CURSOR_WIDTH 2
 
 class GUI_Object;
+struct UI_Slider;
 struct SDL_Texture;
 struct SDL_Rect;
 // TODO 1: Create your structure of classes
@@ -49,9 +50,10 @@ public:
 	// Gui creation functions
 	
 	bool ButtonAction(p2SString button_name);
+	void SliderAction(UI_Slider* slider);
 
 	GUI_Object* CreateLogo(int x, int y, SDL_Rect& rect, GUI_Object* parent);
-	GUI_Object* Slider(int x, int y, GUI_Object* parent);
+	GUI_Object* Slider(int x, int y, uint initial_value, SDL_Rect slidersection, GUI_Object* parent);
 	GUI_Object* Label(int x, int y, p2SString text, GUI_Object* parent);
 	GUI_Object* Button(int x, int y, SDL_Rect firststep, SDL_Rect secondstep, SDL_Rect thirdstep, char* name, GUI_Object* parent);
 
