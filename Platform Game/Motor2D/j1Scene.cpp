@@ -119,7 +119,6 @@ bool j1Scene::Update(float dt)
 		if (App->game_paused == false)
 		{
 			App->game_paused = true;
-			App->entities->active = false;
 			//window
 			SDL_Rect window = { 1275,333,190,166 };
 			App->gui->CreateLogo(165, 100, window, nullptr);
