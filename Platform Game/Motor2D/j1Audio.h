@@ -42,6 +42,9 @@ public:
 	p2SString music1;
 	p2SString music2;
 	p2SString fxjump;
+	p2SString fxbuttonhover; 
+	p2SString fxbuttonclick; 
+
 private:
 
 	_Mix_Music*			music = NULL;

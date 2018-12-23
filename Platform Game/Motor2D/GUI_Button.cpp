@@ -5,6 +5,7 @@
 #include "p2Log.h"
 #include "p2SString.h"
 #include "j1GUI.h"
+#include "j1Audio.h"
 
 GUI_Button::GUI_Button(int x, int y, SDL_Rect rect, SDL_Rect rect2, SDL_Rect rect3, char* name, UI_Type type, GUI_Object* parent) :GUI_Object(x, y, parent) {
 
@@ -15,7 +16,6 @@ GUI_Button::GUI_Button(int x, int y, SDL_Rect rect, SDL_Rect rect2, SDL_Rect rec
 	mouseclick = rect3;
 	section = mouseout;
 	button_name = name;
-
 }
 GUI_Button::~GUI_Button()
 {
@@ -35,13 +35,24 @@ void GUI_Button::Update()
 
 	if (mousestate == MouseState::MOUSE_OUT)
 	{
+		fx_played = false; 
 		section = mouseout;
 	}
 	if (mousestate == MouseState::MOUSE_HOVER)
 	{
+		if (!fx_played) 
+		{
+			App->audio->PlayFx(1);
+			fx_played = true;
+		}
 		section = mousein;
 	}
 	if (clicked) {
+		if (!fx_clicked)
+		{
+			App->audio->PlayFx(2);
+			fx_clicked = true; 
+		}
 		section = mouseclick;
 	}
 	if (mouse_upped)
@@ -52,5 +63,6 @@ void GUI_Button::Update()
 		}
 		selected = false;
 		mouse_upped = false;
+		fx_clicked = false; 
 	}
 }

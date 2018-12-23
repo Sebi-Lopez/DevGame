@@ -36,7 +36,6 @@ bool j1Gui::Awake(pugi::xml_node& conf)
 	bool ret = true;
 
 	atlas_file_name = conf.child("atlas").attribute("file").as_string("");
-
 	return ret;
 }
 
@@ -44,6 +43,8 @@ bool j1Gui::Awake(pugi::xml_node& conf)
 bool j1Gui::Start()
 {
 	atlas = App->tex->Load(atlas_file_name.GetString());
+	App->audio->LoadFx(App->audio->fxbuttonhover.GetString());
+	App->audio->LoadFx(App->audio->fxbuttonclick.GetString());
 
 	return true;
 }
@@ -142,8 +143,6 @@ bool j1Gui::ButtonAction(p2SString button_name)
 		App->gui->DestroyUI();
 		App->menu->active = true;
 		App->menu->Start();
-		
-		
 	}
 	if (button_name == "Credits")
 	{

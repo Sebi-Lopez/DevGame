@@ -28,6 +28,9 @@ bool j1Audio::Awake(pugi::xml_node& config)
 	
 	music2 = config.child("music").attribute("path2").as_string();
 	fxjump = config.child("fx").attribute("jump").as_string();
+	fxbuttonhover = config.child("fxhover").attribute("button_hover").as_string();
+	fxbuttonclick = config.child("fxclick").attribute("button_click").as_string();
+
 
 	if(SDL_InitSubSystem(SDL_INIT_AUDIO) < 0)
 	{
@@ -146,6 +149,8 @@ unsigned int j1Audio::LoadFx(const char* path)
 		return 0;
 
 	Mix_Chunk* chunk = Mix_LoadWAV(path);
+
+	Mix_VolumeChunk(chunk, MIX_MAX_VOLUME);
 
 	if(chunk == NULL)
 	{

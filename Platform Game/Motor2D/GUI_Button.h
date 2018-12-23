@@ -15,6 +15,10 @@ private:
 	p2SString button_name;
 	bool interacted = false;
 	bool to_interact = false;
+
+	bool fx_played = false; 
+	bool fx_clicked = false; 
+
 public:
 	GUI_Button(int x, int y, SDL_Rect out, SDL_Rect in, SDL_Rect pressed, char* name, UI_Type type, GUI_Object* parent);
 	~GUI_Button();
