@@ -237,7 +237,6 @@ void j1App::PrepareUpdate()
 	}	
 
 	frame_time.Start();
-
 }
 
 // ---------------------------------------------

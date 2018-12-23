@@ -172,6 +172,7 @@ bool j1Gui::ButtonAction(p2SString button_name)
 	{
 		App->gui->DestroyUI();
 		App->entities->active = true;
+		if (App->game_paused == true) App->game_paused = false; 
 	}
 	if (button_name == "Menu") {
 		App->fade->FadeToBlack(App->scene, App->menu, 0.5f);
