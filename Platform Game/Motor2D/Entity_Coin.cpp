@@ -33,7 +33,7 @@ Entity_Coin::Entity_Coin(int x, int y, pugi::xml_node& node) :j1Entity(x, y)
 
 
 
-	collider = App->collision->AddCollider({ (int)position.x, (int)position.y,15,22 }, COLLIDER_COIN, App->entities);
+	collider = App->collision->AddCollider({ (int)position.x, (int)position.y,20,22 }, COLLIDER_COIN, App->entities);
 }
 Entity_Coin::~Entity_Coin()
 {}

@@ -86,6 +86,21 @@ bool j1Entities::Awake(pugi::xml_node& config)
 
 	coin5.x = config.child("animationcoin").child("map1").child("coin5").child("value").attribute("x").as_float();
 	coin5.y = config.child("animationcoin").child("map1").child("coin5").child("value").attribute("y").as_float();
+
+	coin1map2.x = config.child("animationcoin").child("map2").child("coin1").child("value").attribute("x").as_float();
+	coin1map2.y = config.child("animationcoin").child("map2").child("coin1").child("value").attribute("y").as_float();
+
+	coin2map2.x = config.child("animationcoin").child("map2").child("coin2").child("value").attribute("x").as_float();
+	coin2map2.y = config.child("animationcoin").child("map2").child("coin2").child("value").attribute("y").as_float();
+
+	coin3map2.x = config.child("animationcoin").child("map2").child("coin3").child("value").attribute("x").as_float();
+	coin3map2.y = config.child("animationcoin").child("map2").child("coin3").child("value").attribute("y").as_float();
+
+	coin4map2.x = config.child("animationcoin").child("map2").child("coin4").child("value").attribute("x").as_float();
+	coin4map2.y = config.child("animationcoin").child("map2").child("coin4").child("value").attribute("y").as_float();
+
+	coin5map2.x = config.child("animationcoin").child("map2").child("coin5").child("value").attribute("x").as_float();
+	coin5map2.y = config.child("animationcoin").child("map2").child("coin5").child("value").attribute("y").as_float();
 	return true;
 }
 
@@ -179,6 +194,10 @@ bool j1Entities::SpawnEntities1() {
 	CreateEntities(FLYENEMY, App->entities->flyenemypos2.x, App->entities->flyenemypos2.y);
 	CreateEntities(FLYENEMY, App->entities->flyenemypos3.x, App->entities->flyenemypos3.y);
 	CreateEntities(COIN, coin1.x, coin1.y);
+	CreateEntities(COIN, coin2.x, coin2.y);
+	CreateEntities(COIN, coin3.x, coin3.y);
+	CreateEntities(COIN, coin4.x, coin4.y);
+	CreateEntities(COIN, coin5.x, coin5.y);
 
 	
 	return true;
@@ -193,6 +212,11 @@ bool j1Entities::SpawnEntities2()
 	CreateEntities(FLYENEMY, App->entities->flyenemypos1map2.x, App->entities->flyenemypos1map2.y);
 	CreateEntities(FLYENEMY, App->entities->flyenemypos2map2.x, App->entities->flyenemypos2map2.y);
 	CreateEntities(FLYENEMY, App->entities->flyenemypos3map2.x, App->entities->flyenemypos3map2.y);
+	CreateEntities(COIN, coin1map2.x, coin1map2.y);
+	CreateEntities(COIN, coin2map2.x, coin2map2.y);
+	CreateEntities(COIN, coin3map2.x, coin3map2.y);
+	CreateEntities(COIN, coin4map2.x, coin4map2.y);
+	CreateEntities(COIN, coin5map2.x, coin5map2.y);
 	return true;
 }
 

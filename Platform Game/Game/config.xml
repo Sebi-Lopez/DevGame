@@ -229,24 +229,24 @@
           <value x="1900" y="445"/>
         </coin4>
         <coin5>
-          <value x="2520" y="245"/>
+          <value x="2750" y="400"/>
         </coin5>
       </map1>
       <map2>
         <coin1>
-          <value x="670" y="390"/>
+          <value x="550" y="400"/>
         </coin1>
         <coin2>
-          <value x="720" y="390"/>
+          <value x="670" y="400"/>
         </coin2>
         <coin3>
-          <value x="960" y="390"/>
+          <value x="2330" y="445"/>
         </coin3>
         <coin4>
-          <value x="1900" y="445"/>
+          <value x="2183" y="233"/>
         </coin4>
         <coin5>
-          <value x="2520" y="245"/>
+          <value x="1246" y="256"/>
         </coin5>
       </map2>
       <anim x="0" y="0" w="18" h="17"/>
