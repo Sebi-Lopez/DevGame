@@ -227,15 +227,13 @@ void j1App::PrepareUpdate()
 	}
 	else 
 	{
-	if (first_frame)
-	{
-		first_frame = false;
-		dt = 1 / (float)framerate_cap;
-	}
-	else dt = frame_time.ReadSec(); 	
-
+		dt = frame_time.ReadSec();
+		if (dt > 1)
+		{
+			dt = 1 / (float)framerate_cap;
+		}
 	}	
-
+	LOG("DT: %f", dt);
 	frame_time.Start();
 }
 
