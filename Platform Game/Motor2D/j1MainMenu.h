@@ -44,7 +44,7 @@ public:
 
 public:
 	
-	
+	bool exitgame = false;
 };
 
 #endif // __j1MENU_H__

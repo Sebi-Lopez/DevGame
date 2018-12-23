@@ -8,10 +8,13 @@
 	</audio>
 	<map />
 	<scene />
+	<scene />
+	<scene />
+	<scene />
 	<pathfinding />
 	<entities>
 		<player>
-			<playerattributes x="184.080048" y="368" state="IDLE">
+			<playerattributes x="188.320053" y="368" state="IDLE">
 				<map value="false" />
 			</playerattributes>
 		</player>
@@ -24,7 +27,9 @@
 	</entities>
 	<:anonymous />
 	<:anonymous />
+	<gui />
+	<fonts />
 	<renderer>
-		<camera x="-112" y="-190" />
+		<camera x="-120" y="-190" />
 	</renderer>
 </game_state>

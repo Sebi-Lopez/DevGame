@@ -145,6 +145,7 @@ void Entity_Player::Update(float dt)
 
 	CalculateTime();
 	CalculatePosition(dt);
+	LOG("%f %f", position.x, position.y);
 }
 
 

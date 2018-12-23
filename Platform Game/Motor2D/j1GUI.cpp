@@ -10,6 +10,14 @@
 #include "GUI_Button.h"
 //#include "GUI_Slider.h"
 #include "GUI_Logo.h"
+#include"j1FadeToBlack.h"
+#include "j1Scene.h"
+#include"j1Map.h"
+#include"j1Entities.h"
+#include"j1MainMenu.h"
+#include"j1Collision.h"
+#include"j1Settings.h"
+#include"j1Credits.h"
 
 j1Gui::j1Gui() : j1Module()
 {
@@ -90,11 +98,75 @@ bool j1Gui::ButtonAction(p2SString button_name)
 {
 	if (button_name == "Play")
 	{
-		LOG("STARTTTTTTT");
+		LOG("PLAY");
+		App->entities->active = true;
+		App->collision->active = true;
+		App->fade->FadeToBlack(App->menu, App->scene, 0.5f);
+		
+		App->gui->DestroyUI();
+		
 	}
-	else if (button_name == "Quit")
+	if (button_name == "Continue")
 	{
-		LOG("EEEEEEEND");
+		LOG("CONTINUE");
+		App->entities->active = true;
+		App->collision->active = true;
+		App->fade->FadeToBlack(App->menu, App->scene, 0.5f);
+		App->LoadGame("save_game.xml");
+		//App->gui->DestroyUI();
+	}
+	if (button_name == "Settings")
+	{
+		LOG("SETTINGS");
+		App->fade->FadeToBlack(App->menu, App->settings, 0.5f);
+		App->gui->DestroyUI();
+		App->settings->active = true;
+		App->settings->Start();
+	}
+	if (button_name == "Backsettings")
+	{
+		LOG("SETTINGS");
+		
+		App->fade->FadeToBlack(App->settings, App->menu, 0.5f);
+		App->gui->DestroyUI();
+		App->menu->active = true;
+		App->menu->Start();
+		
+		
+	}
+	if (button_name == "Credits")
+	{
+		LOG("CREDITS");
+
+		App->fade->FadeToBlack(App->menu, App->credits, 0.5f);
+		App->gui->DestroyUI();
+		App->credits->active = true;
+		App->credits->Start();
+	}
+	if (button_name == "Backcredits")
+	{
+		LOG("SETTINGS");
+
+		App->fade->FadeToBlack(App->credits, App->menu, 0.5f);
+		App->gui->DestroyUI();
+		App->menu->active = true;
+		App->menu->Start();
+
+
+	}
+	if (button_name == "Web")
+	{
+		ShellExecute(NULL,"open","https://sebi-lopez.github.io/DevGame/",NULL,NULL,SW_SHOWNORMAL);
+		
+	}
+	if (button_name == "Release")
+	{
+		ShellExecute(NULL, "open", "https://github.com/Sebi-Lopez/DevGame/releases", NULL, NULL, SW_SHOWNORMAL);
+
+	}
+	if (button_name == "Exit")
+	{
+		App->menu->exitgame = true;
 	}
 	return true;
 }

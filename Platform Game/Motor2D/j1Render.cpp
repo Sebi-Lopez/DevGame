@@ -76,7 +76,7 @@ bool j1Render::Update(float dt)
 {
 	//camera following player
 	fPoint pos;
-	if (App->entities->active == true) {
+	if (App->entities->player !=nullptr ) {
 	pos.x = App->entities->player->position.x;
 	pos.y = App->entities->player->position.y;
 

@@ -9,6 +9,7 @@ class GUI_Logo : public GUI_Object
 {
 public:
 	GUI_Logo(int x, int y, SDL_Rect& atlasrect, GUI_Object* parent);
+	~GUI_Logo();
 };
 
 

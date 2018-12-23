@@ -98,7 +98,9 @@ bool j1MainMenu::PostUpdate()
 {
 	bool ret = true;
 
-
+	if (exitgame == true) {
+		ret = false;
+	}
 
 	return ret;
 }
@@ -107,7 +109,7 @@ bool j1MainMenu::PostUpdate()
 bool j1MainMenu::CleanUp()
 {
 	LOG("Freeing scene");
-
+	
 
 	return true;
 }
