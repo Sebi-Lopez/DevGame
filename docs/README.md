@@ -56,6 +56,8 @@ For the structure of the GUI and Entities we have created modules for each them 
 
 ## Gameplay
 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/MWbXqhdha2A" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 ## How to Play
 
 A: Move Left.
