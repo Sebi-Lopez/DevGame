@@ -89,8 +89,8 @@ GUI_Object* j1Gui::CreateLogo(int x, int y, SDL_Rect& rect, GUI_Object* parent) 
 	return logo;
 }
 
-GUI_Object* j1Gui::CreateSlider(int x, int y, uint initial_value, GUI_Object* parent) {
-	GUI_Object* slider = new GUI_Slider(x, y, initial_value, parent);
+GUI_Object* j1Gui::CreateSlider(int x, int y, uint initial_value, bool labeled, GUI_Object* parent) {
+	GUI_Object* slider = new GUI_Slider(x, y, initial_value, labeled, parent);
 	objects.PushBack(slider);
 	return slider;
 }

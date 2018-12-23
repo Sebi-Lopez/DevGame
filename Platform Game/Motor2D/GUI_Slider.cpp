@@ -5,7 +5,7 @@
 #include "j1Render.h"
 #include "p2Log.h"
 
-GUI_Slider::GUI_Slider(int x, int y, uint initial_value, GUI_Object* parent) : GUI_Object(x, y, parent) {
+GUI_Slider::GUI_Slider(int x, int y, uint initial_value, bool labeled, GUI_Object* parent) : GUI_Object(x, y, parent) {
 	position.x = x + initial_value;
 	position.y = y;
 	this->parent = parent;
@@ -16,7 +16,8 @@ GUI_Slider::GUI_Slider(int x, int y, uint initial_value, GUI_Object* parent) : G
 	max = x + slidersection.w - section.w;
 	value = initial_value;
 	App->gui->CreateLogo(x, y, slidersection, nullptr); 
-	App->gui->CreateLabel(x + 55, y + 10, "Volume", nullptr);
+	if(labeled)
+		App->gui->CreateLabel(x + 55, y + 10, "Volume", nullptr);
 }
 GUI_Slider::~GUI_Slider()
 {

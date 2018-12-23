@@ -7,7 +7,7 @@
 class GUI_Slider : public GUI_Object
 {
 public:
-	GUI_Slider(int x, int y, uint initial_value, GUI_Object* parent);
+	GUI_Slider(int x, int y, uint initial_value, bool labeled, GUI_Object* parent);
 	~GUI_Slider();
 	void Update();
 	void DragSlider();

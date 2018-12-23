@@ -59,15 +59,15 @@ bool j1Settings::Start()
 	//settings label
 	App->gui->CreateLabel(215, 105, "Settings", nullptr);
 
-	//Music label
-	//App->gui->CreateLabel(175, 145, "Music Volume", nullptr);
+	//Music label + Slider
+	App->gui->CreateLabel(182, 145, "Music Volume", nullptr);
+	App->gui->CreateSlider(165, 180, App->audio->GetVolume(), false, nullptr);
 
 	//Back button
-	App->gui->CreateButton(175, 250, { 1257,216,61,28 }, { 1339,216,61,28 }, { 1424,216,61,28 }, "Backsettings", nullptr);
-	App->gui->CreateLabel(182, 253, "Back", nullptr);
+	App->gui->CreateButton(10, 10, { 1257,216,61,28 }, { 1339,216,61,28 }, { 1424,216,61,28 }, "Backsettings", nullptr);
+	//App->gui->CreateLabel(182, 253, "Back", nullptr);
 
-	// Slider
-	App->gui->CreateSlider(165, 180, App->audio->GetVolume(), nullptr);
+
 
 	return true;
 }
@@ -75,7 +75,6 @@ bool j1Settings::Start()
 
 bool j1Settings::PreUpdate()
 {
-
 	return true;
 }
 
@@ -83,19 +82,21 @@ bool j1Settings::PreUpdate()
 bool j1Settings::Update(float dt)
 {
 
-
-
 	return true;
 }
 
 
 bool j1Settings::PostUpdate()
 {
-	bool ret = true;
+	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
+	{
+		App->fade->FadeToBlack(App->settings, App->menu, 0.5f);
+		App->gui->DestroyUI();
+		App->menu->active = true;
+		App->menu->Start();
+	}
 
-	
-
-	return ret;
+	return true;
 }
 
 

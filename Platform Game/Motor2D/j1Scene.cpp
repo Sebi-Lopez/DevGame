@@ -130,7 +130,7 @@ bool j1Scene::Update(float dt)
 			App->gui->CreateLabel(230, 165, "Menu", nullptr);
 
 			// Slider
-			App->gui->CreateSlider(165, 215, App->audio->GetVolume(), nullptr);			
+			App->gui->CreateSlider(165, 215, App->audio->GetVolume(), true, nullptr);			
 		}
 		else
 		{

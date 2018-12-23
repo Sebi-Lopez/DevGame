@@ -52,15 +52,14 @@ bool j1Credits::Start()
 
 	//Web button
 	App->gui->CreateButton(10,300, { 1027,203,129,33 }, { 1027,128,128,33 }, { 1027,164,128,30 }, "Web", nullptr);
-	App->gui->CreateLabel(50,300,"Web",nullptr);
+	App->gui->CreateLabel(50,303,"Web",nullptr);
 
 	//Last release button
 	App->gui->CreateButton(350, 300, { 1027,203,129,33 }, { 1027,128,128,33 }, { 1027,164,128,30 }, "Release", nullptr);
-	App->gui->CreateLabel(365, 300, "Release", nullptr);
+	App->gui->CreateLabel(365, 303, "Release", nullptr);
 
 	//Back button
 	App->gui->CreateButton(10, 350, {1257,216,61,28}, {1339,216,61,28}, {1424,216,61,28},"Backcredits",nullptr);
-	App->gui->CreateLabel(20,348,"Back",nullptr);
 
 	return true;
 }
@@ -84,11 +83,14 @@ bool j1Credits::Update(float dt)
 
 bool j1Credits::PostUpdate()
 {
-	bool ret = true;
-
-	
-
-	return ret;
+	if(App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
+	{
+		App->fade->FadeToBlack(App->credits, App->menu, 0.5f);
+		App->gui->DestroyUI();
+		App->menu->active = true;
+		App->menu->Start();
+	}
+	return true;
 }
 
 
