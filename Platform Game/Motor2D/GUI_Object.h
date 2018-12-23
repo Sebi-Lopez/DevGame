@@ -38,6 +38,8 @@ public:
 	virtual void Draw(SDL_Texture* atlas);
 	virtual void MouseInRect();
 	virtual void Update();
+
+	bool MouseInBorders(); 
 };
 
 
