@@ -8,6 +8,10 @@ class GUI_Label : public GUI_Object
 public:
 	GUI_Label(int x, int y, p2SString text, UI_Type type, GUI_Object* parent);
 	~GUI_Label();
+
+	void SetText(char* change); 
+
+
 public:
 	p2SString text;
 };

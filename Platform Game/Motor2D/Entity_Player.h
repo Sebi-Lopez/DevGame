@@ -117,7 +117,8 @@ private:
 public:
 
 	//fPoint position;
-	
+	int score = 0; 
+	bool score_updated = false; 
 	bool flip = false;
 
 };

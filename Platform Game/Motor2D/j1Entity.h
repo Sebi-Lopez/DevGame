@@ -17,7 +17,7 @@ public:
 	fPoint position;
 	int entitytype = 0;
 	SDL_Texture* texture;
-	
+	bool to_delete = false; 
 
 public:
 	j1Entity(int x, int y);

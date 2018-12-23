@@ -233,7 +233,6 @@ void j1App::PrepareUpdate()
 			dt = 1 / (float)framerate_cap;
 		}
 	}	
-	LOG("DT: %f", dt);
 	frame_time.Start();
 }
 

@@ -114,6 +114,17 @@ bool j1Entities::PreUpdate()
 {
 	bool ret = true;
 
+	for (uint i = 0; i < entities.Count(); i++)
+	{
+		if (entities[i]->to_delete == true)
+		{
+			delete entities[i];
+			entities[i] = nullptr;
+			entities.Pop(entities[i]);
+		}
+	}
+
+
 	return ret;
 }
 
@@ -226,7 +237,10 @@ void j1Entities::ClearEntities()
 	{
 		if (entities[i] != nullptr)
 		{
-			
+			if (entities[i]->collider != nullptr) 
+			{
+				entities[i]->collider->to_delete = true;
+			}
 			delete entities[i];
 			entities[i] = nullptr;
 		}

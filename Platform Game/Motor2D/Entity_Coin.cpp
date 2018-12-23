@@ -30,9 +30,6 @@ Entity_Coin::Entity_Coin(int x, int y, pugi::xml_node& node) :j1Entity(x, y)
 
 	SetAnimation(animations.child("anim"), idle);
 	
-
-
-
 	collider = App->collision->AddCollider({ (int)position.x, (int)position.y,20,22 }, COLLIDER_COIN, App->entities);
 }
 Entity_Coin::~Entity_Coin()
@@ -56,7 +53,14 @@ void Entity_Coin::Update(float dt)
 
 }
 
-
+void Entity_Coin::OnCollision(Collider* c2)
+{
+	if (c2->type == COLLIDER_PLAYER)
+	{
+		to_delete = true; 
+		collider->to_delete = true;
+	}
+}
 
 bool Entity_Coin::Load(pugi::xml_node& node)
 {

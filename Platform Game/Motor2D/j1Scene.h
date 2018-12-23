@@ -2,9 +2,11 @@
 #define __j1SCENE_H__
 
 #include "j1Module.h"
-#include"GUI_Button.h"
-#include"GUI_Label.h"
+#include "GUI_Button.h"
+#include "GUI_Label.h"
+#include "j1Timer.h"
 class GUI_Label;
+class GUI_Object;
 class GUI_Button;
 struct SDL_Texture;
 
@@ -46,7 +48,10 @@ public:
 	bool firstUpdate = true;
 	bool isSecondMap = false;
 	GUI_Button* button;
-	GUI_Label* text;
+	j1Timer game_time; 
+	GUI_Label* score_label; 
+	GUI_Label* score_text;
+	p2DynArray<GUI_Object*> menu_objects; 
 };
 
 #endif // __j1SCENE_H__

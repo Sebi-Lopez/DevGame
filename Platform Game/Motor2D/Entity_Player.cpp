@@ -145,7 +145,6 @@ void Entity_Player::Update(float dt)
 
 	CalculateTime();
 	CalculatePosition(dt);
-	LOG("%f %f", position.x, position.y);
 }
 
 
@@ -182,6 +181,7 @@ void Entity_Player::CalculateTime()
 
 void Entity_Player::SetPlayerState()
 {
+	score_updated = false; 
 
 	// Input cases 
 
@@ -595,6 +595,18 @@ void Entity_Player::OnCollision(Collider * c2)
 
 	if (c2->type == COLLIDER_END)
 		State = STATE::WIN;
+
+	if (c2->type == COLLIDER_COIN)
+	{
+		if (!score_updated)
+		{
+			score += 100;
+			char score_text[sizeof score];
+			sprintf_s(score_text, "%i", score);
+			App->scene->score_label->SetText(score_text);
+			score_updated = true;
+		}
+	}
 
 }
 

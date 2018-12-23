@@ -46,9 +46,10 @@ bool j1Scene::Awake()
 bool j1Scene::Start()
 {
 	firstUpdate = true;
-	if (!isFading && map == 0) {
-		map = 1;
-
+	
+	App->render->camera.x = 0;
+	App->render->camera.y = -190;
+	if (isSecondMap == false) {
 		App->entities->SpawnEntities1();
 		if (App->map->Load("FirstMap.tmx") == true)
 		{
@@ -61,12 +62,27 @@ bool j1Scene::Start()
 
 		}
 	}
+	else
+	{
+		App->entities->SpawnEntities2();
+	}
+		
+	
 	
 	
 	App->audio->PlayMusic(App->audio->music2.GetString());
 	App->audio->MusicVolume(App->audio->volume);
+	game_time.Start(); 
+	score_text = App->gui->CreateLabel(390, 5, "Score: ", nullptr);
 	
-	
+	char score_tx[sizeof App->entities->player->score];
+	sprintf_s(score_tx, "%d", App->entities->player->score);
+
+	score_label = App->gui->CreateLabel(470, 5, score_tx, nullptr);
+	score_label->SetText(score_tx);	
+	score_text->SetText("Score: ");
+
+
 	return true;
 }
 
@@ -100,20 +116,20 @@ bool j1Scene::PreUpdate()
 // Called each loop iteration
 bool j1Scene::Update(float dt)
 {
-	if (firstUpdate == true && isFading == true) {
-		App->render->camera.x = 0;
-		App->render->camera.y = -190;
-	}
-	if (firstUpdate == true && isFading==true && !App->fade->IsFading()) {
-		if (isSecondMap == true) {
-			App->entities->SpawnEntities2();
-		}
-		else {
-			App->entities->SpawnEntities1();
-		}
-		firstUpdate = false;
-		isFading = false;
-	}
+	//if (firstUpdate == true /*&& isFading == true*/) {
+	//	App->render->camera.x = 0;
+	//	App->render->camera.y = -190;
+	///*}
+	//if (firstUpdate == true && isFading==true && !App->fade->IsFading()) {*/
+	//	if (isSecondMap == true) {
+	//		App->entities->SpawnEntities2();
+	//	}
+	//	else {
+	//		App->entities->SpawnEntities1();
+	//	}
+	//	firstUpdate = false;
+	//	isFading = false;
+	//}
 	
 	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN) {
 		if (App->game_paused == false)
@@ -121,22 +137,24 @@ bool j1Scene::Update(float dt)
 			App->game_paused = true;
 			//window
 			SDL_Rect window = { 1275,333,190,166 };
-			App->gui->CreateLogo(165, 100, window, nullptr);
+			menu_objects.PushBack(App->gui->CreateLogo(165, 100, window, nullptr));
 			//Resume button
-			App->gui->CreateButton(195, 110, { 1027,203,129,33 }, { 1027,128,128,33 }, { 1027,164,128,30 }, "Resume", nullptr);
-			App->gui->CreateLabel(220, 115, "Resume", nullptr);
+			menu_objects.PushBack(App->gui->CreateButton(195, 110, { 1027,203,129,33 }, { 1027,128,128,33 }, { 1027,164,128,30 }, "Resume", nullptr));
+			menu_objects.PushBack(App->gui->CreateLabel(220, 115, "Resume", nullptr));
 			//Exit Button
-			App->gui->CreateButton(195, 160, { 1027,203,129,33 }, { 1027,128,128,33 }, { 1027,164,128,30 }, "Menu", nullptr);
-			App->gui->CreateLabel(230, 165, "Menu", nullptr);
+			menu_objects.PushBack(App->gui->CreateButton(195, 160, { 1027,203,129,33 }, { 1027,128,128,33 }, { 1027,164,128,30 }, "Menu", nullptr));
+			menu_objects.PushBack(App->gui->CreateLabel(230, 165, "Menu", nullptr));
 
 			// Slider
-			App->gui->CreateSlider(165, 215, App->audio->GetVolume(), true, nullptr);			
+			menu_objects.PushBack(App->gui->CreateSlider(165, 215, App->audio->GetVolume(), true, nullptr));
 		}
 		else
 		{
 			App->game_paused = false;
-			App->gui->DestroyUI();
-			App->entities->active = true;
+			for (uint i = 0; i < menu_objects.Count(); i++)
+			{
+				App->gui->DestroyElement(*menu_objects.At(i));
+			}
 		}		
 	}
 
@@ -146,19 +164,6 @@ bool j1Scene::Update(float dt)
 
 	if(App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
 		App->SaveGame("save_game.xml");
-
-	if(App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
-		App->render->camera.y += 10;
-
-	if(App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
-		App->render->camera.y -= 10;
-
-	if(App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
-		App->render->camera.x += 10;
-
-	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
-		App->render->camera.x -= 10;
-
 
 	if (App->input->GetKey(SDL_SCANCODE_KP_PLUS) == KEY_DOWN) {
 		volumechange = true;
@@ -185,6 +190,7 @@ bool j1Scene::Update(float dt)
 		SceneChange(map);
 	}
 
+	LOG("Game Time %f", game_time.ReadSec());
 	App->map->Draw();
 	return true;
 }
@@ -194,11 +200,6 @@ bool j1Scene::PostUpdate()
 {
 	bool ret = true;
 
-	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
-	{
-		
-	}
-
 	return ret;
 }
 
@@ -207,7 +208,7 @@ bool j1Scene::CleanUp()
 {
 	LOG("Freeing scene");
 	
-
+	App->gui->DestroyElement(score_label);
 	return true;
 }
 

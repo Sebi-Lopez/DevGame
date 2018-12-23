@@ -72,8 +72,8 @@ bool j1Gui::CleanUp()
 
 	return true;
 }
-GUI_Object* j1Gui::CreateLabel(int x, int y, p2SString text, GUI_Object* parent) {
-	GUI_Object* label = new GUI_Label(x, y, text, UI_Type::LABEL, parent);
+GUI_Label* j1Gui::CreateLabel(int x, int y, p2SString text, GUI_Object* parent) {
+	GUI_Label* label = new GUI_Label(x, y, text, UI_Type::LABEL, parent);
 	objects.PushBack(label);
 	return label;
 }
@@ -111,7 +111,7 @@ bool j1Gui::ButtonAction(p2SString button_name)
 		App->entities->active = true;
 		App->collision->active = true;
 		App->fade->FadeToBlack(App->menu, App->scene, 0.5f);
-		
+
 		App->gui->DestroyUI();
 		
 	}
@@ -179,13 +179,17 @@ bool j1Gui::ButtonAction(p2SString button_name)
 	}
 	if (button_name == "Resume")
 	{
-		App->gui->DestroyUI();
-		App->entities->active = true;
 		if (App->game_paused == true) App->game_paused = false; 
+		for (uint i = 0; i < App->scene->menu_objects.Count(); i++)
+		{
+			App->gui->DestroyElement(*App->scene->menu_objects.At(i));
+		}
 	}
 	if (button_name == "Menu") {
 		App->fade->FadeToBlack(App->scene, App->menu, 0.5f);
-		App->gui->DestroyUI();
+		App->gui->DestroyUI();		
+		App->scene->map = 0;
+		App->entities->ClearEntities(); 
 		App->menu->active = true;
 		App->menu->Start();
 	}
@@ -213,3 +217,18 @@ void j1Gui::DestroyUI()
 	objects.Clear();
 }
 
+bool j1Gui::DestroyElement(GUI_Object* element)
+{
+	bool ret = false; 
+	for (int i = 0; i < objects.Count(); i++)
+	{
+		if (*objects.At(i) == element)
+		{
+			delete objects[i];
+			objects[i] = nullptr;
+			objects.Pop(objects[i]);
+			ret = true; 
+		}
+	}
+	return ret;
+}

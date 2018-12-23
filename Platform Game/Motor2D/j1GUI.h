@@ -7,6 +7,7 @@
 
 struct GUI_Object;
 struct GUI_Slider; 
+class GUI_Label;
 struct SDL_Texture;
 struct SDL_Rect;
 
@@ -55,11 +56,13 @@ public:
 
 	GUI_Object* CreateLogo(int x, int y, SDL_Rect& rect, GUI_Object* parent);
 	GUI_Object* CreateSlider(int x, int y, uint initial_value, bool labeled, GUI_Object* parent);
-	GUI_Object* CreateLabel(int x, int y, p2SString text, GUI_Object* parent);
+	GUI_Label* CreateLabel(int x, int y, p2SString text, GUI_Object* parent);
 	GUI_Object* CreateButton(int x, int y, SDL_Rect firststep, SDL_Rect secondstep, SDL_Rect thirdstep, char* name, GUI_Object* parent);
 
 	SDL_Texture* GetAtlas() const;
 	void DestroyUI();
+	bool DestroyElement(GUI_Object* element);
+
 
 private:
 

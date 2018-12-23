@@ -12,7 +12,7 @@ GUI_Label::GUI_Label(int x, int y, p2SString text, UI_Type type, GUI_Object* par
 
 	int w = 0, h = 0;
 	App->fonts->CalcSize(this->text.GetString(), w, h, App->fonts->default);
-	texture = App->fonts->Print(text.GetString(), { 0,0,0,0 }, App->fonts->default);
+	texture = App->fonts->Print(text.GetString(), { 0, 0,0,0 }, App->fonts->default);
 	section.x = 0;
 	section.y = 0;
 	section.w = w;
@@ -27,4 +27,11 @@ GUI_Label::~GUI_Label() {
 	delete texture;
 }
 
+void GUI_Label::SetText(char* change)
+{
+	text = change; 
+	int w = 0, h = 0;
+	App->fonts->CalcSize(this->text.GetString(), w, h, App->fonts->default);
+	texture = App->fonts->Print(text.GetString(), { 204,204,0,0 }, App->fonts->default);
+}
 
