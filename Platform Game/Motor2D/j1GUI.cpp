@@ -63,6 +63,12 @@ bool j1Gui::PostUpdate()
 		if (objects[i] != nullptr)
 			objects[i]->Draw(atlas);
 	}
+
+	if (App->input->GetKey(SDL_SCANCODE_F8) == KEY_DOWN)
+	{
+		if (!debug_ui) debug_ui = true; 
+		else debug_ui = false; 
+	}
 	return true;
 }
 

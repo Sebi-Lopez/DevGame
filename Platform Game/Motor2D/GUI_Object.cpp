@@ -24,6 +24,15 @@ void GUI_Object::Draw(SDL_Texture* atlas)
 		App->render->Blit(texture, position.x, position.y, (const SDL_Rect*)0, 0.0F);
 	}
 
+	if (App->gui->debug_ui == true)
+	{
+		SDL_Rect rect;
+		rect.x = position.x;
+		rect.y = position.y + 95;
+		rect.w = section.w;
+		rect.h = section.h;
+		App->render->DrawQuad(rect, 255, 0, 0, 255, false, true);
+	}
 }
 
 void GUI_Object::Update()

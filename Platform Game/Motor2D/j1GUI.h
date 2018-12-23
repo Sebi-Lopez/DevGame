@@ -64,6 +64,9 @@ public:
 	bool DestroyElement(GUI_Object* element);
 
 
+public:
+	bool debug_ui = false; 
+
 private:
 
 	SDL_Texture* atlas;
